@@ -409,6 +409,12 @@
       color: var(--sogan-dark);
       transform: translateY(-1px);
     }
+    .btn-preset.active {
+      background: var(--sogan);
+      color: #ffffff;
+      border-color: var(--sogan);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
 
     /* Sliders & Inputs */
     .slider-stack {
@@ -666,8 +672,17 @@
           <!-- SVG Canvas -->
           <div class="canvas-svg-container" id="svg-container" role="img" aria-label="Bidang Kartesius dengan motif Kawung">
             <svg viewBox="0 0 400 400" id="main-svg" xmlns="http://www.w3.org/2000/svg">
-              <!-- Grid lines -->
-              <g id="grid-layer" opacity="0.45">
+              <defs>
+                <marker id="arrow-vector" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--emerald-dark)"/>
+                </marker>
+                <marker id="arrow-arc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                  <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--amber-text)"/>
+                </marker>
+              </defs>
+
+              <!-- Grid lines & Ticks -->
+              <g id="grid-layer" opacity="0.5">
                 <line x1="0" y1="50" x2="400" y2="50" stroke="#CBD5E1" stroke-width="0.8"/>
                 <line x1="0" y1="100" x2="400" y2="100" stroke="#CBD5E1" stroke-width="0.8"/>
                 <line x1="0" y1="150" x2="400" y2="150" stroke="#CBD5E1" stroke-width="0.8"/>
@@ -686,37 +701,76 @@
               <line x1="200" y1="0" x2="200" y2="400" stroke="var(--text-secondary)" stroke-width="1.4"/>
               <line x1="0" y1="200" x2="400" y2="200" stroke="var(--text-secondary)" stroke-width="1.4"/>
               
-              <!-- Coordinate Labels -->
-              <text x="388" y="194" fill="var(--text-secondary)" font-size="12" font-family="Outfit, sans-serif" font-weight="700" text-anchor="end">X (+)</text>
-              <text x="12" y="194" fill="var(--text-secondary)" font-size="12" font-family="Outfit, sans-serif" font-weight="700">X (-)</text>
-              <text x="208" y="16" fill="var(--text-secondary)" font-size="12" font-family="Outfit, sans-serif" font-weight="700">Y (+)</text>
-              <text x="208" y="392" fill="var(--text-secondary)" font-size="12" font-family="Outfit, sans-serif" font-weight="700">Y (-)</text>
-              <text x="188" y="216" fill="var(--text-muted)" font-size="11" font-family="Outfit, sans-serif" font-weight="700">O(0,0)</text>
+              <!-- Numeric Tick Marks & Labels -->
+              <g id="grid-ticks" font-family="'Outfit', system-ui, sans-serif" font-size="9" font-weight="700" fill="var(--text-muted)">
+                <!-- X Ticks -->
+                <line x1="50" y1="196" x2="50" y2="204" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="50" y="214" text-anchor="middle">-150</text>
+                <line x1="100" y1="196" x2="100" y2="204" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="100" y="214" text-anchor="middle">-100</text>
+                <line x1="150" y1="196" x2="150" y2="204" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="150" y="214" text-anchor="middle">-50</text>
+                
+                <line x1="250" y1="196" x2="250" y2="204" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="250" y="214" text-anchor="middle">+50</text>
+                <line x1="300" y1="196" x2="300" y2="204" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="300" y="214" text-anchor="middle">+100</text>
+                <line x1="350" y1="196" x2="350" y2="204" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="350" y="214" text-anchor="middle">+150</text>
 
-              <!-- Reflection Axis Guide (Dynamic) -->
-              <line id="mirror-line" x1="0" y1="200" x2="400" y2="200" stroke="var(--purple)" stroke-width="2" stroke-dasharray="6 4" opacity="0"/>
+                <!-- Y Ticks -->
+                <line x1="196" y1="50" x2="204" y2="50" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="190" y="53" text-anchor="end">+150</text>
+                <line x1="196" y1="100" x2="204" y2="100" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="190" y="103" text-anchor="end">+100</text>
+                <line x1="196" y1="150" x2="204" y2="150" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="190" y="153" text-anchor="end">+50</text>
 
-              <!-- Original Base Motif -->
-              <g id="orig-motif" opacity="0.45">
-                <ellipse cx="200" cy="168" rx="18" ry="32" fill="none" stroke="var(--amber-text)" stroke-width="1.5" stroke-dasharray="4 3"/>
-                <ellipse cx="200" cy="232" rx="18" ry="32" fill="none" stroke="var(--amber-text)" stroke-width="1.5" stroke-dasharray="4 3"/>
-                <ellipse cx="168" cy="200" rx="32" ry="18" fill="none" stroke="var(--amber-text)" stroke-width="1.5" stroke-dasharray="4 3"/>
-                <ellipse cx="232" cy="200" rx="32" ry="18" fill="none" stroke="var(--amber-text)" stroke-width="1.5" stroke-dasharray="4 3"/>
-                <circle cx="200" cy="200" r="8" fill="var(--amber)" opacity="0.6"/>
+                <line x1="196" y1="250" x2="204" y2="250" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="190" y="253" text-anchor="end">-50</text>
+                <line x1="196" y1="300" x2="204" y2="300" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="190" y="303" text-anchor="end">-100</text>
+                <line x1="196" y1="350" x2="204" y2="350" stroke="var(--text-secondary)" stroke-width="1.2"/>
+                <text x="190" y="353" text-anchor="end">-150</text>
               </g>
 
-              <!-- Transformed Motif Layer -->
-              <g id="trans-layer"></g>
+              <!-- Coordinate Axis Direction Labels -->
+              <text x="388" y="190" fill="var(--text-secondary)" font-size="11" font-family="'Outfit', sans-serif" font-weight="800" text-anchor="end">X (+)</text>
+              <text x="12" y="190" fill="var(--text-secondary)" font-size="11" font-family="'Outfit', sans-serif" font-weight="800">X (-)</text>
+              <text x="210" y="16" fill="var(--text-secondary)" font-size="11" font-family="'Outfit', sans-serif" font-weight="800">Y (+)</text>
+              <text x="210" y="392" fill="var(--text-secondary)" font-size="11" font-family="'Outfit', sans-serif" font-weight="800">Y (-)</text>
+              <text x="186" y="215" fill="var(--text-muted)" font-size="10" font-family="'Outfit', sans-serif" font-weight="700">O(0,0)</text>
 
-              <!-- Vector Guide Lines / Arrows -->
+              <!-- Reflection Axis Guide (Dynamic) -->
+              <line id="mirror-line" x1="0" y1="200" x2="400" y2="200" stroke="var(--purple-dark)" stroke-width="2.2" stroke-dasharray="6 4" opacity="0"/>
+
+              <!-- Dynamic Dilation Rays Layer -->
+              <g id="dilation-rays-layer"></g>
+
+              <!-- Original Base Motif (Subtle reference ghost) -->
+              <g id="orig-motif" opacity="0.32">
+                <ellipse cx="200" cy="168" rx="18" ry="32" fill="none" stroke="var(--sogan)" stroke-width="1.6" stroke-dasharray="4 3"/>
+                <ellipse cx="200" cy="232" rx="18" ry="32" fill="none" stroke="var(--sogan)" stroke-width="1.6" stroke-dasharray="4 3"/>
+                <ellipse cx="168" cy="200" rx="32" ry="18" fill="none" stroke="var(--sogan)" stroke-width="1.6" stroke-dasharray="4 3"/>
+                <ellipse cx="232" cy="200" rx="32" ry="18" fill="none" stroke="var(--sogan)" stroke-width="1.6" stroke-dasharray="4 3"/>
+                <circle cx="200" cy="200" r="8" fill="var(--amber)" opacity="0.4"/>
+              </g>
+
+              <!-- Dynamic Overlays Layer (Vectors, Arc, Projections) -->
               <g id="vector-layer"></g>
+
+              <!-- Transformed Motif Layer (Crisp Solid Stroke with 10% Soft Fill) -->
+              <g id="trans-layer"></g>
             </svg>
           </div>
 
           <!-- Bottom Status & Mathematical Insight -->
           <div class="canvas-bottom-bar" aria-live="polite">
-            <span class="formula-title">Rumus Transformasi &amp; Notasi Matematika</span>
-            <div class="formula-content" id="live-formula">Posisi Awal P(x, y) = P'(x, y)</div>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+              <span class="formula-title">Rumus Transformasi &amp; Pemetaan Koordinat</span>
+              <span style="font-size: 0.8125rem; font-weight: 800; color: var(--emerald-dark);" id="live-point-track">Titik Pucuk Atas: A(0, 32) &rarr; A'(0, 32)</span>
+            </div>
+            <div class="formula-content" id="live-formula">P(x, y) &rarr; P'(x, y)</div>
             <p class="explanation-text" id="live-explanation">Geser slider di samping atau pilih preset untuk melihat bagaimana motif Kawung bertransformasi secara real-time.</p>
           </div>
         </div>
@@ -841,132 +895,212 @@
 
       var transLayer = document.getElementById('trans-layer');
       var vectorLayer = document.getElementById('vector-layer');
+      var dilationLayer = document.getElementById('dilation-rays-layer');
       var mirrorLine = document.getElementById('mirror-line');
       var liveFormula = document.getElementById('live-formula');
       var liveExplanation = document.getElementById('live-explanation');
+      var livePointTrack = document.getElementById('live-point-track');
       var gridLayer = document.getElementById('grid-layer');
 
       var currentAxis = 'none';
       var activeMode = 'all';
+      var renderScheduled = false;
 
-      // Build Transformed Kawung Motif
+      function scheduleRender() {
+        if (!renderScheduled) {
+          renderScheduled = true;
+          requestAnimationFrame(function() {
+            renderMotif();
+            renderScheduled = false;
+          });
+        }
+      }
+
+      // Build Transformed Kawung Motif & Mathematical Overlays
       function renderMotif() {
         var tx = parseFloat(inputTx.value);
         var ty = parseFloat(inputTy.value);
-        var rot = parseFloat(inputRot.value);
+        var rotDeg = parseFloat(inputRot.value);
         var scale = parseFloat(inputDil.value) / 100;
 
-        // Apply reflection multipliers
-        var refX = 1;
-        var refY = 1;
-        var refSwap = false;
+        var rad = (rotDeg * Math.PI) / 180;
+        var cosT = Math.cos(rad);
+        var sinT = Math.sin(rad);
 
-        if (currentAxis === 'x') {
-          refY = -1; // reflect over x-axis flips Y
-        } else if (currentAxis === 'y') {
-          refX = -1; // reflect over y-axis flips X
-        } else if (currentAxis === 'yx') {
-          refSwap = true; // reflect over y=x swaps coordinates
+        // Standard Transformation function on Cartesian Coordinates (x, y)
+        function transformPoint(x, y) {
+          // 1. Dilation
+          var x1 = x * scale;
+          var y1 = y * scale;
+
+          // 2. Rotation around Origin O(0,0)
+          var x2 = x1 * cosT - y1 * sinT;
+          var y2 = x1 * sinT + y1 * cosT;
+
+          // 3. Reflection
+          var x3 = x2;
+          var y3 = y2;
+          if (currentAxis === 'x') {
+            y3 = -y2;
+          } else if (currentAxis === 'y') {
+            x3 = -x2;
+          } else if (currentAxis === 'yx') {
+            var temp = x2;
+            x3 = y2;
+            y3 = temp;
+          }
+
+          // 4. Translation
+          var x4 = x3 + tx;
+          var y4 = y3 + ty;
+
+          return { x: x4, y: y4 };
         }
 
-        // Base center point (200, 200) in SVG space (Y inverted for Cartesian view)
-        var cartX = tx * refX;
-        var cartY = -ty * refY; // screen SVG Y is inverted
-        if (refSwap) {
-          var temp = cartX;
-          cartX = cartY;
-          cartY = temp;
+        // Convert Cartesian (x, y) to Screen SVG (cx, cy) where O(0,0) is at (200, 200)
+        function toSvg(x, y) {
+          return { cx: 200 + x, cy: 200 - y };
         }
 
-        var cx = 200 + cartX;
-        var cy = 200 + cartY;
+        // Transform Center Point O(0,0)
+        var centerPt = transformPoint(0, 0);
+        var centerSvg = toSvg(centerPt.x, centerPt.y);
 
+        // 4 Petal Apex Points in local motif space
+        var off = 32 * scale;
         var pRx = 18 * scale;
         var pRy = 32 * scale;
-        var off = 32 * scale;
         var cR = 10 * scale;
 
-        // Petal relative offsets
-        var petals = [
-          { cx: cx, cy: cy - off, rx: pRx, ry: pRy },
-          { cx: cx, cy: cy + off, rx: pRx, ry: pRy },
-          { cx: cx - off, cy: cy, rx: pRy, ry: pRx },
-          { cx: cx + off, cy: cy, rx: pRy, ry: pRx }
-        ];
-
-        var finalRot = rot;
+        // Render Transformed Petals in SVG
+        var finalRot = rotDeg;
         if (currentAxis === 'x' || currentAxis === 'y') {
-          finalRot = -rot;
+          finalRot = -rotDeg;
         }
 
-        var s = '<g transform="rotate(' + finalRot + ' ' + cx + ' ' + cy + ')">';
+        var petals = [
+          { cx: centerSvg.cx, cy: centerSvg.cy - off, rx: pRx, ry: pRy },
+          { cx: centerSvg.cx, cy: centerSvg.cy + off, rx: pRx, ry: pRy },
+          { cx: centerSvg.cx - off, cy: centerSvg.cy, rx: pRy, ry: pRx },
+          { cx: centerSvg.cx + off, cy: centerSvg.cy, rx: pRy, ry: pRx }
+        ];
+
+        var s = '<g transform="rotate(' + finalRot + ' ' + centerSvg.cx + ' ' + centerSvg.cy + ')">';
         petals.forEach(function(p) {
           s += '<ellipse cx="' + p.cx + '" cy="' + p.cy + '" rx="' + p.rx + '" ry="' + p.ry + '" fill="rgba(2,132,199,0.12)" stroke="var(--cyan-dark)" stroke-width="2"/>';
         });
-        s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + cR + '" fill="var(--cyan)" opacity="0.85"/>';
+        s += '<circle cx="' + centerSvg.cx + '" cy="' + centerSvg.cy + '" r="' + cR + '" fill="var(--cyan)" opacity="0.85"/>';
         s += '</g>';
-
         transLayer.innerHTML = s;
 
-        // Vector line from origin to new center
-        var vecSvg = '';
-        if (tx !== 0 || ty !== 0) {
-          vecSvg += '<line x1="200" y1="200" x2="' + cx + '" y2="' + cy + '" stroke="var(--emerald-dark)" stroke-width="1.8" stroke-dasharray="3 3"/>';
-          vecSvg += '<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="var(--emerald-dark)"/>';
+        // ===== DYNAMIC MATHEMATICAL OVERLAYS =====
+        var overlaysSvg = '';
+        var raysSvg = '';
+
+        // 1. DILATION PERSPECTIVE RAYS (from Origin to transformed vertices)
+        if (scale !== 1) {
+          var origApexes = [{x: 0, y: 32}, {x: 0, y: -32}, {x: -32, y: 0}, {x: 32, y: 0}];
+          origApexes.forEach(function(pt) {
+            var transApex = transformPoint(pt.x, pt.y);
+            var svgPt = toSvg(transApex.x, transApex.y);
+            raysSvg += '<line x1="200" y1="200" x2="' + svgPt.cx + '" y2="' + svgPt.cy + '" stroke="var(--cyan)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>';
+          });
         }
-        vectorLayer.innerHTML = vecSvg;
+        dilationLayer.innerHTML = raysSvg;
+
+        // 2. ROTATION ANGLE ARC
+        if (rotDeg > 0) {
+          var arcR = 36;
+          var endAngleRad = (rotDeg * Math.PI) / 180;
+          // SVG coordinate arc (angles go counter-clockwise in math, clockwise in inverted SVG Y)
+          var arcStartX = 200 + arcR;
+          var arcStartY = 200;
+          var arcEndX = 200 + arcR * Math.cos(-endAngleRad);
+          var arcEndY = 200 + arcR * Math.sin(-endAngleRad);
+          var largeArc = rotDeg > 180 ? 1 : 0;
+
+          var arcPath = 'M ' + arcStartX + ' ' + arcStartY + ' A ' + arcR + ' ' + arcR + ' 0 ' + largeArc + ' 0 ' + arcEndX + ' ' + arcEndY;
+          overlaysSvg += '<path d="' + arcPath + '" fill="none" stroke="var(--amber-text)" stroke-width="2" marker-end="url(#arrow-arc)"/>';
+          
+          var midRad = (rotDeg / 2 * Math.PI) / 180;
+          var labelX = 200 + (arcR + 14) * Math.cos(-midRad);
+          var labelY = 200 + (arcR + 14) * Math.sin(-midRad) + 3;
+          overlaysSvg += '<text x="' + labelX + '" y="' + labelY + '" font-family="Outfit, sans-serif" font-size="10" font-weight="800" fill="var(--amber-text)" text-anchor="middle">&theta; = ' + rotDeg + '&deg;</text>';
+        }
+
+        // 3. REFLECTION PERPENDICULAR PROJECTION
+        if (currentAxis !== 'none') {
+          overlaysSvg += '<line x1="200" y1="200" x2="' + centerSvg.cx + '" y2="' + centerSvg.cy + '" stroke="var(--purple-dark)" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.85"/>';
+        }
+
+        // 4. TRANSLATION VECTOR ARROW
+        if (tx !== 0 || ty !== 0) {
+          overlaysSvg += '<line x1="200" y1="200" x2="' + centerSvg.cx + '" y2="' + centerSvg.cy + '" stroke="var(--emerald-dark)" stroke-width="2.4" marker-end="url(#arrow-vector)"/>';
+          var midX = (200 + centerSvg.cx) / 2;
+          var midY = (200 + centerSvg.cy) / 2 - 8;
+          var vecLabel = 'v\u20D7(' + tx + ', ' + ty + ')';
+          overlaysSvg += '<rect x="' + (midX - 26) + '" y="' + (midY - 10) + '" width="52" height="15" rx="3" fill="#FFFFFF" stroke="var(--emerald)" stroke-width="1" opacity="0.9"/>';
+          overlaysSvg += '<text x="' + midX + '" y="' + (midY + 1) + '" font-family="Outfit, sans-serif" font-size="9" font-weight="800" fill="var(--emerald-dark)" text-anchor="middle">' + vecLabel + '</text>';
+        }
+
+        vectorLayer.innerHTML = overlaysSvg;
 
         // Update Labels
         valTx.textContent = tx > 0 ? '+' + tx : String(tx);
         valTy.textContent = ty > 0 ? '+' + ty : String(ty);
-        valRot.textContent = rot + '\u00B0';
+        valRot.textContent = rotDeg + '\u00B0';
         valDil.textContent = scale.toFixed(1) + '\u00D7';
 
-        // Update Formula & Story
-        generateFormula(tx, ty, rot, scale, currentAxis);
+        // Sample Point Tracking for Top Petal A(0, 32)
+        var samplePtA = transformPoint(0, 32);
+        livePointTrack.textContent = 'Titik Pucuk Atas: A(0, 32) \u2192 A\'(' + Math.round(samplePtA.x) + ', ' + Math.round(samplePtA.y) + ')';
+
+        // Update Formula & Step Breakdown
+        generateFormula(tx, ty, rotDeg, scale, currentAxis);
       }
 
       function generateFormula(tx, ty, rot, scale, axis) {
         var steps = [];
-        var explanations = [];
+        var mathTransform = 'P(x, y)';
 
-        if (axis !== 'none') {
-          if (axis === 'x') {
-            steps.push('M_{sb-X}');
-            explanations.push('dicerminkan terhadap sumbu-X (y \u2192 -y)');
-          } else if (axis === 'y') {
-            steps.push('M_{sb-Y}');
-            explanations.push('dicerminkan terhadap sumbu-Y (x \u2192 -x)');
-          } else if (axis === 'yx') {
-            steps.push('M_{y=x}');
-            explanations.push('dicerminkan terhadap garis diagonal y = x (x \u2194 y)');
-          }
+        if (scale !== 1) {
+          steps.push('[O, ' + scale.toFixed(1) + '\u00D7]');
+          mathTransform = '(' + scale.toFixed(1) + 'x, ' + scale.toFixed(1) + 'y)';
         }
 
         if (rot !== 0) {
           steps.push('R(O, ' + rot + '\u00B0)');
-          explanations.push('diputar ' + rot + '\u00B0 berlawanan arah jarum jam');
+          if (rot === 90) mathTransform = '(-y, x)';
+          else if (rot === 180) mathTransform = '(-x, -y)';
+          else if (rot === 270) mathTransform = '(y, -x)';
+          else mathTransform = '(x\\cos ' + rot + '\u00B0 - y\\sin ' + rot + '\u00B0, x\\sin ' + rot + '\u00B0 + y\\cos ' + rot + '\u00B0)';
         }
 
-        if (scale !== 1) {
-          steps.push('[O, ' + scale.toFixed(1) + '\u00D7]');
-          explanations.push('diperbesar/diperkecil sebesar faktor ' + scale.toFixed(1) + '\u00D7');
+        if (axis !== 'none') {
+          if (axis === 'x') { steps.push('M_{sb-X}'); mathTransform = '(x, -y)'; }
+          else if (axis === 'y') { steps.push('M_{sb-Y}'); mathTransform = '(-x, y)'; }
+          else if (axis === 'yx') { steps.push('M_{y=x}'); mathTransform = '(y, x)'; }
         }
 
         if (tx !== 0 || ty !== 0) {
           steps.push('T(' + tx + ', ' + ty + ')');
-          var dirX = tx > 0 ? tx + ' ke kanan' : (tx < 0 ? Math.abs(tx) + ' ke kiri' : '');
-          var dirY = ty > 0 ? ty + ' ke atas' : (ty < 0 ? Math.abs(ty) + ' ke bawah' : '');
-          var dirText = [dirX, dirY].filter(Boolean).join(' dan ');
-          explanations.push('digeser ' + dirText);
+          var sx = tx >= 0 ? '+ ' + tx : '- ' + Math.abs(tx);
+          var sy = ty >= 0 ? '+ ' + ty : '- ' + Math.abs(ty);
+          mathTransform = '(x ' + sx + ', y ' + sy + ')';
         }
 
+        var explanations = [];
+        if (axis !== 'none') explanations.push('pencerminan ' + (axis === 'x' ? 'Sumbu-X' : (axis === 'y' ? 'Sumbu-Y' : 'Garis y=x')));
+        if (rot !== 0) explanations.push('rotasi ' + rot + '\u00B0');
+        if (scale !== 1) explanations.push('dilatasi ' + scale.toFixed(1) + '\u00D7');
+        if (tx !== 0 || ty !== 0) explanations.push('translasi (' + tx + ', ' + ty + ')');
+
         if (steps.length > 0) {
-          liveFormula.textContent = "P'(x', y') = (" + steps.join(' \u2218 ') + ')(P)';
-          liveExplanation.textContent = 'Motif Kawung ' + explanations.join(', lalu ') + '.';
+          liveFormula.textContent = "P(x, y) \u27F6 P'" + mathTransform + "  \u2502  " + steps.join(' \u2218 ');
+          liveExplanation.textContent = 'Motif Kawung mengalami: ' + explanations.join(' dilanjutkan ') + '.';
         } else {
-          liveFormula.textContent = "Posisi Awal P(x, y) \u2192 P'(x, y)";
-          liveExplanation.textContent = 'Motif berada di titik pusat koordinat O(0,0) tanpa pergeseran atau perubahan.';
+          liveFormula.textContent = "P(x, y) \u27F6 P'(x, y)  (Posisi Awal O)";
+          liveExplanation.textContent = 'Motif berada tepat di titik pusat koordinat O(0,0) tanpa pergeseran atau rotasi.';
         }
       }
 
@@ -979,25 +1113,34 @@
           mirrorLine.setAttribute('y1', '200');
           mirrorLine.setAttribute('x2', '400');
           mirrorLine.setAttribute('y2', '200');
-          mirrorLine.setAttribute('opacity', '0.9');
+          mirrorLine.setAttribute('opacity', '0.95');
         } else if (axis === 'y') {
           mirrorLine.setAttribute('x1', '200');
           mirrorLine.setAttribute('y1', '0');
           mirrorLine.setAttribute('x2', '200');
           mirrorLine.setAttribute('y2', '400');
-          mirrorLine.setAttribute('opacity', '0.9');
+          mirrorLine.setAttribute('opacity', '0.95');
         } else if (axis === 'yx') {
           mirrorLine.setAttribute('x1', '0');
           mirrorLine.setAttribute('y1', '400');
           mirrorLine.setAttribute('x2', '400');
           mirrorLine.setAttribute('y2', '0');
-          mirrorLine.setAttribute('opacity', '0.9');
+          mirrorLine.setAttribute('opacity', '0.95');
         }
       }
 
-      // Listeners for Sliders
+      function clearPresetActive() {
+        document.querySelectorAll('.btn-preset').forEach(function(b) {
+          b.classList.remove('active');
+        });
+      }
+
+      // Listeners for Sliders with 60fps rAF
       [inputTx, inputTy, inputRot, inputDil].forEach(function(el) {
-        el.addEventListener('input', renderMotif);
+        el.addEventListener('input', function() {
+          clearPresetActive();
+          scheduleRender();
+        });
       });
 
       // Axis selector buttons
@@ -1012,7 +1155,8 @@
           this.setAttribute('aria-checked', 'true');
           currentAxis = this.getAttribute('data-axis');
           updateMirrorLine(currentAxis);
-          renderMotif();
+          clearPresetActive();
+          scheduleRender();
         });
       });
 
@@ -1028,8 +1172,12 @@
         'dil-shrink': { tx: 0, ty: 0, rot: 0, scale: 60, axis: 'none' }
       };
 
-      document.querySelectorAll('.btn-preset').forEach(function(btn) {
+      var presetBtns = document.querySelectorAll('.btn-preset');
+      presetBtns.forEach(function(btn) {
         btn.addEventListener('click', function() {
+          presetBtns.forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+
           var p = presets[this.getAttribute('data-preset')];
           if (!p) return;
           inputTx.value = p.tx;
@@ -1044,7 +1192,7 @@
             b.setAttribute('aria-checked', String(match));
           });
           updateMirrorLine(currentAxis);
-          renderMotif();
+          scheduleRender();
         });
       });
 
@@ -1055,13 +1203,14 @@
         inputRot.value = 0;
         inputDil.value = 100;
         currentAxis = 'none';
+        clearPresetActive();
         axisButtons.forEach(function(b) {
           var match = b.getAttribute('data-axis') === 'none';
           b.classList.toggle('active', match);
           b.setAttribute('aria-checked', String(match));
         });
         updateMirrorLine('none');
-        renderMotif();
+        scheduleRender();
       }
       document.getElementById('btn-reset-all').addEventListener('click', resetAll);
 
@@ -1070,6 +1219,7 @@
       gridBtn.addEventListener('click', function() {
         var isVisible = gridLayer.style.display !== 'none';
         gridLayer.style.display = isVisible ? 'none' : '';
+        document.getElementById('grid-ticks').style.display = isVisible ? 'none' : '';
         this.textContent = isVisible ? 'Grid: Off' : 'Grid: On';
       });
 
@@ -1142,7 +1292,7 @@
       });
 
       // Initial Render
-      renderMotif();
+      scheduleRender();
     })();
   </script>
 </body>

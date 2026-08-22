@@ -989,7 +989,16 @@
           <div class="hero-canvas-wrapper reveal-hero" style="transition-delay: 0.15s;">
             <div class="hero-canvas-frame" id="kawung-canvas" role="figure" aria-label="Visualisasi dinamis motif Kawung pada bidang Kartesius, dikendalikan oleh slider di bawahnya">
               <svg viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg" id="kawung-svg">
-                <g aria-hidden="true">
+                <defs>
+                  <marker id="hero-arrow-vector" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--emerald-dark)"/>
+                  </marker>
+                  <marker id="hero-arrow-arc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                    <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--amber-text)"/>
+                  </marker>
+                </defs>
+
+                <g aria-hidden="true" opacity="0.45">
                   <line x1="0" y1="50" x2="400" y2="50" class="grid-line"/>
                   <line x1="0" y1="100" x2="400" y2="100" class="grid-line"/>
                   <line x1="0" y1="150" x2="400" y2="150" class="grid-line"/>
@@ -1003,22 +1012,44 @@
                   <line x1="300" y1="0" x2="300" y2="400" class="grid-line"/>
                   <line x1="350" y1="0" x2="350" y2="400" class="grid-line"/>
                 </g>
+
+                <!-- Axes -->
                 <line x1="200" y1="0" x2="200" y2="400" class="axis-line"/>
                 <line x1="0" y1="200" x2="400" y2="200" class="axis-line"/>
-                <text x="388" y="192" fill="var(--text-muted)" font-size="12" font-family="Outfit, sans-serif" font-weight="700" text-anchor="end">x</text>
-                <text x="208" y="16" fill="var(--text-muted)" font-size="12" font-family="Outfit, sans-serif" font-weight="700">y</text>
 
-                <!-- Original base Kawung motif -->
+                <!-- Coordinate Ticks & Labels -->
+                <g font-family="'Outfit', system-ui, sans-serif" font-size="9" font-weight="700" fill="var(--text-muted)">
+                  <line x1="100" y1="196" x2="100" y2="204" stroke="var(--text-muted)" stroke-width="1"/>
+                  <text x="100" y="213" text-anchor="middle">-100</text>
+                  <line x1="300" y1="196" x2="300" y2="204" stroke="var(--text-muted)" stroke-width="1"/>
+                  <text x="300" y="213" text-anchor="middle">+100</text>
+                  <line x1="196" y1="100" x2="204" y2="100" stroke="var(--text-muted)" stroke-width="1"/>
+                  <text x="190" y="103" text-anchor="end">+100</text>
+                  <line x1="196" y1="300" x2="204" y2="300" stroke="var(--text-muted)" stroke-width="1"/>
+                  <text x="190" y="303" text-anchor="end">-100</text>
+                </g>
+
+                <text x="388" y="190" fill="var(--text-secondary)" font-size="11" font-family="'Outfit', sans-serif" font-weight="800" text-anchor="end">X (+)</text>
+                <text x="210" y="16" fill="var(--text-secondary)" font-size="11" font-family="'Outfit', sans-serif" font-weight="800">Y (+)</text>
+
+                <!-- Dynamic Dilation Rays -->
+                <g id="hero-dilation-rays"></g>
+
+                <!-- Original base Kawung motif (Dashed Ghost) -->
                 <g id="kawung-motif">
-                  <g id="kawung-original">
-                    <ellipse cx="200" cy="168" rx="18" ry="32" class="kawung-petal kawung-petal-animated"/>
-                    <ellipse cx="200" cy="232" rx="18" ry="32" class="kawung-petal kawung-petal-animated"/>
-                    <ellipse cx="168" cy="200" rx="32" ry="18" class="kawung-petal kawung-petal-animated"/>
-                    <ellipse cx="232" cy="200" rx="32" ry="18" class="kawung-petal kawung-petal-animated"/>
-                    <circle cx="200" cy="200" r="10" class="kawung-center"/>
+                  <g id="kawung-original" opacity="0.35">
+                    <ellipse cx="200" cy="168" rx="18" ry="32" class="kawung-petal" stroke-dasharray="4 3"/>
+                    <ellipse cx="200" cy="232" rx="18" ry="32" class="kawung-petal" stroke-dasharray="4 3"/>
+                    <ellipse cx="168" cy="200" rx="32" ry="18" class="kawung-petal" stroke-dasharray="4 3"/>
+                    <ellipse cx="232" cy="200" rx="32" ry="18" class="kawung-petal" stroke-dasharray="4 3"/>
+                    <circle cx="200" cy="200" r="8" class="kawung-center"/>
                   </g>
                 </g>
-                <!-- Dynamic transformed motif layer -->
+
+                <!-- Dynamic Vector and Arc Overlays -->
+                <g id="hero-overlays"></g>
+
+                <!-- Dynamic transformed motif layer (Crisp with 10% fill) -->
                 <g id="kawung-transformed" opacity="0"></g>
               </svg>
             </div>
@@ -1598,68 +1629,115 @@
       var valTx = document.getElementById('val-tx');
       var valTy = document.getElementById('val-ty');
       var transformedGroup = document.getElementById('kawung-transformed');
+      var heroOverlays = document.getElementById('hero-overlays');
+      var heroDilationRays = document.getElementById('hero-dilation-rays');
       var formulaDisplay = document.getElementById('formula-display');
       var btnReset = document.getElementById('btn-reset-canvas');
-
-      function buildKawung(tx, ty, rotation, scale) {
-        var cx = 200 + tx;
-        var cy = 200 + ty;
-        var pRx = 18 * scale;
-        var pRy = 32 * scale;
-        var off = 32 * scale;
-        var cR = 10 * scale;
-        var petals = [
-          { cx: cx, cy: cy - off, rx: pRx, ry: pRy },
-          { cx: cx, cy: cy + off, rx: pRx, ry: pRy },
-          { cx: cx - off, cy: cy, rx: pRy, ry: pRx },
-          { cx: cx + off, cy: cy, rx: pRy, ry: pRx }
-        ];
-        var s = '<g transform="rotate(' + rotation + ' ' + cx + ' ' + cy + ')">';
-        petals.forEach(function(p) {
-          s += '<ellipse cx="' + p.cx + '" cy="' + p.cy + '" rx="' + p.rx + '" ry="' + p.ry + '" fill="none" stroke="var(--cyan-dark)" stroke-width="1.6" opacity="0.8"/>';
-        });
-        s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + cR + '" fill="none" stroke="var(--emerald-dark)" stroke-width="1.2" opacity="0.7"/>';
-        s += '</g>';
-        return s;
-      }
+      var isUpdating = false;
 
       function update() {
-        var rot = parseFloat(ctrlRotate.value);
+        var rotDeg = parseFloat(ctrlRotate.value);
         var scaleRaw = parseFloat(ctrlScale.value);
         var scale = scaleRaw / 100;
         var tx = parseFloat(ctrlTx.value);
         var ty = parseFloat(ctrlTy.value);
 
-        valRotate.textContent = rot + '\u00B0';
+        valRotate.textContent = rotDeg + '\u00B0';
         valScale.textContent = scale.toFixed(1) + '\u00D7';
         valTx.textContent = tx > 0 ? '+' + tx : String(tx);
         valTy.textContent = ty > 0 ? '+' + ty : String(ty);
 
-        ctrlRotate.setAttribute('aria-valuenow', rot);
+        ctrlRotate.setAttribute('aria-valuenow', rotDeg);
         ctrlScale.setAttribute('aria-valuenow', scaleRaw);
         ctrlTx.setAttribute('aria-valuenow', tx);
         ctrlTy.setAttribute('aria-valuenow', ty);
 
-        var isModified = (rot !== 0 || scale !== 1 || tx !== 0 || ty !== 0);
+        var isModified = (rotDeg !== 0 || scale !== 1 || tx !== 0 || ty !== 0);
 
         if (isModified) {
-          transformedGroup.innerHTML = buildKawung(tx, ty, rot, scale);
+          var cx = 200 + tx;
+          var cy = 200 - ty; // Invert for Cartesian Y
+          var pRx = 18 * scale;
+          var pRy = 32 * scale;
+          var off = 32 * scale;
+          var cR = 10 * scale;
+
+          var petals = [
+            { cx: cx, cy: cy - off, rx: pRx, ry: pRy },
+            { cx: cx, cy: cy + off, rx: pRx, ry: pRy },
+            { cx: cx - off, cy: cy, rx: pRy, ry: pRx },
+            { cx: cx + off, cy: cy, rx: pRy, ry: pRx }
+          ];
+
+          var s = '<g transform="rotate(' + rotDeg + ' ' + cx + ' ' + cy + ')">';
+          petals.forEach(function(p) {
+            s += '<ellipse cx="' + p.cx + '" cy="' + p.cy + '" rx="' + p.rx + '" ry="' + p.ry + '" fill="rgba(2,132,199,0.12)" stroke="var(--cyan-dark)" stroke-width="2"/>';
+          });
+          s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + cR + '" fill="var(--cyan)" opacity="0.85"/>';
+          s += '</g>';
+          transformedGroup.innerHTML = s;
           transformedGroup.setAttribute('opacity', '1');
 
+          // Dilation Perspective Rays
+          var raysHtml = '';
+          if (scale !== 1) {
+            var rad = (rotDeg * Math.PI) / 180;
+            var cosT = Math.cos(rad);
+            var sinT = Math.sin(rad);
+            var origApexes = [{x: 0, y: 32}, {x: 0, y: -32}, {x: -32, y: 0}, {x: 32, y: 0}];
+            origApexes.forEach(function(pt) {
+              var x1 = pt.x * scale;
+              var y1 = pt.y * scale;
+              var x2 = x1 * cosT - y1 * sinT + tx;
+              var y2 = x1 * sinT + y1 * cosT + ty;
+              raysHtml += '<line x1="200" y1="200" x2="' + (200 + x2) + '" y2="' + (200 - y2) + '" stroke="var(--cyan)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>';
+            });
+          }
+          heroDilationRays.innerHTML = raysHtml;
+
+          // Vector and Arc Overlays
+          var overlayHtml = '';
+          if (rotDeg > 0) {
+            var arcR = 32;
+            var endAngleRad = (rotDeg * Math.PI) / 180;
+            var arcEndX = 200 + arcR * Math.cos(-endAngleRad);
+            var arcEndY = 200 + arcR * Math.sin(-endAngleRad);
+            var largeArc = rotDeg > 180 ? 1 : 0;
+            var arcPath = 'M ' + (200 + arcR) + ' 200 A ' + arcR + ' ' + arcR + ' 0 ' + largeArc + ' 0 ' + arcEndX + ' ' + arcEndY;
+            overlayHtml += '<path d="' + arcPath + '" fill="none" stroke="var(--amber-text)" stroke-width="1.8" marker-end="url(#hero-arrow-arc)"/>';
+          }
+
+          if (tx !== 0 || ty !== 0) {
+            overlayHtml += '<line x1="200" y1="200" x2="' + cx + '" y2="' + cy + '" stroke="var(--emerald-dark)" stroke-width="2.2" marker-end="url(#hero-arrow-vector)"/>';
+          }
+          heroOverlays.innerHTML = overlayHtml;
+
           var descriptions = [];
-          if (tx !== 0 || ty !== 0) descriptions.push('T(' + tx + ', ' + ty + ')');
-          if (rot !== 0) descriptions.push('R(O, ' + rot + '\u00B0)');
           if (scale !== 1) descriptions.push('[O, ' + scale.toFixed(1) + '\u00D7]');
-          formulaDisplay.textContent = "P'(x', y') = " + descriptions.join(' \u2218 ');
+          if (rotDeg !== 0) descriptions.push('R(O, ' + rotDeg + '\u00B0)');
+          if (tx !== 0 || ty !== 0) descriptions.push('T(' + tx + ', ' + ty + ')');
+          formulaDisplay.textContent = "P(x, y) \u27F6 P' \u2502 " + descriptions.join(' \u2218 ');
         } else {
           transformedGroup.innerHTML = '';
           transformedGroup.setAttribute('opacity', '0');
+          heroDilationRays.innerHTML = '';
+          heroOverlays.innerHTML = '';
           formulaDisplay.textContent = 'Posisi Awal P(x, y)';
         }
       }
 
-      [ctrlRotate, ctrlScale, ctrlTx, ctrlTy].forEach(function(ctrl) {
-        ctrl.addEventListener('input', update);
+      function scheduleUpdate() {
+        if (!isUpdating) {
+          isUpdating = true;
+          requestAnimationFrame(function() {
+            update();
+            isUpdating = false;
+          });
+        }
+      }
+
+      [ctrlRotate, ctrlScale, ctrlTx, ctrlTy].forEach(function(el) {
+        el.addEventListener('input', scheduleUpdate);
       });
 
       btnReset.addEventListener('click', function() {
