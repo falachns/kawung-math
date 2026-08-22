@@ -41,7 +41,13 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap">
+  </noscript>
 
   <style>
     /* ===== DESIGN TOKENS ===== */
@@ -51,25 +57,26 @@
       --bg-card: #FFFFFF;
       --sogan: #B8521B;
       --sogan-rgb: 184, 82, 27;
-      --sogan-dark: #8C3A0F;
+      --sogan-dark: #7C2D12;
       --sogan-tint: #FEF2E8;
       --amber: #D97706;
       --amber-rgb: 217, 119, 6;
+      --amber-text: #92400E;
       --cyan: #0284C7;
       --cyan-rgb: 2, 132, 199;
-      --cyan-dark: #0369A1;
+      --cyan-dark: #075985;
       --cyan-tint: #E0F2FE;
       --emerald: #0D9488;
       --emerald-rgb: 13, 148, 136;
-      --emerald-dark: #115E59;
+      --emerald-dark: #064E3B;
       --emerald-tint: #CCFBF1;
       --purple: #7C3AED;
       --purple-rgb: 124, 58, 237;
-      --purple-dark: #5B21B6;
+      --purple-dark: #4C1D95;
       --purple-tint: #F3E8FF;
-      --text-primary: #1E293B;
-      --text-secondary: #475569;
-      --text-muted: #64748B;
+      --text-primary: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #475569;
       --border: #E2D9CF;
       --border-light: #EFE8DF;
       --shadow-color: 24, 18, 12;
@@ -519,7 +526,7 @@
     .btn-reset {
       font-size: 0.76rem;
       font-weight: 700;
-      color: var(--sogan);
+      color: var(--sogan-dark);
       padding: 3px 10px;
       border-radius: var(--radius-sm);
       background: var(--sogan-tint);
@@ -567,10 +574,10 @@
       font-size: 0.82rem;
       font-variant-numeric: tabular-nums;
     }
-    .control-value.c-sogan { color: var(--sogan); }
+    .control-value.c-sogan { color: var(--sogan-dark); }
     .control-value.c-cyan { color: var(--cyan-dark); }
     .control-value.c-emerald { color: var(--emerald-dark); }
-    .control-value.c-amber { color: var(--amber); }
+    .control-value.c-amber { color: var(--amber-text); }
 
     /* Accessible Slider inputs */
     input[type="range"] {
@@ -705,7 +712,7 @@
       margin-bottom: 8px;
       display: inline-block;
     }
-    .feature-tag-sogan { color: var(--sogan); }
+    .feature-tag-sogan { color: var(--sogan-dark); }
     .feature-tag-cyan { color: var(--cyan-dark); }
     .feature-tag-emerald { color: var(--emerald-dark); }
     .feature-tag-purple { color: var(--purple-dark); }
@@ -795,7 +802,7 @@
       font-size: 0.9rem;
       flex-shrink: 0;
     }
-    .lvl-1 { background: var(--sogan-tint); color: var(--sogan); }
+    .lvl-1 { background: var(--sogan-tint); color: var(--sogan-dark); }
     .lvl-2 { background: var(--cyan-tint); color: var(--cyan-dark); }
     .lvl-3 { background: var(--emerald-tint); color: var(--emerald-dark); }
     .lvl-4 { background: var(--purple-tint); color: var(--purple-dark); }
@@ -1381,7 +1388,7 @@
         </div>
 
         <div>
-          <h4 class="footer-col-title">Fitur Platform</h4>
+          <h3 class="footer-col-title">Fitur Platform</h3>
           <div class="footer-links">
             <a href="#explore">Kawung Explore</a>
             <a href="#transform">Transform Sandbox</a>
@@ -1391,7 +1398,7 @@
         </div>
 
         <div>
-          <h4 class="footer-col-title">Materi Geometri</h4>
+          <h3 class="footer-col-title">Materi Geometri</h3>
           <div class="footer-links">
             <a href="#transform">Translasi (Pergeseran)</a>
             <a href="#transform">Refleksi (Pencerminan)</a>
@@ -1401,7 +1408,7 @@
         </div>
 
         <div>
-          <h4 class="footer-col-title">Untuk Guru &amp; Siswa</h4>
+          <h3 class="footer-col-title">Untuk Guru &amp; Siswa</h3>
           <div class="footer-links">
             <a href="#ethno-steam">Konsep Ethno-STEAM</a>
             <a href="#home">Kurikulum Merdeka SMP</a>
