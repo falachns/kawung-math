@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Sandbox Transformasi Geometri — Kawung Math</title>
+  <meta name="description" content="Laboratorium interaktif transformasi geometri (translasi, refleksi, rotasi, dilatasi) untuk siswa SMP berbasis motif Batik Kawung.">
+  <meta name="theme-color" content="#FFFAF5">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap">
+  </noscript>
+
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --bg: #FFFAF5;
+      --bg-warm: #FFF4EA;
+      --bg-card: #FFFFFF;
+      --sogan: #B8521B;
+      --sogan-rgb: 184, 82, 27;
+      --sogan-dark: #7C2D12;
+      --sogan-tint: #FEF2E8;
+      --amber: #D97706;
+      --amber-rgb: 217, 119, 6;
+      --amber-text: #92400E;
+      --cyan: #0284C7;
+      --cyan-rgb: 2, 132, 199;
+      --cyan-dark: #075985;
+      --cyan-tint: #E0F2FE;
+      --emerald: #0D9488;
+      --emerald-rgb: 13, 148, 136;
+      --emerald-dark: #064E3B;
+      --emerald-tint: #CCFBF1;
+      --purple: #7C3AED;
+      --purple-rgb: 124, 58, 237;
+      --purple-dark: #4C1D95;
+      --purple-tint: #F3E8FF;
+      --text-primary: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #475569;
+      --border: #E2D9CF;
+      --border-light: #EFE8DF;
+      --shadow-color: 24, 18, 12;
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-body: 'Nunito', system-ui, sans-serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Accessibility */
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+    .skip-link {
+      position: absolute;
+      top: 16px; left: 16px;
+      z-index: 10000;
+      padding: 12px 20px;
+      background: var(--sogan);
+      color: #fff;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      transform: translateY(-160%);
+      transition: transform 0.2s var(--ease-out);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* ===== NAVBAR ===== */
+    .sandbox-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 250, 245, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0 clamp(16px, 3vw, 32px);
+    }
+    .header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-title span { color: var(--sogan); }
+    .brand-badge {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      background: var(--cyan-tint);
+      color: var(--cyan-dark);
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      border: 1.5px solid var(--border);
+      transition: all 0.2s ease;
+    }
+    .btn-nav-back:hover {
+      color: var(--sogan);
+      border-color: var(--sogan);
+      background: var(--sogan-tint);
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .sandbox-main {
+      flex: 1;
+      max-width: 1300px;
+      width: 100%;
+      margin: 0 auto;
+      padding: clamp(16px, 3vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Top Mode Tabs */
+    .mode-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-card);
+      padding: 6px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+    }
+    .mode-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+    .mode-btn:hover {
+      background: var(--bg-warm);
+      color: var(--text-primary);
+    }
+    .mode-btn.active {
+      background: var(--sogan);
+      color: #ffffff;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Workspace 2-Column Grid */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (min-width: 960px) {
+      .workspace-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+
+    /* Canvas Panel */
+    .canvas-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .canvas-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 16px;
+      position: relative;
+      box-shadow: 0 2px 12px rgba(var(--shadow-color), 0.04);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .canvas-svg-container {
+      width: 100%;
+      max-width: 520px;
+      aspect-ratio: 1 / 1;
+      background: #FFFFFF;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      position: relative;
+    }
+    .canvas-svg-container svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Canvas Top Indicators */
+    .canvas-header-info {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .legend-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+    }
+    .legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-dot-orig {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 2px solid var(--amber);
+      background: #fff;
+    }
+    .legend-dot-trans {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+    }
+    .canvas-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-action {
+      font-size: 0.8125rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn-action:hover {
+      border-color: var(--sogan);
+      color: var(--sogan);
+      background: var(--sogan-tint);
+    }
+
+    /* Live Coordinates & Step Card */
+    .canvas-bottom-bar {
+      width: 100%;
+      margin-top: 12px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .formula-title {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+    }
+    .formula-content {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.125rem;
+      color: var(--cyan-dark);
+    }
+    .explanation-text {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* Control Panel */
+    .controls-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .panel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(var(--shadow-color), 0.03);
+    }
+    .panel-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.125rem;
+      margin-bottom: 14px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Presets Chips */
+    .preset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .btn-preset {
+      padding: 8px 10px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      color: var(--text-primary);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-preset:hover {
+      background: var(--sogan-tint);
+      border-color: var(--sogan);
+      color: var(--sogan-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Sliders & Inputs */
+    .slider-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .slider-box {
+      background: var(--bg-warm);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+    }
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .slider-label {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+    .slider-val {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.9375rem;
+      font-variant-numeric: tabular-nums;
+    }
+    .v-sogan { color: var(--sogan-dark); }
+    .v-cyan { color: var(--cyan-dark); }
+    .v-emerald { color: var(--emerald-dark); }
+    .v-amber { color: var(--amber-text); }
+    .v-purple { color: var(--purple-dark); }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 24px;
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+      margin: 0;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--sogan);
+      border: 2px solid #ffffff;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      margin-top: -7px;
+      cursor: pointer;
+      transition: transform 0.15s var(--ease-out);
+    }
+    input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.18); }
+    input[type="range"]:focus-visible::-webkit-slider-thumb {
+      outline: 3px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    /* Reflection Axis Selectors */
+    .axis-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      gap: 8px;
+    }
+    .btn-axis {
+      padding: 8px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .btn-axis:hover {
+      border-color: var(--cyan);
+      color: var(--cyan-dark);
+    }
+    .btn-axis.active {
+      background: var(--cyan-dark);
+      color: #fff;
+      border-color: var(--cyan-dark);
+    }
+
+    /* Mini Challenge Box */
+    .challenge-box {
+      background: linear-gradient(135deg, var(--emerald-tint), var(--bg-card));
+      border: 1px solid rgba(var(--emerald-rgb), 0.25);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .challenge-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .challenge-tag {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: var(--emerald-dark);
+      color: #fff;
+      text-transform: uppercase;
+    }
+    .btn-check {
+      background: var(--emerald-dark);
+      color: #ffffff;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      align-self: flex-start;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .btn-check:hover {
+      background: #042f24;
+      transform: translateY(-1px);
+    }
+    .challenge-result {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      display: none;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+    }
+    .challenge-result.success {
+      display: block;
+      background: #D1FAE5;
+      color: #065F46;
+    }
+    .challenge-result.try-again {
+      display: block;
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    /* ===== FOOTER ===== */
+    .sandbox-footer {
+      border-top: 1px solid var(--border-light);
+      padding: 24px clamp(16px, 3vw, 32px);
+      background: var(--bg-card);
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .footer-inner a {
+      color: var(--sogan);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footer-inner a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <a href="#sandbox-content" class="skip-link">Langsung ke Sandbox</a>
+
+  <!-- ===== HEADER ===== -->
+  <header class="sandbox-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrap" aria-label="Kembali ke Beranda Kawung Math">
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <line x1="18" y1="2" x2="18" y2="34" stroke="var(--text-muted)" stroke-width="0.7"/>
+          <line x1="2" y1="18" x2="34" y2="18" stroke="var(--text-muted)" stroke-width="0.7"/>
+          <ellipse cx="18" cy="11" rx="5" ry="7" fill="none" stroke="var(--sogan)" stroke-width="1.4"/>
+          <ellipse cx="18" cy="25" rx="5" ry="7" fill="none" stroke="var(--sogan)" stroke-width="1.4"/>
+          <ellipse cx="11" cy="18" rx="7" ry="5" fill="none" stroke="var(--sogan)" stroke-width="1.4"/>
+          <ellipse cx="25" cy="18" rx="7" ry="5" fill="none" stroke="var(--sogan)" stroke-width="1.4"/>
+          <circle cx="18" cy="18" r="2.5" fill="var(--amber)"/>
+        </svg>
+        <span class="brand-title">Kawung<span>Math</span></span>
+        <span class="brand-badge">Sandbox Lab</span>
+      </a>
+
+      <div class="nav-actions">
+        <a href="index.html" class="btn-nav-back">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 13L5 8l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Kembali ke Beranda
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="sandbox-main" id="sandbox-content">
+
+    <!-- Page Title Header -->
+    <div style="margin-bottom: 2px;">
+      <h1 style="font-family: var(--font-display); font-weight: 800; font-size: clamp(1.4rem, 2.5vw, 1.85rem); line-height: 1.2; margin-bottom: 4px;">
+        Interactive Sandbox: Eksplorasi Transformasi Geometri
+      </h1>
+      <p style="font-size: 0.9375rem; color: var(--text-secondary); font-weight: 500;">
+        Eksperimen translasi, refleksi, rotasi, dan dilatasi secara bebas pada bidang koordinat Kartesius.
+      </p>
+    </div>
+
+    <!-- Mode Switcher Tabs -->
+    <nav class="mode-bar" aria-label="Pilih Mode Transformasi">
+      <button class="mode-btn active" data-mode="all" type="button">🌟 Eksplorasi Bebas</button>
+      <button class="mode-btn" data-mode="translation" type="button">➡️ Translasi (Geser)</button>
+      <button class="mode-btn" data-mode="reflection" type="button">🪞 Refleksi (Cermin)</button>
+      <button class="mode-btn" data-mode="rotation" type="button">🔄 Rotasi (Putar)</button>
+      <button class="mode-btn" data-mode="dilation" type="button">🔍 Dilatasi (Skala)</button>
+    </nav>
+
+    <div class="workspace-grid">
+
+      <!-- LEFT: Canvas & Real-time Readout -->
+      <section class="canvas-panel" aria-label="Kanvas Bidang Kartesius">
+        <div class="canvas-card">
+          <div class="canvas-header-info">
+            <div class="legend-group">
+              <span class="legend-item"><span class="legend-dot-orig"></span> Posisi Awal</span>
+              <span class="legend-item"><span class="legend-dot-trans"></span> Bayangan Transformasi</span>
+            </div>
+            <div class="canvas-actions">
+              <button class="btn-action" id="btn-toggle-grid" type="button" aria-label="Sembunyikan atau tampilkan kisi">Grid: On</button>
+              <button class="btn-action" id="btn-export-svg" type="button" aria-label="Unduh karya vektor SVG">Unduh SVG</button>
+              <button class="btn-action" id="btn-reset-all" type="button" aria-label="Reset semua nilai ke posisi awal">Reset</button>
+            </div>
+          </div>
+
+          <!-- SVG Canvas -->
+          <div class="canvas-svg-container" id="svg-container" role="img" aria-label="Bidang Kartesius dengan motif Kawung">
+            <svg viewBox="0 0 400 400" id="main-svg" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid lines -->
+              <g id="grid-layer" opacity="0.45">
+                <line x1="0" y1="50" x2="400" y2="50" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="0" y1="100" x2="400" y2="100" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="0" y1="150" x2="400" y2="150" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="0" y1="250" x2="400" y2="250" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="0" y1="300" x2="400" y2="300" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="0" y1="350" x2="400" y2="350" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="50" y1="0" x2="50" y2="400" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="100" y1="0" x2="100" y2="400" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="150" y1="0" x2="150" y2="400" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="250" y1="0" x2="250" y2="400" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="300" y1="0" x2="300" y2="400" stroke="#CBD5E1" stroke-width="0.8"/>
+                <line x1="350" y1="0" x2="350" y2="400" stroke="#CBD5E1" stroke-width="0.8"/>
+              </g>
+
+              <!-- Axes -->
+              <line x1="200" y1="0" x2="200" y2="400" stroke="var(--text-secondary)" stroke-width="1.4"/>
+              <line x1="0" y1="200" x2="400" y2="200" stroke="var(--text-secondary)" stroke-width="1.4"/>
+              
+              <!-- Coordinate Labels -->
+              <text x="388" y="194" fill="var(--text-secondary)" font-size="12" font-family="Outfit, sans-serif" font-weight="700" text-anchor="end">X (+)</text>
+              <text x="12" y="194" fill="var(--text-secondary)" font-size="12" font-family="Outfit, sans-serif" font-weight="700">X (-)</text>
+              <text x="208" y="16" fill="var(--text-secondary)" font-size="12" font-family="Outfit, sans-serif" font-weight="700">Y (+)</text>
+              <text x="208" y="392" fill="var(--text-secondary)" font-size="12" font-family="Outfit, sans-serif" font-weight="700">Y (-)</text>
+              <text x="188" y="216" fill="var(--text-muted)" font-size="11" font-family="Outfit, sans-serif" font-weight="700">O(0,0)</text>
+
+              <!-- Reflection Axis Guide (Dynamic) -->
+              <line id="mirror-line" x1="0" y1="200" x2="400" y2="200" stroke="var(--purple)" stroke-width="2" stroke-dasharray="6 4" opacity="0"/>
+
+              <!-- Original Base Motif -->
+              <g id="orig-motif" opacity="0.45">
+                <ellipse cx="200" cy="168" rx="18" ry="32" fill="none" stroke="var(--amber-text)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <ellipse cx="200" cy="232" rx="18" ry="32" fill="none" stroke="var(--amber-text)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <ellipse cx="168" cy="200" rx="32" ry="18" fill="none" stroke="var(--amber-text)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <ellipse cx="232" cy="200" rx="32" ry="18" fill="none" stroke="var(--amber-text)" stroke-width="1.5" stroke-dasharray="4 3"/>
+                <circle cx="200" cy="200" r="8" fill="var(--amber)" opacity="0.6"/>
+              </g>
+
+              <!-- Transformed Motif Layer -->
+              <g id="trans-layer"></g>
+
+              <!-- Vector Guide Lines / Arrows -->
+              <g id="vector-layer"></g>
+            </svg>
+          </div>
+
+          <!-- Bottom Status & Mathematical Insight -->
+          <div class="canvas-bottom-bar" aria-live="polite">
+            <span class="formula-title">Rumus Transformasi &amp; Notasi Matematika</span>
+            <div class="formula-content" id="live-formula">Posisi Awal P(x, y) = P'(x, y)</div>
+            <p class="explanation-text" id="live-explanation">Geser slider di samping atau pilih preset untuk melihat bagaimana motif Kawung bertransformasi secara real-time.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Interactive Controls & Presets -->
+      <section class="controls-panel" aria-label="Panel Kontrol Transformasi">
+
+        <!-- Presets Card -->
+        <div class="panel-card">
+          <h2 class="panel-title">
+            <span>⚡ Preset Praktis SMP</span>
+          </h2>
+          <div class="preset-grid">
+            <button class="btn-preset" data-preset="tx-right" type="button">Geser Kanan (+40)</button>
+            <button class="btn-preset" data-preset="tx-diag" type="button">Geser Diagonal</button>
+            <button class="btn-preset" data-preset="ref-x" type="button">Cermin Sumbu X</button>
+            <button class="btn-preset" data-preset="ref-y" type="button">Cermin Sumbu Y</button>
+            <button class="btn-preset" data-preset="rot-90" type="button">Putar 90&deg; CCW</button>
+            <button class="btn-preset" data-preset="rot-180" type="button">Putar 180&deg;</button>
+            <button class="btn-preset" data-preset="dil-zoom" type="button">Perbesar 1.5&times;</button>
+            <button class="btn-preset" data-preset="dil-shrink" type="button">Perkecil 0.6&times;</button>
+          </div>
+        </div>
+
+        <!-- Custom Sliders Card -->
+        <div class="panel-card">
+          <h2 class="panel-title">
+            <span>🎛️ Kendali Parameter</span>
+          </h2>
+
+          <div class="slider-stack">
+            <!-- Translasi X -->
+            <div class="slider-box" id="box-tx">
+              <div class="slider-header">
+                <span class="slider-label">Translasi X (&Delta;X / a)</span>
+                <span class="slider-val v-emerald" id="val-tx">0</span>
+              </div>
+              <input type="range" id="input-tx" min="-120" max="120" value="0" step="5" aria-label="Pergeseran sumbu X">
+            </div>
+
+            <!-- Translasi Y -->
+            <div class="slider-box" id="box-ty">
+              <div class="slider-header">
+                <span class="slider-label">Translasi Y (&Delta;Y / b)</span>
+                <span class="slider-val v-amber" id="val-ty">0</span>
+              </div>
+              <input type="range" id="input-ty" min="-120" max="120" value="0" step="5" aria-label="Pergeseran sumbu Y">
+            </div>
+
+            <!-- Rotasi -->
+            <div class="slider-box" id="box-rot">
+              <div class="slider-header">
+                <span class="slider-label">Rotasi Titik Pusat O(0,0)</span>
+                <span class="slider-val v-sogan" id="val-rot">0&deg;</span>
+              </div>
+              <input type="range" id="input-rot" min="0" max="360" value="0" step="5" aria-label="Sudut rotasi derajat">
+            </div>
+
+            <!-- Dilatasi -->
+            <div class="slider-box" id="box-dil">
+              <div class="slider-header">
+                <span class="slider-label">Dilatasi Skala (k)</span>
+                <span class="slider-val v-cyan" id="val-dil">1.0&times;</span>
+              </div>
+              <input type="range" id="input-dil" min="20" max="180" value="100" step="5" aria-label="Faktor skala dilatasi">
+            </div>
+
+            <!-- Refleksi Selector -->
+            <div class="slider-box" id="box-ref">
+              <div class="slider-header">
+                <span class="slider-label">Refleksi (Pencerminan Sumbu)</span>
+              </div>
+              <div class="axis-selector" role="radiogroup" aria-label="Pilih garis sumbu cermin">
+                <button class="btn-axis active" data-axis="none" type="button" role="radio" aria-checked="true">Normal</button>
+                <button class="btn-axis" data-axis="x" type="button" role="radio" aria-checked="false">Sumbu X</button>
+                <button class="btn-axis" data-axis="y" type="button" role="radio" aria-checked="false">Sumbu Y</button>
+                <button class="btn-axis" data-axis="yx" type="button" role="radio" aria-checked="false">Garis y = x</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mini Challenge / Quiz -->
+        <div class="challenge-box">
+          <div class="challenge-header">
+            <h3 style="font-family: var(--font-display); font-size: 1.125rem; font-weight: 800;">🎯 Misi Cepat Siswa</h3>
+            <span class="challenge-tag">Tantangan #1</span>
+          </div>
+          <p style="font-size: 0.9375rem; color: var(--text-secondary);" id="challenge-question">
+            Putar motif sebesar <strong>90&deg;</strong> dan geser ke kanan sebesar <strong>+50</strong>!
+          </p>
+          <button class="btn-check" id="btn-check-challenge" type="button">Periksa Jawaban</button>
+          <div class="challenge-result" id="challenge-feedback" role="status"></div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="sandbox-footer">
+    <div class="footer-inner">
+      <span>&copy; 2026 <strong>Kawung Math</strong> &mdash; Laboratorium Pembelajaran Etnomatematika SMP</span>
+      <span><a href="index.html">&larr; Kembali ke Beranda Utama</a></span>
+    </div>
+  </footer>
+
+  <!-- ===== LOGIC & SCRIPT ===== -->
+  <script>
+    (function() {
+      // Elements
+      var inputTx = document.getElementById('input-tx');
+      var inputTy = document.getElementById('input-ty');
+      var inputRot = document.getElementById('input-rot');
+      var inputDil = document.getElementById('input-dil');
+      
+      var valTx = document.getElementById('val-tx');
+      var valTy = document.getElementById('val-ty');
+      var valRot = document.getElementById('val-rot');
+      var valDil = document.getElementById('val-dil');
+
+      var transLayer = document.getElementById('trans-layer');
+      var vectorLayer = document.getElementById('vector-layer');
+      var mirrorLine = document.getElementById('mirror-line');
+      var liveFormula = document.getElementById('live-formula');
+      var liveExplanation = document.getElementById('live-explanation');
+      var gridLayer = document.getElementById('grid-layer');
+
+      var currentAxis = 'none';
+      var activeMode = 'all';
+
+      // Build Transformed Kawung Motif
+      function renderMotif() {
+        var tx = parseFloat(inputTx.value);
+        var ty = parseFloat(inputTy.value);
+        var rot = parseFloat(inputRot.value);
+        var scale = parseFloat(inputDil.value) / 100;
+
+        // Apply reflection multipliers
+        var refX = 1;
+        var refY = 1;
+        var refSwap = false;
+
+        if (currentAxis === 'x') {
+          refY = -1; // reflect over x-axis flips Y
+        } else if (currentAxis === 'y') {
+          refX = -1; // reflect over y-axis flips X
+        } else if (currentAxis === 'yx') {
+          refSwap = true; // reflect over y=x swaps coordinates
+        }
+
+        // Base center point (200, 200) in SVG space (Y inverted for Cartesian view)
+        var cartX = tx * refX;
+        var cartY = -ty * refY; // screen SVG Y is inverted
+        if (refSwap) {
+          var temp = cartX;
+          cartX = cartY;
+          cartY = temp;
+        }
+
+        var cx = 200 + cartX;
+        var cy = 200 + cartY;
+
+        var pRx = 18 * scale;
+        var pRy = 32 * scale;
+        var off = 32 * scale;
+        var cR = 10 * scale;
+
+        // Petal relative offsets
+        var petals = [
+          { cx: cx, cy: cy - off, rx: pRx, ry: pRy },
+          { cx: cx, cy: cy + off, rx: pRx, ry: pRy },
+          { cx: cx - off, cy: cy, rx: pRy, ry: pRx },
+          { cx: cx + off, cy: cy, rx: pRy, ry: pRx }
+        ];
+
+        var finalRot = rot;
+        if (currentAxis === 'x' || currentAxis === 'y') {
+          finalRot = -rot;
+        }
+
+        var s = '<g transform="rotate(' + finalRot + ' ' + cx + ' ' + cy + ')">';
+        petals.forEach(function(p) {
+          s += '<ellipse cx="' + p.cx + '" cy="' + p.cy + '" rx="' + p.rx + '" ry="' + p.ry + '" fill="rgba(2,132,199,0.12)" stroke="var(--cyan-dark)" stroke-width="2"/>';
+        });
+        s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + cR + '" fill="var(--cyan)" opacity="0.85"/>';
+        s += '</g>';
+
+        transLayer.innerHTML = s;
+
+        // Vector line from origin to new center
+        var vecSvg = '';
+        if (tx !== 0 || ty !== 0) {
+          vecSvg += '<line x1="200" y1="200" x2="' + cx + '" y2="' + cy + '" stroke="var(--emerald-dark)" stroke-width="1.8" stroke-dasharray="3 3"/>';
+          vecSvg += '<circle cx="' + cx + '" cy="' + cy + '" r="3" fill="var(--emerald-dark)"/>';
+        }
+        vectorLayer.innerHTML = vecSvg;
+
+        // Update Labels
+        valTx.textContent = tx > 0 ? '+' + tx : String(tx);
+        valTy.textContent = ty > 0 ? '+' + ty : String(ty);
+        valRot.textContent = rot + '\u00B0';
+        valDil.textContent = scale.toFixed(1) + '\u00D7';
+
+        // Update Formula & Story
+        generateFormula(tx, ty, rot, scale, currentAxis);
+      }
+
+      function generateFormula(tx, ty, rot, scale, axis) {
+        var steps = [];
+        var explanations = [];
+
+        if (axis !== 'none') {
+          if (axis === 'x') {
+            steps.push('M_{sb-X}');
+            explanations.push('dicerminkan terhadap sumbu-X (y \u2192 -y)');
+          } else if (axis === 'y') {
+            steps.push('M_{sb-Y}');
+            explanations.push('dicerminkan terhadap sumbu-Y (x \u2192 -x)');
+          } else if (axis === 'yx') {
+            steps.push('M_{y=x}');
+            explanations.push('dicerminkan terhadap garis diagonal y = x (x \u2194 y)');
+          }
+        }
+
+        if (rot !== 0) {
+          steps.push('R(O, ' + rot + '\u00B0)');
+          explanations.push('diputar ' + rot + '\u00B0 berlawanan arah jarum jam');
+        }
+
+        if (scale !== 1) {
+          steps.push('[O, ' + scale.toFixed(1) + '\u00D7]');
+          explanations.push('diperbesar/diperkecil sebesar faktor ' + scale.toFixed(1) + '\u00D7');
+        }
+
+        if (tx !== 0 || ty !== 0) {
+          steps.push('T(' + tx + ', ' + ty + ')');
+          var dirX = tx > 0 ? tx + ' ke kanan' : (tx < 0 ? Math.abs(tx) + ' ke kiri' : '');
+          var dirY = ty > 0 ? ty + ' ke atas' : (ty < 0 ? Math.abs(ty) + ' ke bawah' : '');
+          var dirText = [dirX, dirY].filter(Boolean).join(' dan ');
+          explanations.push('digeser ' + dirText);
+        }
+
+        if (steps.length > 0) {
+          liveFormula.textContent = "P'(x', y') = (" + steps.join(' \u2218 ') + ')(P)';
+          liveExplanation.textContent = 'Motif Kawung ' + explanations.join(', lalu ') + '.';
+        } else {
+          liveFormula.textContent = "Posisi Awal P(x, y) \u2192 P'(x, y)";
+          liveExplanation.textContent = 'Motif berada di titik pusat koordinat O(0,0) tanpa pergeseran atau perubahan.';
+        }
+      }
+
+      // Mirror Line display
+      function updateMirrorLine(axis) {
+        if (axis === 'none') {
+          mirrorLine.setAttribute('opacity', '0');
+        } else if (axis === 'x') {
+          mirrorLine.setAttribute('x1', '0');
+          mirrorLine.setAttribute('y1', '200');
+          mirrorLine.setAttribute('x2', '400');
+          mirrorLine.setAttribute('y2', '200');
+          mirrorLine.setAttribute('opacity', '0.9');
+        } else if (axis === 'y') {
+          mirrorLine.setAttribute('x1', '200');
+          mirrorLine.setAttribute('y1', '0');
+          mirrorLine.setAttribute('x2', '200');
+          mirrorLine.setAttribute('y2', '400');
+          mirrorLine.setAttribute('opacity', '0.9');
+        } else if (axis === 'yx') {
+          mirrorLine.setAttribute('x1', '0');
+          mirrorLine.setAttribute('y1', '400');
+          mirrorLine.setAttribute('x2', '400');
+          mirrorLine.setAttribute('y2', '0');
+          mirrorLine.setAttribute('opacity', '0.9');
+        }
+      }
+
+      // Listeners for Sliders
+      [inputTx, inputTy, inputRot, inputDil].forEach(function(el) {
+        el.addEventListener('input', renderMotif);
+      });
+
+      // Axis selector buttons
+      var axisButtons = document.querySelectorAll('.btn-axis');
+      axisButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          axisButtons.forEach(function(b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-checked', 'false');
+          });
+          this.classList.add('active');
+          this.setAttribute('aria-checked', 'true');
+          currentAxis = this.getAttribute('data-axis');
+          updateMirrorLine(currentAxis);
+          renderMotif();
+        });
+      });
+
+      // Presets
+      var presets = {
+        'tx-right': { tx: 40, ty: 0, rot: 0, scale: 100, axis: 'none' },
+        'tx-diag': { tx: 50, ty: 50, rot: 0, scale: 100, axis: 'none' },
+        'ref-x': { tx: 0, ty: 0, rot: 0, scale: 100, axis: 'x' },
+        'ref-y': { tx: 0, ty: 0, rot: 0, scale: 100, axis: 'y' },
+        'rot-90': { tx: 0, ty: 0, rot: 90, scale: 100, axis: 'none' },
+        'rot-180': { tx: 0, ty: 0, rot: 180, scale: 100, axis: 'none' },
+        'dil-zoom': { tx: 0, ty: 0, rot: 0, scale: 150, axis: 'none' },
+        'dil-shrink': { tx: 0, ty: 0, rot: 0, scale: 60, axis: 'none' }
+      };
+
+      document.querySelectorAll('.btn-preset').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var p = presets[this.getAttribute('data-preset')];
+          if (!p) return;
+          inputTx.value = p.tx;
+          inputTy.value = p.ty;
+          inputRot.value = p.rot;
+          inputDil.value = p.scale;
+          currentAxis = p.axis;
+
+          axisButtons.forEach(function(b) {
+            var match = b.getAttribute('data-axis') === currentAxis;
+            b.classList.toggle('active', match);
+            b.setAttribute('aria-checked', String(match));
+          });
+          updateMirrorLine(currentAxis);
+          renderMotif();
+        });
+      });
+
+      // Reset All Button
+      function resetAll() {
+        inputTx.value = 0;
+        inputTy.value = 0;
+        inputRot.value = 0;
+        inputDil.value = 100;
+        currentAxis = 'none';
+        axisButtons.forEach(function(b) {
+          var match = b.getAttribute('data-axis') === 'none';
+          b.classList.toggle('active', match);
+          b.setAttribute('aria-checked', String(match));
+        });
+        updateMirrorLine('none');
+        renderMotif();
+      }
+      document.getElementById('btn-reset-all').addEventListener('click', resetAll);
+
+      // Grid toggle
+      var gridBtn = document.getElementById('btn-toggle-grid');
+      gridBtn.addEventListener('click', function() {
+        var isVisible = gridLayer.style.display !== 'none';
+        gridLayer.style.display = isVisible ? 'none' : '';
+        this.textContent = isVisible ? 'Grid: Off' : 'Grid: On';
+      });
+
+      // Export SVG
+      document.getElementById('btn-export-svg').addEventListener('click', function() {
+        var svgEl = document.getElementById('main-svg');
+        var serializer = new XMLSerializer();
+        var svgStr = serializer.serializeToString(svgEl);
+        var blob = new Blob([svgStr], { type: 'image/svg+xml;charset=utf-8' });
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'kawung-transformasi-' + Date.now() + '.svg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      });
+
+      // Mode Switcher Tabs
+      var modeButtons = document.querySelectorAll('.mode-btn');
+      var boxTx = document.getElementById('box-tx');
+      var boxTy = document.getElementById('box-ty');
+      var boxRot = document.getElementById('box-rot');
+      var boxDil = document.getElementById('box-dil');
+      var boxRef = document.getElementById('box-ref');
+
+      modeButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          modeButtons.forEach(function(b) { b.classList.remove('active'); });
+          this.classList.add('active');
+          activeMode = this.getAttribute('data-mode');
+
+          // Filter visible sliders based on mode
+          if (activeMode === 'translation') {
+            boxTx.style.display = ''; boxTy.style.display = '';
+            boxRot.style.display = 'none'; boxDil.style.display = 'none'; boxRef.style.display = 'none';
+          } else if (activeMode === 'reflection') {
+            boxTx.style.display = 'none'; boxTy.style.display = 'none';
+            boxRot.style.display = 'none'; boxDil.style.display = 'none'; boxRef.style.display = '';
+          } else if (activeMode === 'rotation') {
+            boxTx.style.display = 'none'; boxTy.style.display = 'none';
+            boxRot.style.display = ''; boxDil.style.display = 'none'; boxRef.style.display = 'none';
+          } else if (activeMode === 'dilation') {
+            boxTx.style.display = 'none'; boxTy.style.display = 'none';
+            boxRot.style.display = 'none'; boxDil.style.display = ''; boxRef.style.display = 'none';
+          } else {
+            // 'all'
+            boxTx.style.display = ''; boxTy.style.display = '';
+            boxRot.style.display = ''; boxDil.style.display = ''; boxRef.style.display = '';
+          }
+        });
+      });
+
+      // Mini Challenge Checker
+      var checkBtn = document.getElementById('btn-check-challenge');
+      var feedback = document.getElementById('challenge-feedback');
+
+      checkBtn.addEventListener('click', function() {
+        var rot = parseFloat(inputRot.value);
+        var tx = parseFloat(inputTx.value);
+
+        if (rot === 90 && tx === 50) {
+          feedback.className = 'challenge-result success';
+          feedback.textContent = '🎉 Hebat sekali! Jawabanmu tepat: Rotasi 90\u00B0 dan Translasi +50.';
+        } else {
+          feedback.className = 'challenge-result try-again';
+          feedback.textContent = '💡 Belum pas: Atur slider Rotasi ke 90\u00B0 dan Translasi X ke +50 ya!';
+        }
+      });
+
+      // Initial Render
+      renderMotif();
+    })();
+  </script>
+</body>
+</html>
