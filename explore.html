@@ -12,15 +12,19 @@
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kawung-math.vercel.app/explore.html">
   <meta property="og:title" content="Kawung Explore — Modul Belajar Interaktif Transformasi Geometri SMP">
   <meta property="og:description" content="Modul belajar bertahap transformasi geometri (translasi, refleksi, rotasi, dilatasi) berbasis motif Batik Kawung untuk siswa SMP.">
+  <meta property="og:image" content="https://kawung-math.vercel.app/favicon.svg">
   <meta property="og:locale" content="id_ID">
   <meta property="og:site_name" content="Kawung Math">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://kawung-math.vercel.app/explore.html">
   <meta name="twitter:title" content="Kawung Explore — Modul Belajar Interaktif Transformasi Geometri SMP">
   <meta name="twitter:description" content="Modul belajar bertahap transformasi geometri berbasis motif Batik Kawung untuk siswa SMP.">
+  <meta name="twitter:image" content="https://kawung-math.vercel.app/favicon.svg">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -598,23 +602,33 @@
       font-family: var(--font-display);
       font-weight: 700;
       font-size: 0.8125rem;
-      padding: 8px 14px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-light);
       background: var(--bg-card);
       color: var(--text-primary);
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.2s ease;
     }
     .btn-sim-action:hover {
       border-color: var(--sogan);
       color: var(--sogan-dark);
       background: var(--sogan-tint);
+      transform: translateY(-1px);
+    }
+    .btn-sim-action:active {
+      transform: scale(0.98);
     }
     .btn-sim-action.active {
       background: var(--sogan);
       color: #FFFFFF;
       border-color: var(--sogan);
+      font-weight: 800;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
     /* Formula & Mathematical Concept Box */
@@ -684,24 +698,36 @@
     }
     .quiz-options {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: 1fr;
       gap: 10px;
     }
+    @media (min-width: 540px) {
+      .quiz-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
     .quiz-opt-btn {
-      padding: 10px 14px;
-      font-size: 0.8125rem;
+      min-height: 48px;
+      padding: 12px 16px;
+      font-family: var(--font-body);
+      font-size: 0.875rem;
       font-weight: 700;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
       border: 1.5px solid var(--border);
       background: var(--bg-card);
       color: var(--text-primary);
       cursor: pointer;
+      display: flex;
+      align-items: center;
       text-align: left;
       transition: all 0.2s ease;
     }
     .quiz-opt-btn:hover {
       border-color: var(--emerald);
       background: var(--emerald-tint);
+    }
+    .quiz-opt-btn:active {
+      transform: scale(0.98);
     }
     .quiz-opt-btn.selected {
       border-color: var(--emerald-dark);
@@ -712,7 +738,7 @@
       font-size: 0.9375rem;
       font-weight: 700;
       display: none;
-      padding: 10px 14px;
+      padding: 12px 16px;
       border-radius: var(--radius-sm);
     }
     .quiz-feedback.success {

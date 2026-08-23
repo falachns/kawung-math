@@ -12,15 +12,19 @@
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kawung-math.vercel.app/sandbox.html">
   <meta property="og:title" content="Interactive Sandbox Transformasi Geometri — Kawung Math">
   <meta property="og:description" content="Laboratorium interaktif transformasi geometri (translasi, refleksi, rotasi, dilatasi) untuk siswa SMP berbasis motif Batik Kawung.">
+  <meta property="og:image" content="https://kawung-math.vercel.app/favicon.svg">
   <meta property="og:locale" content="id_ID">
   <meta property="og:site_name" content="Kawung Math">
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://kawung-math.vercel.app/sandbox.html">
   <meta name="twitter:title" content="Interactive Sandbox Transformasi Geometri — Kawung Math">
   <meta name="twitter:description" content="Laboratorium interaktif transformasi geometri untuk siswa SMP berbasis motif Batik Kawung.">
+  <meta name="twitter:image" content="https://kawung-math.vercel.app/favicon.svg">
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -325,20 +329,28 @@
 
     /* Top Mode Tabs */
     .mode-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       background: var(--bg-card);
       padding: 6px;
       border-radius: var(--radius-lg);
       border: 1px solid var(--border-light);
     }
+    @media (min-width: 680px) {
+      .mode-bar {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+    }
     .mode-btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      padding: 9px 18px;
+      min-height: 44px;
+      padding: 10px 16px;
       font-family: var(--font-display);
       font-weight: 700;
       font-size: 0.8125rem;
@@ -347,15 +359,19 @@
       background: transparent;
       border-radius: var(--radius-md);
       cursor: pointer;
-      transition: background-color 0.2s ease, color 0.2s ease;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
     }
     .mode-btn:hover {
-      background: var(--bg-warm);
-      color: var(--text-primary);
+      background: var(--sogan-tint);
+      color: var(--sogan-dark);
+    }
+    .mode-btn:active {
+      transform: scale(0.98);
     }
     .mode-btn.active {
       background: var(--sogan);
       color: #ffffff;
+      font-weight: 800;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
@@ -523,20 +539,30 @@
     /* Presets Chips */
     .preset-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
       margin-bottom: 16px;
     }
+    @media (min-width: 480px) {
+      .preset-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      }
+    }
     .btn-preset {
-      padding: 8px 10px;
+      min-height: 44px;
+      padding: 10px 12px;
+      font-family: var(--font-display);
       font-size: 0.8125rem;
       font-weight: 700;
       background: var(--bg-warm);
-      border: 1px solid var(--border-light);
+      border: 1.5px solid var(--border-light);
       border-radius: var(--radius-md);
       color: var(--text-primary);
       text-align: center;
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       transition: all 0.2s ease;
     }
     .btn-preset:hover {
@@ -545,10 +571,14 @@
       color: var(--sogan-dark);
       transform: translateY(-1px);
     }
+    .btn-preset:active {
+      transform: scale(0.98);
+    }
     .btn-preset.active {
       background: var(--sogan);
       color: #ffffff;
       border-color: var(--sogan);
+      font-weight: 800;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     }
 
@@ -562,7 +592,7 @@
       background: var(--bg-warm);
       border: 1px solid var(--border-light);
       border-radius: var(--radius-md);
-      padding: 10px 14px;
+      padding: 12px 14px;
     }
     .slider-header {
       display: flex;
@@ -593,7 +623,7 @@
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
-      height: 24px;
+      height: 36px;
       background: transparent;
       outline: none;
       cursor: pointer;
@@ -607,13 +637,13 @@
     }
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       background: var(--sogan);
       border: 2px solid #ffffff;
       box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-      margin-top: -7px;
+      margin-top: -8px;
       cursor: pointer;
       transition: transform 0.15s var(--ease-out);
     }
@@ -626,28 +656,45 @@
     /* Reflection Axis Selectors */
     .axis-selector {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 8px;
     }
+    @media (min-width: 480px) {
+      .axis-selector {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
     .btn-axis {
-      padding: 8px;
+      min-height: 44px;
+      padding: 10px 12px;
+      font-family: var(--font-display);
       font-size: 0.8125rem;
       font-weight: 700;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-light);
       background: var(--bg-card);
       color: var(--text-secondary);
       cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       transition: all 0.2s ease;
     }
     .btn-axis:hover {
       border-color: var(--cyan);
       color: var(--cyan-dark);
+      background: var(--cyan-tint);
+    }
+    .btn-axis:active {
+      transform: scale(0.98);
     }
     .btn-axis.active {
       background: var(--cyan-dark);
-      color: #fff;
+      color: #ffffff;
+      border-color: var(--cyan-dark);
+      font-weight: 800;
+    }
       border-color: var(--cyan-dark);
     }
 
