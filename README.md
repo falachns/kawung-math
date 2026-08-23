@@ -72,12 +72,13 @@ Buka browser di `http://localhost:8765`.
 kawung-math/
 ├── .gitignore          # Konfigurasi ignore file lokal
 ├── favicon.svg         # Favicon vektor SVG motif Kawung
-├── index.html          # Halaman web tunggal terpadu (HTML5 + CSS + JS)
+├── index.html          # Halaman beranda utama terpadu (HTML5 + CSS + JS)
+├── sandbox.html        # Halaman laboratorium interaktif khusus siswa SMP
 ├── LICENSE             # Lisensi Open Source MIT
 ├── README.md           # Dokumentasi resmi project
 ├── robots.txt          # Konfigurasi SEO crawler
 ├── sitemap.xml         # Peta situs untuk mesin pencari
-└── vercel.json         # Pengaturan security headers & cache Vercel
+└── vercel.json         # Pengaturan security headers & cleanUrls Vercel
 ```
 
 ---
