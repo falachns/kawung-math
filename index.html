@@ -305,6 +305,10 @@
       font-weight: 800;
       box-shadow: inset 0 0 0 1px rgba(var(--sogan-rgb), 0.2);
     }
+    /* Focus Ring Management */
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
     .nav-link:focus-visible {
       outline: 3px solid var(--cyan);
       outline-offset: 2px;
@@ -321,15 +325,17 @@
       font-weight: 700;
       font-size: 0.88rem;
       background: var(--sogan);
-      color: #ffffff;
+      color: #ffffff !important;
+      text-decoration: none !important;
       border-radius: var(--radius-full);
-      box-shadow: 0 2px 8px rgba(var(--shadow-color), 0.08);
+      box-shadow: 0 2px 8px rgba(184, 82, 27, 0.25);
       transition: transform 0.2s var(--ease-out), box-shadow 0.3s ease, background-color 0.2s ease;
     }
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px rgba(var(--shadow-color), 0.14);
+      box-shadow: 0 4px 16px rgba(184, 82, 27, 0.35);
       background: var(--sogan-dark);
+      color: #ffffff !important;
     }
     .btn-ghost {
       display: inline-flex;
@@ -448,6 +454,35 @@
       background: var(--sogan-tint);
       font-weight: 800;
       box-shadow: inset 3px 0 0 0 var(--sogan);
+    }
+    .btn-drawer-cta {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      padding: 14px 20px;
+      margin-top: 10px;
+      background-color: var(--sogan, #B8521B) !important;
+      color: #ffffff !important;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--radius-full, 9999px);
+      text-decoration: none !important;
+      box-shadow: 0 4px 14px rgba(184, 82, 27, 0.25);
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .btn-drawer-cta:hover {
+      background-color: var(--sogan-dark, #8C3B10) !important;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      box-shadow: 0 6px 18px rgba(184, 82, 27, 0.35);
+    }
+    .btn-drawer-cta:active {
+      transform: scale(0.98);
+      opacity: 0.95;
     }
 
     @media (min-width: 900px) {
@@ -972,7 +1007,7 @@
         <a href="#transform" class="nav-link">Transform</a>
         <a href="#labs" class="nav-link">Design Labs</a>
         <a href="#challenge" class="nav-link">Challenge</a>
-        <a href="sandbox.html" class="btn-primary" style="width: 100%; min-height: 48px; margin-top: 8px;">Buka Sandbox Lab</a>
+        <a href="sandbox.html" class="btn-drawer-cta">Buka Sandbox Lab</a>
       </div>
     </div>
   </header>
@@ -1533,7 +1568,7 @@
       var mobileNav = document.getElementById('mobile-nav');
       if (!toggle || !mobileNav) return;
 
-      var links = mobileNav.querySelectorAll('.nav-link, .btn-primary');
+      var links = mobileNav.querySelectorAll('.nav-link, .btn-primary, .btn-drawer-cta');
 
       function closeMenu() {
         toggle.setAttribute('aria-expanded', 'false');

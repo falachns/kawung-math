@@ -226,6 +226,10 @@
       font-weight: 800;
       box-shadow: inset 0 0 0 1px rgba(var(--sogan-rgb), 0.2);
     }
+    /* Focus Ring Management */
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
     .nav-link:focus-visible {
       outline: 3px solid var(--cyan);
       outline-offset: 2px;
@@ -244,17 +248,18 @@
       font-weight: 700;
       font-size: 0.875rem;
       background: var(--sogan);
-      color: #FFFFFF;
-      text-decoration: none;
-      padding: 8px 18px;
+      color: #FFFFFF !important;
+      text-decoration: none !important;
+      padding: 9px 20px;
       border-radius: var(--radius-full);
-      box-shadow: 0 2px 8px rgba(var(--shadow-color), 0.08);
+      box-shadow: 0 2px 8px rgba(184, 82, 27, 0.25);
       transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     }
     .btn-nav-explore:hover {
       background: var(--sogan-dark);
+      color: #FFFFFF !important;
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(var(--shadow-color), 0.12);
+      box-shadow: 0 4px 14px rgba(184, 82, 27, 0.35);
     }
     @media (max-width: 860px) {
       .nav-actions .btn-nav-explore { display: none !important; }
@@ -353,6 +358,35 @@
       color: var(--sogan-dark);
       font-weight: 800;
       box-shadow: inset 3px 0 0 0 var(--sogan);
+    }
+    .btn-drawer-cta {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      padding: 14px 20px;
+      margin-top: 10px;
+      background-color: var(--sogan, #B8521B) !important;
+      color: #ffffff !important;
+      text-align: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: var(--radius-full, 9999px);
+      text-decoration: none !important;
+      box-shadow: 0 4px 14px rgba(184, 82, 27, 0.25);
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    }
+    .btn-drawer-cta:hover {
+      background-color: var(--sogan-dark, #8C3B10) !important;
+      color: #ffffff !important;
+      text-decoration: none !important;
+      box-shadow: 0 6px 18px rgba(184, 82, 27, 0.35);
+    }
+    .btn-drawer-cta:active {
+      transform: scale(0.98);
+      opacity: 0.95;
     }
 
     /* ===== MAIN LAYOUT ===== */
@@ -875,7 +909,7 @@
       <a href="sandbox.html" class="drawer-link active">Transform</a>
       <a href="index.html#labs" class="drawer-link">Design Labs</a>
       <a href="index.html#challenge" class="drawer-link">Challenge</a>
-      <a href="explore.html" class="btn-primary" style="width: 100%; min-height: 48px; margin-top: 8px;">Buka Modul Explore</a>
+      <a href="explore.html" class="btn-drawer-cta">Buka Modul Explore</a>
     </div>
   </div>
 
@@ -1602,7 +1636,7 @@
           }
         });
 
-        var drawerLinks = mobileDrawer.querySelectorAll('.drawer-link, .btn-primary, .btn-nav-explore');
+        var drawerLinks = mobileDrawer.querySelectorAll('.drawer-link, .btn-primary, .btn-nav-explore, .btn-drawer-cta');
         drawerLinks.forEach(function(link) {
           link.addEventListener('click', function() {
             closeDrawer();
