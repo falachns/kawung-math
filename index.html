@@ -206,18 +206,9 @@
     }
 
     /* ===== REVEAL ANIMATIONS ===== */
-    .reveal-hero {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
-    }
-    .reveal-hero.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
     .reveal {
       opacity: 0;
-      transition: opacity 0.6s ease;
+      transition: opacity 0.5s ease;
     }
     .reveal.visible { opacity: 1; }
     .reveal-delay-1 { transition-delay: 0.08s; }
@@ -238,7 +229,7 @@
     .kawung-petal-animated:nth-child(4) { animation-delay: 0.45s; }
 
     @media (prefers-reduced-motion: reduce) {
-      .reveal-hero, .reveal { opacity: 1; transform: none; transition: none; }
+      .reveal { opacity: 1; transform: none; transition: none; }
       .kawung-petal-animated { animation: none; stroke-dashoffset: 0; }
       .skip-link { transition: none; }
       .card:hover, .btn-primary:hover { transform: none; }
@@ -961,7 +952,7 @@
 
       <div class="container">
         <div class="hero-grid">
-          <div class="hero-content reveal-hero">
+          <div class="hero-content">
             <!-- 3-line Hero Title -->
             <h1 class="heading-xl hero-headline" id="hero-heading">
               Eksplorasi Transformasi Geometri<br>
@@ -991,7 +982,7 @@
           </div>
 
           <!-- Interactive Kawung Canvas Sandbox -->
-          <div class="hero-canvas-wrapper reveal-hero" style="transition-delay: 0.15s;">
+          <div class="hero-canvas-wrapper">
             <div class="hero-canvas-frame" id="kawung-canvas" role="figure" aria-label="Visualisasi dinamis motif Kawung pada bidang Kartesius, dikendalikan oleh slider di bawahnya">
               <svg viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg" id="kawung-svg">
                 <defs>
@@ -1612,7 +1603,7 @@
     /* ===== SCROLL REVEAL OBSERVER ===== */
     (function() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.querySelectorAll('.reveal, .reveal-hero').forEach(function(el) { el.classList.add('visible'); });
+        document.querySelectorAll('.reveal').forEach(function(el) { el.classList.add('visible'); });
         return;
       }
       var observer = new IntersectionObserver(function(entries) {
@@ -1622,8 +1613,8 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
-      document.querySelectorAll('.reveal, .reveal-hero').forEach(function(el) { observer.observe(el); });
+      }, { threshold: 0.05, rootMargin: '0px 0px 40px 0px' });
+      document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
     })();
 
     /* ===== LIVE KAWUNG SANDBOX CONTROLS ===== */
@@ -1757,7 +1748,7 @@
       });
     })();
 
-    /* ===== ROBUST SMOOTH SCROLL WITH HEADER OFFSET ===== */
+    /* ===== ZERO-REFLOW SMOOTH SCROLL ===== */
     (function() {
       document.querySelectorAll('a[href^="#"]').forEach(function(link) {
         link.addEventListener('click', function(e) {
@@ -1766,15 +1757,7 @@
           var target = document.querySelector(href);
           if (target) {
             e.preventDefault();
-            var headerHeight = 64;
-            var elementPosition = target.getBoundingClientRect().top;
-            var offsetPosition = elementPosition + (window.pageYOffset || document.documentElement.scrollTop) - headerHeight;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-
+            target.scrollIntoView({ behavior: 'smooth' });
             if (history.pushState) {
               history.pushState(null, null, href);
             }
