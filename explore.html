@@ -1085,7 +1085,10 @@
 
         // Cultural Narrative
         html += '<section class="culture-narrative">';
-        html += '  <h3 class="narrative-title">' + data.narrativeTitle + '</h3>';
+        html += '  <h3 class="narrative-title">';
+        html += '    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sogan-dark)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>';
+        html += '    Apersepsi Budaya Nusantara';
+        html += '  </h3>';
         html += '  <p class="narrative-p">' + data.narrative + '</p>';
         html += '</section>';
 
@@ -1151,7 +1154,10 @@
         // Quick Check Quiz Box
         html += '<section class="quiz-box">';
         html += '  <div class="quiz-header">';
-        html += '    <h3 class="quiz-h3">' + data.quizTitle + '</h3>';
+        html += '    <h3 class="quiz-h3" style="display: inline-flex; align-items: center; gap: 8px;">';
+        html += '      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--emerald-dark)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>';
+        html += '      Quick Check: Bab ' + (idx + 1);
+        html += '    </h3>';
         html += '    <span class="quiz-tag">Kuis Pemantik</span>';
         html += '  </div>';
         html += '  <p class="quiz-question">' + data.question + '</p>';
