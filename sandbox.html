@@ -186,28 +186,106 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
+    .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (min-width: 860px) {
+      .nav-desktop { display: flex; }
+    }
+    .nav-link {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--sogan);
+      background: var(--sogan-tint);
+    }
+    .nav-link.active {
+      color: var(--cyan-dark);
+      background: var(--cyan-tint);
+      font-weight: 800;
+    }
+
     .nav-actions {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-    .btn-nav-back {
+    .btn-nav-explore {
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      font-family: var(--font-display);
       font-weight: 700;
       font-size: 0.8125rem;
-      color: var(--text-secondary);
+      background: var(--sogan);
+      color: #FFFFFF;
       text-decoration: none;
       padding: 8px 16px;
       border-radius: var(--radius-full);
-      border: 1.5px solid var(--border);
-      transition: all 0.2s ease;
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
-    .btn-nav-back:hover {
-      color: var(--sogan);
-      border-color: var(--sogan);
-      background: var(--sogan-tint);
+    .btn-nav-explore:hover {
+      background: var(--sogan-dark);
+      transform: translateY(-1px);
+    }
+
+    /* Mobile Menu Button */
+    .btn-menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    @media (min-width: 860px) {
+      .btn-menu-toggle { display: none; }
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 64px; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 99;
+    }
+    .mobile-drawer.open { display: block; }
+    .drawer-content {
+      background: var(--bg-card);
+      padding: 24px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 12px 32px rgba(var(--shadow-color), 0.1);
+    }
+    .drawer-link {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+    }
+    .drawer-link.active {
+      background: var(--cyan-tint);
+      color: var(--cyan-dark);
     }
 
     /* ===== MAIN LAYOUT ===== */
@@ -656,18 +734,38 @@
         <span class="brand-badge">Sandbox Lab</span>
       </a>
 
+      <!-- Desktop Nav -->
+      <nav class="nav-desktop" aria-label="Navigasi Utama">
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="explore.html" class="nav-link">Kawung Explore</a>
+        <a href="sandbox.html" class="nav-link active" aria-current="page">Sandbox Lab</a>
+        <a href="index.html#labs" class="nav-link">Design Labs</a>
+        <a href="index.html#challenge" class="nav-link">Challenge</a>
+      </nav>
+
       <div class="nav-actions">
-        <a href="explore.html" class="btn-nav-back" style="background: var(--sogan-tint); color: var(--sogan-dark); border-color: rgba(var(--sogan-rgb), 0.3);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <a href="explore.html" class="btn-nav-explore">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
           Modul Explore
         </a>
-        <a href="index.html" class="btn-nav-back">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 13L5 8l5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          Kembali ke Beranda
-        </a>
+        <button class="btn-menu-toggle" id="btn-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Buka menu navigasi mobile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu navigasi sandbox">
+    <div class="drawer-content">
+      <a href="index.html" class="drawer-link">Beranda</a>
+      <a href="explore.html" class="drawer-link">Kawung Explore (Modul)</a>
+      <a href="sandbox.html" class="drawer-link active">Sandbox Lab</a>
+      <a href="index.html#labs" class="drawer-link">Design Labs</a>
+      <a href="index.html#challenge" class="drawer-link">Challenge</a>
+      <a href="explore.html" class="btn-nav-explore" style="justify-content: center; margin-top: 12px;">Buka Modul Explore</a>
+    </div>
+  </div>
 
   <!-- ===== MAIN CONTENT ===== -->
   <main class="sandbox-main" id="sandbox-content">
@@ -1357,6 +1455,54 @@
           feedback.textContent = '💡 Belum pas: Atur slider Rotasi ke 90\u00B0 dan Translasi X ke +50 ya!';
         }
       });
+
+      // Mobile Navigation Drawer
+      var btnMenuToggle = document.getElementById('btn-menu-toggle');
+      var mobileDrawer = document.getElementById('mobile-drawer');
+
+      function closeDrawer() {
+        if (!mobileDrawer || !btnMenuToggle) return;
+        mobileDrawer.classList.remove('open');
+        btnMenuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      function openDrawer() {
+        if (!mobileDrawer || !btnMenuToggle) return;
+        mobileDrawer.classList.add('open');
+        btnMenuToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      if (btnMenuToggle && mobileDrawer) {
+        btnMenuToggle.addEventListener('click', function() {
+          var isOpen = mobileDrawer.classList.contains('open');
+          if (isOpen) {
+            closeDrawer();
+          } else {
+            openDrawer();
+          }
+        });
+
+        mobileDrawer.addEventListener('click', function(e) {
+          if (e.target === mobileDrawer) {
+            closeDrawer();
+          }
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+            closeDrawer();
+            btnMenuToggle.focus();
+          }
+        });
+
+        window.addEventListener('resize', function() {
+          if (window.innerWidth >= 860 && mobileDrawer.classList.contains('open')) {
+            closeDrawer();
+          }
+        });
+      }
 
       // Initial Render
       scheduleRender();
