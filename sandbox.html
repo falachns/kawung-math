@@ -113,7 +113,15 @@
       color: #FFFFFF;
     }
 
-    /* Accessibility */
+    /* Accessibility & Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
     :focus-visible {
       outline: 3px solid var(--cyan);
       outline-offset: 3px;
@@ -675,13 +683,13 @@
     </div>
 
     <!-- Mode Switcher Tabs -->
-    <nav class="mode-bar" aria-label="Pilih Mode Transformasi">
-      <button class="mode-btn active" data-mode="all" type="button">🌟 Eksplorasi Bebas</button>
-      <button class="mode-btn" data-mode="translation" type="button">➡️ Translasi (Geser)</button>
-      <button class="mode-btn" data-mode="reflection" type="button">🪞 Refleksi (Cermin)</button>
-      <button class="mode-btn" data-mode="rotation" type="button">🔄 Rotasi (Putar)</button>
-      <button class="mode-btn" data-mode="dilation" type="button">🔍 Dilatasi (Skala)</button>
-    </nav>
+    <div class="mode-bar" role="tablist" aria-label="Pilih Mode Transformasi">
+      <button class="mode-btn active" role="tab" aria-selected="true" data-mode="all" type="button">🌟 Eksplorasi Bebas</button>
+      <button class="mode-btn" role="tab" aria-selected="false" data-mode="translation" type="button">➡️ Translasi (Geser)</button>
+      <button class="mode-btn" role="tab" aria-selected="false" data-mode="reflection" type="button">🪞 Refleksi (Cermin)</button>
+      <button class="mode-btn" role="tab" aria-selected="false" data-mode="rotation" type="button">🔄 Rotasi (Putar)</button>
+      <button class="mode-btn" role="tab" aria-selected="false" data-mode="dilation" type="button">🔍 Dilatasi (Skala)</button>
+    </div>
 
     <div class="workspace-grid">
 
@@ -895,7 +903,7 @@
             Putar motif sebesar <strong>90&deg;</strong> dan geser ke kanan sebesar <strong>+50</strong>!
           </p>
           <button class="btn-check" id="btn-check-challenge" type="button">Periksa Jawaban</button>
-          <div class="challenge-result" id="challenge-feedback" role="status"></div>
+          <div class="challenge-result" id="challenge-feedback" role="status" aria-live="polite"></div>
         </div>
 
       </section>
@@ -1280,8 +1288,12 @@
 
       modeButtons.forEach(function(btn) {
         btn.addEventListener('click', function() {
-          modeButtons.forEach(function(b) { b.classList.remove('active'); });
+          modeButtons.forEach(function(b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
           this.classList.add('active');
+          this.setAttribute('aria-selected', 'true');
           activeMode = this.getAttribute('data-mode');
 
           // Filter visible sliders based on mode

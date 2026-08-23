@@ -115,7 +115,15 @@
       color: #FFFFFF;
     }
 
-    /* Accessibility */
+    /* Accessibility & Motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
     :focus-visible {
       outline: 3px solid var(--cyan);
       outline-offset: 3px;
@@ -845,8 +853,8 @@
     </div>
 
     <!-- Stepper Chapter Tabs -->
-    <nav class="stepper-nav" aria-label="Pilih Bab Pembelajaran">
-      <button class="step-btn active" data-chapter="1" type="button" aria-current="step">
+    <div class="stepper-nav" role="tablist" aria-label="Pilih Bab Pembelajaran">
+      <button class="step-btn active" role="tab" aria-selected="true" id="tab-chap-1" aria-controls="chapter-container" data-chapter="1" type="button">
         <span class="step-num" id="step-num-1">1</span>
         <div class="step-info">
           <span class="step-title">Bab 1: Translasi</span>
@@ -854,7 +862,7 @@
         </div>
       </button>
 
-      <button class="step-btn" data-chapter="2" type="button">
+      <button class="step-btn" role="tab" aria-selected="false" id="tab-chap-2" aria-controls="chapter-container" data-chapter="2" type="button">
         <span class="step-num" id="step-num-2">2</span>
         <div class="step-info">
           <span class="step-title">Bab 2: Refleksi</span>
@@ -862,7 +870,7 @@
         </div>
       </button>
 
-      <button class="step-btn" data-chapter="3" type="button">
+      <button class="step-btn" role="tab" aria-selected="false" id="tab-chap-3" aria-controls="chapter-container" data-chapter="3" type="button">
         <span class="step-num" id="step-num-3">3</span>
         <div class="step-info">
           <span class="step-title">Bab 3: Rotasi</span>
@@ -870,17 +878,17 @@
         </div>
       </button>
 
-      <button class="step-btn" data-chapter="4" type="button">
+      <button class="step-btn" role="tab" aria-selected="false" id="tab-chap-4" aria-controls="chapter-container" data-chapter="4" type="button">
         <span class="step-num" id="step-num-4">4</span>
         <div class="step-info">
           <span class="step-title">Bab 4: Dilatasi</span>
           <span class="step-subtitle">Skala Ukuran Motif</span>
         </div>
       </button>
-    </nav>
+    </div>
 
     <!-- Chapter Dynamic Container -->
-    <div id="chapter-container">
+    <div id="chapter-container" role="tabpanel" aria-labelledby="tab-chap-1">
       <!-- Chapter content will be populated dynamically via JavaScript -->
     </div>
 
@@ -1014,14 +1022,40 @@
       // State for Mini Canvas in active chapter
       var simState = { tx: 0, ty: 0, rot: 0, scale: 100, axis: 'none' };
 
+      var currentChapterIdx = 0;
+      var completedChapters = {};
+      var simRenderScheduled = false;
+
+      // DOM references
+      var chapterContainer = document.getElementById('chapter-container');
+      var stepButtons = document.querySelectorAll('.step-btn');
+      var progressText = document.getElementById('progress-text');
+      var progressFill = document.getElementById('progress-fill');
+      var progressAria = document.getElementById('progress-bar-aria');
+
+      // State for Mini Canvas in active chapter
+      var simState = { tx: 0, ty: 0, rot: 0, scale: 100, axis: 'none' };
+
+      function scheduleSimRender() {
+        if (!simRenderScheduled) {
+          simRenderScheduled = true;
+          requestAnimationFrame(function() {
+            updateMiniCanvas();
+            simRenderScheduled = false;
+          });
+        }
+      }
+
       function renderChapter(idx) {
         currentChapterIdx = idx;
         var data = chapters[idx];
         simState = { tx: 0, ty: 0, rot: 0, scale: 100, axis: 'none' };
 
-        // Update Nav & Progress
+        // Update Nav & Progress with ARIA
         stepButtons.forEach(function(btn, i) {
-          btn.classList.toggle('active', i === idx);
+          var isCurrent = (i === idx);
+          btn.classList.toggle('active', isCurrent);
+          btn.setAttribute('aria-selected', String(isCurrent));
           if (completedChapters[i]) {
             btn.classList.add('completed');
             document.getElementById('step-num-' + (i + 1)).textContent = '✓';
@@ -1030,6 +1064,8 @@
             document.getElementById('step-num-' + (i + 1)).textContent = String(i + 1);
           }
         });
+
+        chapterContainer.setAttribute('aria-labelledby', 'tab-chap-' + (idx + 1));
 
         var pct = Math.round(((idx + 1) / chapters.length) * 100);
         progressText.textContent = 'Progres Belajar: Bab ' + (idx + 1) + ' dari 4 (' + pct + '% Selesai)';
@@ -1057,9 +1093,9 @@
         html += '<div class="simulation-grid">';
         
         // Left: Mini Canvas
-        html += '  <div class="mini-canvas-box">';
+        html += '  <div class="mini-canvas-box" role="region" aria-label="Kanvas Simulasi Mini ' + data.title + '">';
         html += '    <div class="mini-canvas-svg-wrap">';
-        html += '      <svg viewBox="0 0 400 400" id="mini-svg" xmlns="http://www.w3.org/2000/svg">';
+        html += '      <svg viewBox="0 0 400 400" id="mini-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram Bidang Kartesius ' + data.title + '">';
         html += '        <defs>';
         html += '          <marker id="mini-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--emerald-dark)"/></marker>';
         html += '          <marker id="mini-arc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--amber-text)"/></marker>';
@@ -1095,7 +1131,7 @@
         html += '  <div class="sim-controls">';
         html += '    <div class="control-card">';
         html += '      <h3 class="control-card-title">' + data.simTitle + '</h3>';
-        html += '      <div class="quick-action-group">';
+        html += '      <div class="quick-action-group" role="group" aria-label="Pilihan aksi simulasi">';
         data.actions.forEach(function(act, actIdx) {
           html += '        <button class="btn-sim-action ' + (actIdx === 0 ? 'active' : '') + '" data-act-idx="' + actIdx + '" type="button">' + act.label + '</button>';
         });
@@ -1119,12 +1155,12 @@
         html += '    <span class="quiz-tag">Kuis Pemantik</span>';
         html += '  </div>';
         html += '  <p class="quiz-question">' + data.question + '</p>';
-        html += '  <div class="quiz-options">';
+        html += '  <div class="quiz-options" role="radiogroup" aria-label="Pilihan jawaban kuis ' + data.badge + '">';
         data.options.forEach(function(opt, optIdx) {
-          html += '    <button class="quiz-opt-btn" data-opt-idx="' + optIdx + '" type="button">' + opt.text + '</button>';
+          html += '    <button class="quiz-opt-btn" role="radio" aria-checked="false" data-opt-idx="' + optIdx + '" type="button">' + opt.text + '</button>';
         });
         html += '  </div>';
-        html += '  <div class="quiz-feedback" id="quiz-feedback"></div>';
+        html += '  <div class="quiz-feedback" id="quiz-feedback" role="status" aria-live="polite"></div>';
         html += '</section>';
 
         // Stepper Navigation Footer
@@ -1158,7 +1194,7 @@
             if (act.rot !== undefined) { simState.rot = act.rot; }
             if (act.scale !== undefined) { simState.scale = act.scale; }
             if (act.axis !== undefined) { simState.axis = act.axis; }
-            updateMiniCanvas();
+            scheduleSimRender();
           });
         });
 
@@ -1170,7 +1206,7 @@
           if (firstAct.scale !== undefined) { simState.scale = firstAct.scale; }
           if (firstAct.axis !== undefined) { simState.axis = firstAct.axis; }
         }
-        updateMiniCanvas();
+        scheduleSimRender();
 
         // Bind Quiz Options
         var quizButtons = document.querySelectorAll('.quiz-opt-btn');
@@ -1178,8 +1214,12 @@
 
         quizButtons.forEach(function(btn) {
           btn.addEventListener('click', function() {
-            quizButtons.forEach(function(b) { b.classList.remove('selected'); });
+            quizButtons.forEach(function(b) {
+              b.classList.remove('selected');
+              b.setAttribute('aria-checked', 'false');
+            });
             this.classList.add('selected');
+            this.setAttribute('aria-checked', 'true');
             var optIdx = parseInt(this.getAttribute('data-opt-idx'), 10);
             var opt = data.options[optIdx];
 
@@ -1319,17 +1359,36 @@
         else readout.textContent = 'Posisi Awal O(0,0)';
       }
 
-      // Bind Top Stepper Tabs
-      stepButtons.forEach(function(btn) {
+      // Bind Top Stepper Tabs (Click + Keyboard Arrow navigation)
+      stepButtons.forEach(function(btn, bIdx) {
         btn.addEventListener('click', function() {
           var chap = parseInt(this.getAttribute('data-chapter'), 10) - 1;
           renderChapter(chap);
         });
+
+        btn.addEventListener('keydown', function(e) {
+          if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            e.preventDefault();
+            var nextIdx = (bIdx + 1) % stepButtons.length;
+            stepButtons[nextIdx].focus();
+            renderChapter(nextIdx);
+          } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            var prevIdx = (bIdx - 1 + stepButtons.length) % stepButtons.length;
+            stepButtons[prevIdx].focus();
+            renderChapter(prevIdx);
+          }
+        });
       });
 
-      // Mobile Menu Toggle
+      // Mobile Menu Toggle & Keyboard Esc
       var menuToggle = document.getElementById('btn-menu-toggle');
       var mobileDrawer = document.getElementById('mobile-drawer');
+
+      function closeDrawer() {
+        mobileDrawer.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
 
       menuToggle.addEventListener('click', function() {
         var isOpen = mobileDrawer.classList.toggle('open');
@@ -1338,8 +1397,20 @@
 
       mobileDrawer.addEventListener('click', function(e) {
         if (e.target === mobileDrawer) {
-          mobileDrawer.classList.remove('open');
-          menuToggle.setAttribute('aria-expanded', 'false');
+          closeDrawer();
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+          closeDrawer();
+          menuToggle.focus();
+        }
+      });
+
+      window.addEventListener('resize', function() {
+        if (window.innerWidth >= 860 && mobileDrawer.classList.contains('open')) {
+          closeDrawer();
         }
       });
 
