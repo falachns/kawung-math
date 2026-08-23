@@ -184,19 +184,6 @@
       letter-spacing: -0.02em;
     }
     .brand-title span { color: var(--sogan); }
-    .brand-badge {
-      font-size: 0.8125rem;
-      font-weight: 800;
-      padding: 3px 8px;
-      background: var(--emerald-tint);
-      color: var(--emerald-dark);
-      border-radius: var(--radius-full);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    @media (max-width: 540px) {
-      .brand-badge { display: none; }
-    }
 
     .nav-desktop {
       display: none;
@@ -508,6 +495,7 @@
       font-family: var(--font-display);
       font-weight: 800;
       font-size: 0.8125rem;
+      font-variant-numeric: tabular-nums;
       flex-shrink: 0;
       transition: all 0.2s ease;
     }
@@ -727,6 +715,7 @@
       font-weight: 800;
       font-size: 1.125rem;
       color: var(--cyan-dark);
+      font-variant-numeric: tabular-nums;
     }
     .formula-desc {
       font-size: 0.9375rem;
@@ -736,13 +725,13 @@
 
     /* Quick Check Quiz Box */
     .quiz-box {
-      background: linear-gradient(135deg, var(--emerald-tint), var(--bg-card));
-      border: 1px solid rgba(var(--emerald-rgb), 0.25);
-      border-radius: var(--radius-lg);
-      padding: 20px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
     }
     .quiz-header {
       display: flex;
@@ -755,20 +744,24 @@
       font-size: 1.125rem;
       font-weight: 800;
       color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
     }
     .quiz-tag {
       font-size: 0.8125rem;
       font-weight: 800;
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: var(--radius-full);
-      background: var(--emerald-dark);
-      color: #FFFFFF;
+      background: var(--sogan-tint);
+      color: var(--sogan-dark);
+      border: 1px solid rgba(var(--sogan-rgb), 0.2);
       text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .quiz-question {
       font-size: 0.9375rem;
       font-weight: 600;
       color: var(--text-primary);
+      line-height: 1.6;
     }
     .quiz-options {
       display: grid;
@@ -782,48 +775,66 @@
     }
     .quiz-opt-btn {
       min-height: 48px;
-      padding: 12px 16px;
+      padding: 12px 18px;
       font-family: var(--font-body);
-      font-size: 0.875rem;
+      font-size: 0.9375rem;
       font-weight: 700;
       border-radius: var(--radius-md);
       border: 1.5px solid var(--border);
-      background: var(--bg-card);
+      background: #FFFFFF;
       color: var(--text-primary);
       cursor: pointer;
       display: flex;
       align-items: center;
       text-align: left;
       transition: all 0.2s ease;
+      font-variant-numeric: tabular-nums;
     }
     .quiz-opt-btn:hover {
-      border-color: var(--emerald);
-      background: var(--emerald-tint);
+      border-color: var(--sogan);
+      background: var(--sogan-tint);
+      color: var(--sogan-dark);
     }
     .quiz-opt-btn:active {
       transform: scale(0.98);
     }
     .quiz-opt-btn.selected {
-      border-color: var(--emerald-dark);
-      background: var(--emerald-dark);
-      color: #FFFFFF;
+      border-color: var(--cyan);
+      background: var(--cyan-tint);
+      color: var(--cyan-dark);
+      font-weight: 800;
+    }
+    .quiz-opt-btn.correct {
+      border: 2px solid #059669 !important;
+      background: #ECFDF5 !important;
+      color: #065F46 !important;
+      font-weight: 800;
+    }
+    .quiz-opt-btn.wrong {
+      border: 2px solid #DC2626 !important;
+      background: #FEF2F2 !important;
+      color: #991B1B !important;
+      font-weight: 800;
     }
     .quiz-feedback {
       font-size: 0.9375rem;
       font-weight: 700;
       display: none;
       padding: 12px 16px;
-      border-radius: var(--radius-sm);
+      border-radius: var(--radius-md);
+      line-height: 1.5;
     }
     .quiz-feedback.success {
       display: block;
-      background: #D1FAE5;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
       color: #065F46;
     }
     .quiz-feedback.try-again {
       display: block;
-      background: #FEF3C7;
-      color: #92400E;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: #991B1B;
     }
 
     /* Stepper Action Bar */
@@ -842,8 +853,8 @@
       gap: 8px;
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 0.8125rem;
-      padding: 10px 20px;
+      font-size: 0.875rem;
+      padding: 10px 22px;
       border-radius: var(--radius-full);
       cursor: pointer;
       text-decoration: none;
@@ -857,24 +868,25 @@
     .btn-step-prev:hover {
       border-color: var(--sogan);
       color: var(--sogan-dark);
+      background: var(--sogan-tint);
     }
-    .btn-step-next {
-      background: var(--sogan);
-      color: #FFFFFF;
-      border: none;
-    }
-    .btn-step-next:hover {
-      background: var(--sogan-dark);
-      transform: translateY(-1px);
-    }
+    .btn-step-next,
     .btn-step-sandbox {
-      background: var(--cyan-dark);
-      color: #FFFFFF;
+      background: var(--sogan);
+      color: #FFFFFF !important;
       border: none;
+      box-shadow: 0 2px 8px rgba(184, 82, 27, 0.25);
     }
+    .btn-step-next:hover,
     .btn-step-sandbox:hover {
-      background: #0369a1;
+      background: var(--sogan-dark);
+      color: #FFFFFF !important;
       transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(184, 82, 27, 0.35);
+    }
+    .btn-step-next:active,
+    .btn-step-sandbox:active {
+      transform: scale(0.98);
     }
 
     /* ===== FOOTER ===== */
@@ -922,7 +934,6 @@
           <circle cx="18" cy="18" r="2.5" fill="var(--amber)"/>
         </svg>
         <span class="brand-title">Kawung<span>Math</span></span>
-        <span class="brand-badge">Modul Explore</span>
       </a>
 
       <!-- Desktop Nav -->
@@ -1335,7 +1346,7 @@
         quizButtons.forEach(function(btn) {
           btn.addEventListener('click', function() {
             quizButtons.forEach(function(b) {
-              b.classList.remove('selected');
+              b.classList.remove('selected', 'correct', 'wrong');
               b.setAttribute('aria-checked', 'false');
             });
             this.classList.add('selected');
@@ -1344,12 +1355,14 @@
             var opt = data.options[optIdx];
 
             if (opt.correct) {
+              this.classList.add('correct');
               feedbackEl.className = 'quiz-feedback success';
               feedbackEl.textContent = '🎉 ' + data.explanation;
               completedChapters[idx] = true;
               document.getElementById('step-num-' + (idx + 1)).textContent = '✓';
               document.querySelector('.step-btn[data-chapter="' + (idx + 1) + '"]').classList.add('completed');
             } else {
+              this.classList.add('wrong');
               feedbackEl.className = 'quiz-feedback try-again';
               feedbackEl.textContent = '💡 Belum tepat, coba teliti kembali perhitungannya ya!';
             }

@@ -182,19 +182,6 @@
       letter-spacing: -0.02em;
     }
     .brand-title span { color: var(--sogan); }
-    .brand-badge {
-      font-size: 0.8125rem;
-      font-weight: 800;
-      padding: 3px 8px;
-      background: var(--cyan-tint);
-      color: var(--cyan-dark);
-      border-radius: var(--radius-full);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    @media (max-width: 540px) {
-      .brand-badge { display: none; }
-    }
 
     .nav-desktop {
       display: none;
@@ -579,6 +566,7 @@
       font-weight: 800;
       font-size: 1.125rem;
       color: var(--cyan-dark);
+      font-variant-numeric: tabular-nums;
     }
     .explanation-text {
       font-size: 0.9375rem;
@@ -756,31 +744,29 @@
       transition: all 0.2s ease;
     }
     .btn-axis:hover {
-      border-color: var(--cyan);
-      color: var(--cyan-dark);
-      background: var(--cyan-tint);
+      border-color: var(--sogan);
+      color: var(--sogan-dark);
+      background: var(--sogan-tint);
     }
     .btn-axis:active {
       transform: scale(0.98);
     }
     .btn-axis.active {
-      background: var(--cyan-dark);
+      background: var(--sogan);
       color: #ffffff;
-      border-color: var(--cyan-dark);
+      border-color: var(--sogan);
       font-weight: 800;
-    }
-      border-color: var(--cyan-dark);
     }
 
     /* Mini Challenge Box */
     .challenge-box {
-      background: linear-gradient(135deg, var(--emerald-tint), var(--bg-card));
-      border: 1px solid rgba(var(--emerald-rgb), 0.25);
-      border-radius: var(--radius-lg);
-      padding: 16px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 20px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
     }
     .challenge-header {
       display: flex;
@@ -790,45 +776,56 @@
     .challenge-tag {
       font-size: 0.8125rem;
       font-weight: 800;
-      padding: 2px 8px;
+      padding: 3px 10px;
       border-radius: var(--radius-full);
-      background: var(--emerald-dark);
-      color: #fff;
+      background: var(--sogan-tint);
+      color: var(--sogan-dark);
+      border: 1px solid rgba(var(--sogan-rgb), 0.2);
       text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
     .btn-check {
-      background: var(--emerald-dark);
-      color: #ffffff;
+      background: var(--sogan);
+      color: #ffffff !important;
       font-family: var(--font-display);
       font-weight: 700;
-      font-size: 0.8125rem;
-      padding: 8px 16px;
+      font-size: 0.875rem;
+      padding: 10px 22px;
       border-radius: var(--radius-full);
       border: none;
       cursor: pointer;
       align-self: flex-start;
-      transition: transform 0.2s ease, background-color 0.2s ease;
+      box-shadow: 0 2px 8px rgba(184, 82, 27, 0.25);
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
     }
     .btn-check:hover {
-      background: #042f24;
+      background: var(--sogan-dark);
+      color: #ffffff !important;
       transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(184, 82, 27, 0.35);
+    }
+    .btn-check:active {
+      transform: scale(0.98);
     }
     .challenge-result {
       font-size: 0.9375rem;
       font-weight: 700;
       display: none;
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      line-height: 1.5;
     }
     .challenge-result.success {
       display: block;
-      background: #D1FAE5;
+      background: #ECFDF5;
+      border: 1px solid #A7F3D0;
       color: #065F46;
     }
     .challenge-result.try-again {
       display: block;
-      background: #FEF3C7;
-      color: #92400E;
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      color: #991B1B;
     }
 
     /* ===== FOOTER ===== */
@@ -875,7 +872,6 @@
           <circle cx="18" cy="18" r="2.5" fill="var(--amber)"/>
         </svg>
         <span class="brand-title">Kawung<span>Math</span></span>
-        <span class="brand-badge">Sandbox Lab</span>
       </a>
 
       <!-- Desktop Nav -->
