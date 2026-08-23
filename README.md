@@ -73,6 +73,7 @@ kawung-math/
 ├── .gitignore          # Konfigurasi ignore file lokal
 ├── favicon.svg         # Favicon vektor SVG motif Kawung
 ├── index.html          # Halaman beranda utama terpadu (HTML5 + CSS + JS)
+├── explore.html        # Modul belajar interaktif bite-sized (4 Bab Transformasi Geometri)
 ├── sandbox.html        # Halaman laboratorium interaktif khusus siswa SMP
 ├── LICENSE             # Lisensi Open Source MIT
 ├── README.md           # Dokumentasi resmi project
@@ -82,6 +83,12 @@ kawung-math/
 ```
 
 ---
+
+## 🌐 Akses Live Production
+
+- **Landing Page:** [https://kawung-math.vercel.app/](https://kawung-math.vercel.app/)
+- **Kawung Explore (Modul):** [https://kawung-math.vercel.app/explore.html](https://kawung-math.vercel.app/explore.html)
+- **Interactive Sandbox:** [https://kawung-math.vercel.app/sandbox.html](https://kawung-math.vercel.app/sandbox.html)
 
 ## ♿ Aksesibilitas & Standar Desain
 
