@@ -149,11 +149,11 @@
     }
     .skip-link:focus { transform: translateY(0); }
 
-    /* ===== NAVBAR ===== */
+    /* ===== SITE HEADER ===== */
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
       background: rgba(255, 250, 245, 0.95);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -162,7 +162,7 @@
     .header-inner {
       max-width: 1240px;
       margin: 0 auto;
-      height: 68px;
+      height: 64px;
       padding: 0 clamp(16px, 3vw, 32px);
       display: flex;
       align-items: center;
@@ -175,6 +175,7 @@
       gap: 10px;
       text-decoration: none;
       color: var(--text-primary);
+      white-space: nowrap;
     }
     .brand-title {
       font-family: var(--font-display);
@@ -192,6 +193,9 @@
       border-radius: var(--radius-full);
       text-transform: uppercase;
       letter-spacing: 0.05em;
+    }
+    @media (max-width: 540px) {
+      .brand-badge { display: none; }
     }
 
     .nav-desktop {
@@ -254,23 +258,48 @@
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(var(--shadow-color), 0.12);
     }
+    @media (max-width: 860px) {
+      .nav-actions .btn-nav-sandbox { display: none !important; }
+    }
 
-    /* Mobile Menu Button */
+    /* Mobile Menu Button - 3-bar animated hamburger */
     .btn-menu-toggle {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       justify-content: center;
+      align-items: center;
+      gap: 5px;
       width: 44px;
       height: 44px;
+      padding: 0;
       border-radius: var(--radius-md);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-light);
       background: var(--bg-card);
       color: var(--text-primary);
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      z-index: 1001;
     }
     .btn-menu-toggle:hover {
       background: var(--sogan-tint);
+      border-color: var(--sogan);
+    }
+    .btn-menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 1px;
+      transition: transform 0.25s var(--ease-out), opacity 0.2s ease;
+    }
+    .btn-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .btn-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+    .btn-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
     }
     @media (min-width: 860px) {
       .btn-menu-toggle { display: none; }
@@ -280,20 +309,28 @@
     .mobile-drawer {
       display: none;
       position: fixed;
-      top: 68px; left: 0; right: 0; bottom: 0;
+      top: 64px; left: 0; right: 0; bottom: 0;
+      width: 100vw;
+      height: calc(100vh - 64px);
+      height: calc(100dvh - 64px);
       background: rgba(15, 23, 42, 0.45);
-      backdrop-filter: blur(4px);
-      z-index: 99;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 999;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .mobile-drawer.open { display: block; }
     .drawer-content {
-      background: var(--bg-card);
-      padding: 24px;
+      background: rgba(255, 250, 245, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 20px clamp(16px, 4vw, 32px) 32px;
       border-bottom: 1px solid var(--border-light);
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      box-shadow: 0 12px 32px rgba(var(--shadow-color), 0.1);
+      gap: 8px;
     }
     .drawer-link {
       font-family: var(--font-display);
@@ -301,10 +338,12 @@
       font-weight: 700;
       color: var(--text-primary);
       text-decoration: none;
-      padding: 10px 16px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
       border-radius: var(--radius-md);
       transition: color 0.2s ease, background-color 0.2s ease;
-      display: block;
     }
     .drawer-link:hover {
       color: var(--sogan-dark);
@@ -320,6 +359,7 @@
 
     /* ===== PROGRESS BAR TRACKER ===== */
     .progress-tracker {
+      margin-top: 64px;
       background: var(--bg-warm);
       border-bottom: 1px solid var(--border-light);
       padding: 10px clamp(16px, 3vw, 32px);
@@ -866,7 +906,9 @@
           Buka Sandbox Lab
         </a>
         <button class="btn-menu-toggle" id="btn-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Buka menu navigasi mobile">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
       </div>
     </div>
@@ -880,7 +922,7 @@
       <a href="sandbox.html" class="drawer-link">Transform</a>
       <a href="index.html#labs" class="drawer-link">Design Labs</a>
       <a href="index.html#challenge" class="drawer-link">Challenge</a>
-      <a href="sandbox.html" class="btn-nav-sandbox" style="justify-content: center; margin-top: 12px;">Buka Sandbox Lab</a>
+      <a href="sandbox.html" class="btn-primary" style="width: 100%; min-height: 48px; margin-top: 8px;">Buka Sandbox Lab</a>
     </div>
   </div>
 
@@ -1446,33 +1488,55 @@
       var mobileDrawer = document.getElementById('mobile-drawer');
 
       function closeDrawer() {
+        if (!mobileDrawer || !menuToggle) return;
         mobileDrawer.classList.remove('open');
         menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
       }
 
-      menuToggle.addEventListener('click', function() {
-        var isOpen = mobileDrawer.classList.toggle('open');
-        this.setAttribute('aria-expanded', String(isOpen));
-      });
+      function openDrawer() {
+        if (!mobileDrawer || !menuToggle) return;
+        mobileDrawer.classList.add('open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
 
-      mobileDrawer.addEventListener('click', function(e) {
-        if (e.target === mobileDrawer) {
-          closeDrawer();
-        }
-      });
+      if (menuToggle && mobileDrawer) {
+        menuToggle.addEventListener('click', function() {
+          var isOpen = mobileDrawer.classList.contains('open');
+          if (isOpen) {
+            closeDrawer();
+          } else {
+            openDrawer();
+          }
+        });
 
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
-          closeDrawer();
-          menuToggle.focus();
-        }
-      });
+        mobileDrawer.addEventListener('click', function(e) {
+          if (e.target === mobileDrawer) {
+            closeDrawer();
+          }
+        });
 
-      window.addEventListener('resize', function() {
-        if (window.innerWidth >= 860 && mobileDrawer.classList.contains('open')) {
-          closeDrawer();
-        }
-      });
+        var drawerLinks = mobileDrawer.querySelectorAll('.drawer-link, .btn-primary, .btn-nav-sandbox');
+        drawerLinks.forEach(function(link) {
+          link.addEventListener('click', function() {
+            closeDrawer();
+          });
+        });
+
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
+            closeDrawer();
+            menuToggle.focus();
+          }
+        });
+
+        window.addEventListener('resize', function() {
+          if (window.innerWidth >= 860 && mobileDrawer.classList.contains('open')) {
+            closeDrawer();
+          }
+        });
+      }
 
       // Initial Chapter Load
       renderChapter(0);
