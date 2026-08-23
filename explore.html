@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kawung Explore — Modul Belajar Interaktif Transformasi Geometri SMP</title>
+  <meta name="description" content="Modul belajar interaktif bertahap transformasi geometri (translasi, refleksi, rotasi, dilatasi) berbasis motif Batik Kawung untuk siswa SMP.">
+  <meta name="theme-color" content="#FFFAF5">
+  <link rel="canonical" href="https://kawung-math.vercel.app/explore.html">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="favicon.svg">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kawung Explore — Modul Belajar Interaktif Transformasi Geometri SMP">
+  <meta property="og:description" content="Modul belajar bertahap transformasi geometri (translasi, refleksi, rotasi, dilatasi) berbasis motif Batik Kawung untuk siswa SMP.">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:site_name" content="Kawung Math">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kawung Explore — Modul Belajar Interaktif Transformasi Geometri SMP">
+  <meta name="twitter:description" content="Modul belajar bertahap transformasi geometri berbasis motif Batik Kawung untuk siswa SMP.">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "Kawung Explore — Modul Belajar Transformasi Geometri",
+    "description": "Modul interaktif kurikulum SMP Fase D untuk materi translasi, refleksi, rotasi, dan dilatasi dengan pendekatan Etnomatematika Batik Kawung.",
+    "educationalLevel": "Junior High School",
+    "inLanguage": "id",
+    "learningResourceType": "Interactive Lesson",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "IDR"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap">
+  </noscript>
+
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --bg: #FFFAF5;
+      --bg-warm: #FFF4EA;
+      --bg-card: #FFFFFF;
+      --sogan: #B8521B;
+      --sogan-rgb: 184, 82, 27;
+      --sogan-dark: #7C2D12;
+      --sogan-tint: #FEF2E8;
+      --amber: #D97706;
+      --amber-rgb: 217, 119, 6;
+      --amber-text: #92400E;
+      --cyan: #0284C7;
+      --cyan-rgb: 2, 132, 199;
+      --cyan-dark: #075985;
+      --cyan-tint: #E0F2FE;
+      --emerald: #0D9488;
+      --emerald-rgb: 13, 148, 136;
+      --emerald-dark: #064E3B;
+      --emerald-tint: #CCFBF1;
+      --purple: #7C3AED;
+      --purple-rgb: 124, 58, 237;
+      --purple-dark: #4C1D95;
+      --purple-tint: #F3E8FF;
+      --text-primary: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #475569;
+      --border: #E2D9CF;
+      --border-light: #EFE8DF;
+      --shadow-color: 24, 18, 12;
+      --font-display: 'Outfit', system-ui, sans-serif;
+      --font-body: 'Nunito', system-ui, sans-serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--text-primary);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Custom Text Selection */
+    ::selection {
+      background-color: #C26D38;
+      color: #FFFFFF;
+    }
+    ::-moz-selection {
+      background-color: #C26D38;
+      color: #FFFFFF;
+    }
+
+    /* Accessibility */
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    :focus:not(:focus-visible) { outline: none; }
+    .skip-link {
+      position: absolute;
+      top: 16px; left: 16px;
+      z-index: 10000;
+      padding: 12px 20px;
+      background: var(--sogan);
+      color: #fff;
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      transform: translateY(-160%);
+      transition: transform 0.2s var(--ease-out);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    /* ===== NAVBAR ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 250, 245, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .header-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      height: 68px;
+      padding: 0 clamp(16px, 3vw, 32px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-title span { color: var(--sogan); }
+    .brand-badge {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      background: var(--emerald-tint);
+      color: var(--emerald-dark);
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (min-width: 860px) {
+      .nav-desktop { display: flex; }
+    }
+    .nav-link {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--sogan);
+      background: var(--sogan-tint);
+    }
+    .nav-link.active {
+      color: var(--sogan-dark);
+      background: var(--sogan-tint);
+      font-weight: 800;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav-sandbox {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      background: var(--cyan-dark);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .btn-nav-sandbox:hover {
+      background: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    /* Mobile Menu Button */
+    .btn-menu-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+    }
+    @media (min-width: 860px) {
+      .btn-menu-toggle { display: none; }
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 99;
+    }
+    .mobile-drawer.open { display: block; }
+    .drawer-content {
+      background: var(--bg-card);
+      padding: 24px;
+      border-bottom: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 12px 32px rgba(var(--shadow-color), 0.1);
+    }
+    .drawer-link {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+    }
+    .drawer-link.active {
+      background: var(--sogan-tint);
+      color: var(--sogan-dark);
+    }
+
+    /* ===== PROGRESS BAR TRACKER ===== */
+    .progress-tracker {
+      background: var(--bg-warm);
+      border-bottom: 1px solid var(--border-light);
+      padding: 10px clamp(16px, 3vw, 32px);
+    }
+    .progress-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .progress-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8125rem;
+      font-weight: 800;
+      color: var(--sogan-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .progress-bar-wrap {
+      flex: 1;
+      min-width: 180px;
+      max-width: 320px;
+      height: 8px;
+      background: var(--border);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(90deg, var(--sogan), var(--emerald));
+      border-radius: var(--radius-full);
+      transform-origin: left center;
+      transform: scaleX(0.25);
+      transition: transform 0.3s var(--ease-out);
+    }
+
+    /* ===== MAIN CONTENT LAYOUT ===== */
+    .explore-main {
+      flex: 1;
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+      padding: clamp(16px, 3vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Page Intro */
+    .explore-header {
+      margin-bottom: 4px;
+    }
+    .page-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+      line-height: 1.2;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      max-width: 780px;
+    }
+
+    /* Stepper Tabs Bar */
+    .stepper-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 8px;
+      background: var(--bg-card);
+      padding: 8px;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-light);
+    }
+    .step-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      background: transparent;
+      border: 1px solid transparent;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .step-btn:hover {
+      background: var(--bg-warm);
+    }
+    .step-btn.active {
+      background: var(--sogan-tint);
+      border-color: rgba(var(--sogan-rgb), 0.3);
+    }
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--border);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8125rem;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .step-btn.active .step-num {
+      background: var(--sogan);
+      color: #FFFFFF;
+    }
+    .step-btn.completed .step-num {
+      background: var(--emerald-dark);
+      color: #FFFFFF;
+    }
+    .step-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+    .step-subtitle {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Chapter Content Card */
+    .chapter-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: clamp(20px, 3.5vw, 36px);
+      box-shadow: 0 4px 16px rgba(var(--shadow-color), 0.03);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    /* Section Headings inside Chapter */
+    .chapter-hero {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 18px;
+    }
+    .chapter-badge-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .chapter-badge {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .badge-translasi { background: var(--emerald-tint); color: var(--emerald-dark); }
+    .badge-refleksi { background: var(--purple-tint); color: var(--purple-dark); }
+    .badge-rotasi { background: var(--sogan-tint); color: var(--sogan-dark); }
+    .badge-dilatasi { background: var(--cyan-tint); color: var(--cyan-dark); }
+
+    .chapter-h2 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      line-height: 1.25;
+    }
+
+    /* Cultural Narrative Box */
+    .culture-narrative {
+      background: var(--bg-warm);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 18px 20px;
+    }
+    .narrative-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.9375rem;
+      color: var(--sogan-dark);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .narrative-p {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Two-Column Interactive Simulation Grid */
+    .simulation-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (min-width: 900px) {
+      .simulation-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+      }
+    }
+
+    /* Canvas Box */
+    .mini-canvas-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 2px 8px rgba(var(--shadow-color), 0.03);
+    }
+    .mini-canvas-svg-wrap {
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 1 / 1;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+    .mini-canvas-svg-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Simulation Control Widgets */
+    .sim-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .control-card {
+      background: var(--bg-warm);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .control-card-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.125rem;
+      color: var(--text-primary);
+    }
+
+    /* Quick Action Button Group */
+    .quick-action-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .btn-sim-action {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-sim-action:hover {
+      border-color: var(--sogan);
+      color: var(--sogan-dark);
+      background: var(--sogan-tint);
+    }
+    .btn-sim-action.active {
+      background: var(--sogan);
+      color: #FFFFFF;
+      border-color: var(--sogan);
+    }
+
+    /* Formula & Mathematical Concept Box */
+    .formula-explanation-box {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .formula-tag {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    .formula-math-display {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.125rem;
+      color: var(--cyan-dark);
+    }
+    .formula-desc {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* Quick Check Quiz Box */
+    .quiz-box {
+      background: linear-gradient(135deg, var(--emerald-tint), var(--bg-card));
+      border: 1px solid rgba(var(--emerald-rgb), 0.25);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .quiz-h3 {
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+    .quiz-tag {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      background: var(--emerald-dark);
+      color: #FFFFFF;
+      text-transform: uppercase;
+    }
+    .quiz-question {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+    }
+    .quiz-opt-btn {
+      padding: 10px 14px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: 1.5px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+    .quiz-opt-btn:hover {
+      border-color: var(--emerald);
+      background: var(--emerald-tint);
+    }
+    .quiz-opt-btn.selected {
+      border-color: var(--emerald-dark);
+      background: var(--emerald-dark);
+      color: #FFFFFF;
+    }
+    .quiz-feedback {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      display: none;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+    }
+    .quiz-feedback.success {
+      display: block;
+      background: #D1FAE5;
+      color: #065F46;
+    }
+    .quiz-feedback.try-again {
+      display: block;
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    /* Stepper Action Bar */
+    .stepper-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid var(--border-light);
+      padding-top: 20px;
+    }
+    .btn-step-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .btn-step-prev {
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1.5px solid var(--border);
+    }
+    .btn-step-prev:hover {
+      border-color: var(--sogan);
+      color: var(--sogan-dark);
+    }
+    .btn-step-next {
+      background: var(--sogan);
+      color: #FFFFFF;
+      border: none;
+    }
+    .btn-step-next:hover {
+      background: var(--sogan-dark);
+      transform: translateY(-1px);
+    }
+    .btn-step-sandbox {
+      background: var(--cyan-dark);
+      color: #FFFFFF;
+      border: none;
+    }
+    .btn-step-sandbox:hover {
+      background: #0369a1;
+      transform: translateY(-1px);
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      border-top: 1px solid var(--border-light);
+      padding: 24px clamp(16px, 3vw, 32px);
+      background: var(--bg-card);
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .footer-inner a {
+      color: var(--sogan);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for keyboard users -->
+  <a href="#explore-content" class="skip-link">Lewati ke konten modul belajar</a>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrap" aria-label="Kawung Math, kembali ke beranda">
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <line x1="18" y1="2" x2="18" y2="34" stroke="var(--text-muted)" stroke-width="0.7"/>
+          <line x1="2" y1="18" x2="34" y2="18" stroke="var(--text-muted)" stroke-width="0.7"/>
+          <ellipse cx="18" cy="11" rx="5" ry="7" fill="none" stroke="var(--sogan)" stroke-width="1.3"/>
+          <ellipse cx="18" cy="25" rx="5" ry="7" fill="none" stroke="var(--sogan)" stroke-width="1.3"/>
+          <ellipse cx="11" cy="18" rx="7" ry="5" fill="none" stroke="var(--sogan)" stroke-width="1.3"/>
+          <ellipse cx="25" cy="18" rx="7" ry="5" fill="none" stroke="var(--sogan)" stroke-width="1.3"/>
+          <circle cx="18" cy="18" r="2.5" fill="var(--amber)"/>
+        </svg>
+        <span class="brand-title">Kawung<span>Math</span></span>
+        <span class="brand-badge">Modul Explore</span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-desktop" aria-label="Navigasi Utama">
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="explore.html" class="nav-link active" aria-current="page">Kawung Explore</a>
+        <a href="sandbox.html" class="nav-link">Sandbox Lab</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="sandbox.html" class="btn-nav-sandbox">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3h12M2 8h12M2 13h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Buka Sandbox Lab
+        </a>
+        <button class="btn-menu-toggle" id="btn-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Buka menu navigasi mobile">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu navigasi modul">
+    <div class="drawer-content">
+      <a href="index.html" class="drawer-link">Beranda</a>
+      <a href="explore.html" class="drawer-link active">Kawung Explore (Modul)</a>
+      <a href="sandbox.html" class="drawer-link">Interactive Sandbox Lab</a>
+    </div>
+  </div>
+
+  <!-- ===== PROGRESS TRACKER ===== -->
+  <div class="progress-tracker" aria-label="Indikator Kemajuan Belajar">
+    <div class="progress-inner">
+      <div class="progress-label">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        <span id="progress-text">Progres Belajar: Bab 1 dari 4 (25% Selesai)</span>
+      </div>
+      <div class="progress-bar-wrap" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" id="progress-bar-aria">
+        <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="explore-main" id="explore-content">
+
+    <!-- Page Intro Heading -->
+    <div class="explore-header">
+      <h1 class="page-title">Kawung Explore: Petualangan Transformasi Geometri</h1>
+      <p class="page-subtitle">Pelajari langkah demi langkah bagaimana 4 pilar transformasi geometri membentuk keteraturan estetis motif Batik Kawung Nusantara.</p>
+    </div>
+
+    <!-- Stepper Chapter Tabs -->
+    <nav class="stepper-nav" aria-label="Pilih Bab Pembelajaran">
+      <button class="step-btn active" data-chapter="1" type="button" aria-current="step">
+        <span class="step-num" id="step-num-1">1</span>
+        <div class="step-info">
+          <span class="step-title">Bab 1: Translasi</span>
+          <span class="step-subtitle">Pergeseran Vektor</span>
+        </div>
+      </button>
+
+      <button class="step-btn" data-chapter="2" type="button">
+        <span class="step-num" id="step-num-2">2</span>
+        <div class="step-info">
+          <span class="step-title">Bab 2: Refleksi</span>
+          <span class="step-subtitle">Sumbu Cermin</span>
+        </div>
+      </button>
+
+      <button class="step-btn" data-chapter="3" type="button">
+        <span class="step-num" id="step-num-3">3</span>
+        <div class="step-info">
+          <span class="step-title">Bab 3: Rotasi</span>
+          <span class="step-subtitle">Simetri Putar Kelopak</span>
+        </div>
+      </button>
+
+      <button class="step-btn" data-chapter="4" type="button">
+        <span class="step-num" id="step-num-4">4</span>
+        <div class="step-info">
+          <span class="step-title">Bab 4: Dilatasi</span>
+          <span class="step-subtitle">Skala Ukuran Motif</span>
+        </div>
+      </button>
+    </nav>
+
+    <!-- Chapter Dynamic Container -->
+    <div id="chapter-container">
+      <!-- Chapter content will be populated dynamically via JavaScript -->
+    </div>
+
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <span>&copy; 2026 <strong>Kawung Math</strong> &mdash; Made with Love by <a href="https://instagram.com/robawati" target="_blank" rel="noopener noreferrer">Robawati</a></span>
+      <span>Kurikulum Merdeka Matematika SMP (Fase D)</span>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPT & ENGINE ===== -->
+  <script>
+    (function() {
+      // Chapter Data Definitions
+      var chapters = [
+        {
+          id: 1,
+          badge: 'Bab 1: Translasi (Pergeseran)',
+          badgeClass: 'badge-translasi',
+          title: 'Translasi: Menggeser Motif Tanpa Mengubah Bentuk',
+          narrativeTitle: '🌿 Apersepsi Budaya Nusantara',
+          narrative: 'Dalam selembar kain Batik Kawung, ornamen bunga kelopak berulang secara konsisten ke arah kanan, kiri, atas, dan bawah. Para pembatik menjiplak motif dasar dengan menggesernya pada jarak yang sama. Dalam matematika, proses pergeseran ini dinamakan <strong>Translasi</strong>.',
+          formula: 'P(x, y) \\xrightarrow{T(a, b)} P\'(x + a, y + b)',
+          formulaDesc: 'Bentuk, ukuran, dan arah hadap motif tetap sama persis; yang berubah hanyalah kedudukan titik pusat koordinatnya.',
+          simTitle: 'Simulasi Mini: Geser Vektor Motif',
+          actions: [
+            { label: 'Geser Kanan (+40, 0)', tx: 40, ty: 0 },
+            { label: 'Geser Atas (0, +40)', tx: 0, ty: 40 },
+            { label: 'Geser Diagonal (40, 40)', tx: 40, ty: 40 },
+            { label: 'Reset (0, 0)', tx: 0, ty: 0 }
+          ],
+          quizTitle: '🎯 Quick Check Bab 1',
+          question: 'Sebuah titik pucuk motif berada di koordinat A(20, 10), lalu digeser oleh translasi T(30, -15). Di manakah koordinat bayangan A\'?',
+          options: [
+            { text: 'A\'(50, -5)', correct: true },
+            { text: 'A\'(-10, 25)', correct: false },
+            { text: 'A\'(50, 25)', correct: false }
+          ],
+          explanation: 'Benar! x\' = 20 + 30 = 50, dan y\' = 10 + (-15) = -5. Jadi A\'(50, -5).'
+        },
+        {
+          id: 2,
+          badge: 'Bab 2: Refleksi (Pencerminan)',
+          badgeClass: 'badge-refleksi',
+          title: 'Refleksi: Simetri Cermin Ornamen Kelopak',
+          narrativeTitle: '🪞 Apersepsi Budaya Nusantara',
+          narrative: 'Perhatikan kelopak Kawung bagian kiri dan kanan. Keduanya memiliki bentuk yang sama persis namun berhadapan simetris, seolah sedang bercermin pada garis tengah. Garis pembagi ini dalam matematika disebut <strong>Sumbu Cermin (Refleksi)</strong>.',
+          formula: 'M_{sb-X}: P(x, y) \\rightarrow P\'(x, -y) \\quad\\vert\\quad M_{sb-Y}: P(x, y) \\rightarrow P\'(-x, y)',
+          formulaDesc: 'Jarak motif asal ke sumbu cermin selalu sama dengan jarak bayangan ke sumbu cermin.',
+          simTitle: 'Simulasi Mini: Pilih Sumbu Cermin',
+          actions: [
+            { label: 'Cermin Sumbu-X (y = 0)', axis: 'x' },
+            { label: 'Cermin Sumbu-Y (x = 0)', axis: 'y' },
+            { label: 'Cermin Garis y = x', axis: 'yx' },
+            { label: 'Posisi Normal', axis: 'none' }
+          ],
+          quizTitle: '🎯 Quick Check Bab 2',
+          question: 'Titik pusat kelopak kanan berada di B(35, 0). Jika dicerminkan terhadap Sumbu-Y, di manakah titik bayangan B\'?',
+          options: [
+            { text: 'B\'(35, -35)', correct: false },
+            { text: 'B\'(-35, 0)', correct: true },
+            { text: 'B\'(0, 35)', correct: false }
+          ],
+          explanation: 'Tepat sekali! Pencerminan terhadap sumbu-Y mengubah tanda koordinat x: (x, y) → (-x, y). Sehingga B(35, 0) → B\'(-35, 0).'
+        },
+        {
+          id: 3,
+          badge: 'Bab 3: Rotasi (Perputaran)',
+          badgeClass: 'badge-rotasi',
+          title: 'Rotasi: Simetri Putar 4 Kelopak Bunga',
+          narrativeTitle: '🌸 Apersepsi Budaya Nusantara',
+          narrative: 'Ornamen Kawung terdiri dari 4 kelopak elips yang tersusun melingkar sempurna. Keempat kelopak ini sebenarnya berasal dari 1 kelopak saja yang diputar sebesar 90°, 180°, dan 270° mengelilingi titik pusat O(0,0). Inilah keajaiban <strong>Simetri Putar (Rotasi)</strong>.',
+          formula: 'R(O, 90^\\circ): P(x, y) \\rightarrow P\'(-y, x) \\quad\\vert\\quad R(O, 180^\\circ): P(x, y) \\rightarrow P\'(-x, -y)',
+          formulaDesc: 'Sudut putar positif bergerak berlawanan arah putaran jarum jam mengelilingi titik pusat O(0,0).',
+          simTitle: 'Simulasi Mini: Putar Sudut Kelopak',
+          actions: [
+            { label: 'Putar 90° CCW', rot: 90 },
+            { label: 'Putar 180°', rot: 180 },
+            { label: 'Putar 270°', rot: 270 },
+            { label: 'Putar 360° / 0°', rot: 0 }
+          ],
+          quizTitle: '🎯 Quick Check Bab 3',
+          question: 'Titik pucuk atas kelopak berada di C(0, 30). Jika diputar 90° berlawanan jarum jam berpusat di O(0,0), di manakah koordinat C\'?',
+          options: [
+            { text: 'C\'(-30, 0)', correct: true },
+            { text: 'C\'(30, 0)', correct: false },
+            { text: 'C\'(0, -30)', correct: false }
+          ],
+          explanation: 'Luar biasa! Rotasi 90° berlawanan jarum jam memetakan (x, y) → (-y, x). Karena C(0, 30), maka C\'(-30, 0).'
+        },
+        {
+          id: 4,
+          badge: 'Bab 4: Dilatasi (Penskalaan)',
+          badgeClass: 'badge-dilatasi',
+          title: 'Dilatasi: Penskalaan Ukuran Motif Kawung',
+          narrativeTitle: '📐 Apersepsi Budaya Nusantara',
+          narrative: 'Dalam seni batik klasik, ada motif Kawung Picis (berukuran mungil seperti koin picis) dan Kawung Sen (berukuran lebih besar). Perubahan ukuran ini dilakukan secara proporsional tanpa mengubah bentuk kelopak, yang merupakan konsep dari <strong>Dilatasi</strong>.',
+          formula: '[O, k]: P(x, y) \\rightarrow P\'(k \\cdot x, k \\cdot y)',
+          formulaDesc: 'Jika k > 1 maka motif diperbesar; jika 0 < k < 1 maka motif diperkecil secara proporsional.',
+          simTitle: 'Simulasi Mini: Ubah Skala Ukuran (k)',
+          actions: [
+            { label: 'Perkecil 0.5×', scale: 50 },
+            { label: 'Ukuran Normal 1.0×', scale: 100 },
+            { label: 'Perbesar 1.5×', scale: 150 },
+            { label: 'Zoom 1.8×', scale: 180 }
+          ],
+          quizTitle: '🎯 Quick Check Bab 4',
+          question: 'Titik ujung motif berada di D(15, 20). Jika mengalami dilatasi berpusat di O(0,0) dengan faktor skala k = 2, koordinat D\' adalah...',
+          options: [
+            { text: 'D\'(17, 22)', correct: false },
+            { text: 'D\'(30, 40)', correct: true },
+            { text: 'D\'(7.5, 10)', correct: false }
+          ],
+          explanation: 'Tepat sekali! Dilatasi dengan faktor k = 2 mengalikan setiap koordinat dengan 2: D\'(15 × 2, 20 × 2) = D\'(30, 40).'
+        }
+      ];
+
+      var currentChapterIdx = 0;
+      var completedChapters = {};
+
+      // DOM references
+      var chapterContainer = document.getElementById('chapter-container');
+      var stepButtons = document.querySelectorAll('.step-btn');
+      var progressText = document.getElementById('progress-text');
+      var progressFill = document.getElementById('progress-fill');
+      var progressAria = document.getElementById('progress-bar-aria');
+
+      // State for Mini Canvas in active chapter
+      var simState = { tx: 0, ty: 0, rot: 0, scale: 100, axis: 'none' };
+
+      function renderChapter(idx) {
+        currentChapterIdx = idx;
+        var data = chapters[idx];
+        simState = { tx: 0, ty: 0, rot: 0, scale: 100, axis: 'none' };
+
+        // Update Nav & Progress
+        stepButtons.forEach(function(btn, i) {
+          btn.classList.toggle('active', i === idx);
+          if (completedChapters[i]) {
+            btn.classList.add('completed');
+            document.getElementById('step-num-' + (i + 1)).textContent = '✓';
+          } else {
+            btn.classList.remove('completed');
+            document.getElementById('step-num-' + (i + 1)).textContent = String(i + 1);
+          }
+        });
+
+        var pct = Math.round(((idx + 1) / chapters.length) * 100);
+        progressText.textContent = 'Progres Belajar: Bab ' + (idx + 1) + ' dari 4 (' + pct + '% Selesai)';
+        progressFill.style.transform = 'scaleX(' + ((idx + 1) / chapters.length) + ')';
+        progressAria.setAttribute('aria-valuenow', String(idx + 1));
+
+        // Build HTML
+        var html = '<article class="chapter-card">';
+        
+        // Chapter Header
+        html += '<header class="chapter-hero">';
+        html += '  <div class="chapter-badge-wrap">';
+        html += '    <span class="chapter-badge ' + data.badgeClass + '">' + data.badge + '</span>';
+        html += '  </div>';
+        html += '  <h2 class="chapter-h2">' + data.title + '</h2>';
+        html += '</header>';
+
+        // Cultural Narrative
+        html += '<section class="culture-narrative">';
+        html += '  <h3 class="narrative-title">' + data.narrativeTitle + '</h3>';
+        html += '  <p class="narrative-p">' + data.narrative + '</p>';
+        html += '</section>';
+
+        // Two Column Simulation
+        html += '<div class="simulation-grid">';
+        
+        // Left: Mini Canvas
+        html += '  <div class="mini-canvas-box">';
+        html += '    <div class="mini-canvas-svg-wrap">';
+        html += '      <svg viewBox="0 0 400 400" id="mini-svg" xmlns="http://www.w3.org/2000/svg">';
+        html += '        <defs>';
+        html += '          <marker id="mini-arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--emerald-dark)"/></marker>';
+        html += '          <marker id="mini-arc" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="var(--amber-text)"/></marker>';
+        html += '        </defs>';
+        html += '        <g opacity="0.35">';
+        html += '          <line x1="0" y1="100" x2="400" y2="100" stroke="#CBD5E1" stroke-width="0.8"/>';
+        html += '          <line x1="0" y1="300" x2="400" y2="300" stroke="#CBD5E1" stroke-width="0.8"/>';
+        html += '          <line x1="100" y1="0" x2="100" y2="400" stroke="#CBD5E1" stroke-width="0.8"/>';
+        html += '          <line x1="300" y1="0" x2="300" y2="400" stroke="#CBD5E1" stroke-width="0.8"/>';
+        html += '        </g>';
+        html += '        <line x1="200" y1="0" x2="200" y2="400" stroke="var(--text-secondary)" stroke-width="1.4"/>';
+        html += '        <line x1="0" y1="200" x2="400" y2="200" stroke="var(--text-secondary)" stroke-width="1.4"/>';
+        html += '        <text x="388" y="190" fill="var(--text-secondary)" font-size="11" font-family="Outfit, sans-serif" font-weight="800" text-anchor="end">X</text>';
+        html += '        <text x="210" y="16" fill="var(--text-secondary)" font-size="11" font-family="Outfit, sans-serif" font-weight="800">Y</text>';
+        html += '        <text x="186" y="215" fill="var(--text-muted)" font-size="10" font-family="Outfit, sans-serif" font-weight="700">O</text>';
+        html += '        <line id="sim-mirror" x1="0" y1="200" x2="400" y2="200" stroke="var(--purple-dark)" stroke-width="2" stroke-dasharray="5 3" opacity="0"/>';
+        html += '        <g id="sim-rays"></g>';
+        html += '        <g opacity="0.3">';
+        html += '          <ellipse cx="200" cy="170" rx="16" ry="28" fill="none" stroke="var(--sogan)" stroke-width="1.4" stroke-dasharray="4 3"/>';
+        html += '          <ellipse cx="200" cy="230" rx="16" ry="28" fill="none" stroke="var(--sogan)" stroke-width="1.4" stroke-dasharray="4 3"/>';
+        html += '          <ellipse cx="170" cy="200" rx="28" ry="16" fill="none" stroke="var(--sogan)" stroke-width="1.4" stroke-dasharray="4 3"/>';
+        html += '          <ellipse cx="230" cy="200" rx="28" ry="16" fill="none" stroke="var(--sogan)" stroke-width="1.4" stroke-dasharray="4 3"/>';
+        html += '          <circle cx="200" cy="200" r="7" fill="var(--amber)" opacity="0.4"/>';
+        html += '        </g>';
+        html += '        <g id="sim-overlays"></g>';
+        html += '        <g id="sim-transformed"></g>';
+        html += '      </svg>';
+        html += '    </div>';
+        html += '    <span style="font-size: 0.8125rem; font-weight: 700; color: var(--text-muted);" id="sim-readout">Posisi Awal P(x, y) = P\'(x, y)</span>';
+        html += '  </div>';
+
+        // Right: Simulation Controls + Formula
+        html += '  <div class="sim-controls">';
+        html += '    <div class="control-card">';
+        html += '      <h3 class="control-card-title">' + data.simTitle + '</h3>';
+        html += '      <div class="quick-action-group">';
+        data.actions.forEach(function(act, actIdx) {
+          html += '        <button class="btn-sim-action ' + (actIdx === 0 ? 'active' : '') + '" data-act-idx="' + actIdx + '" type="button">' + act.label + '</button>';
+        });
+        html += '      </div>';
+        html += '    </div>';
+
+        // Formula Explanation Box
+        html += '    <div class="formula-explanation-box">';
+        html += '      <span class="formula-tag">Notasi &amp; Rumus Geometri</span>';
+        html += '      <div class="formula-math-display">' + data.formula + '</div>';
+        html += '      <p class="formula-desc">' + data.formulaDesc + '</p>';
+        html += '    </div>';
+        html += '  </div>';
+
+        html += '</div>'; // end simulation-grid
+
+        // Quick Check Quiz Box
+        html += '<section class="quiz-box">';
+        html += '  <div class="quiz-header">';
+        html += '    <h3 class="quiz-h3">' + data.quizTitle + '</h3>';
+        html += '    <span class="quiz-tag">Kuis Pemantik</span>';
+        html += '  </div>';
+        html += '  <p class="quiz-question">' + data.question + '</p>';
+        html += '  <div class="quiz-options">';
+        data.options.forEach(function(opt, optIdx) {
+          html += '    <button class="quiz-opt-btn" data-opt-idx="' + optIdx + '" type="button">' + opt.text + '</button>';
+        });
+        html += '  </div>';
+        html += '  <div class="quiz-feedback" id="quiz-feedback"></div>';
+        html += '</section>';
+
+        // Stepper Navigation Footer
+        html += '<footer class="stepper-actions">';
+        if (idx > 0) {
+          html += '  <button class="btn-step-nav btn-step-prev" id="btn-prev-chap" type="button">&larr; Bab Sebelumnya</button>';
+        } else {
+          html += '  <a href="index.html" class="btn-step-nav btn-step-prev">&larr; Kembali ke Beranda</a>';
+        }
+
+        if (idx < chapters.length - 1) {
+          html += '  <button class="btn-step-nav btn-step-next" id="btn-next-chap" type="button">Lanjut ke Bab ' + (idx + 2) + ' &rarr;</button>';
+        } else {
+          html += '  <a href="sandbox.html" class="btn-step-nav btn-step-sandbox">Uji Semua di Sandbox Lab &rarr;</a>';
+        }
+        html += '</footer>';
+
+        html += '</article>';
+
+        chapterContainer.innerHTML = html;
+
+        // Bind Simulation Actions
+        var simActionButtons = document.querySelectorAll('.btn-sim-action');
+        simActionButtons.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            simActionButtons.forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            var aIdx = parseInt(this.getAttribute('data-act-idx'), 10);
+            var act = data.actions[aIdx];
+            if (act.tx !== undefined) { simState.tx = act.tx; simState.ty = act.ty; }
+            if (act.rot !== undefined) { simState.rot = act.rot; }
+            if (act.scale !== undefined) { simState.scale = act.scale; }
+            if (act.axis !== undefined) { simState.axis = act.axis; }
+            updateMiniCanvas();
+          });
+        });
+
+        // Trigger first simulation action
+        if (data.actions.length > 0) {
+          var firstAct = data.actions[0];
+          if (firstAct.tx !== undefined) { simState.tx = firstAct.tx; simState.ty = firstAct.ty; }
+          if (firstAct.rot !== undefined) { simState.rot = firstAct.rot; }
+          if (firstAct.scale !== undefined) { simState.scale = firstAct.scale; }
+          if (firstAct.axis !== undefined) { simState.axis = firstAct.axis; }
+        }
+        updateMiniCanvas();
+
+        // Bind Quiz Options
+        var quizButtons = document.querySelectorAll('.quiz-opt-btn');
+        var feedbackEl = document.getElementById('quiz-feedback');
+
+        quizButtons.forEach(function(btn) {
+          btn.addEventListener('click', function() {
+            quizButtons.forEach(function(b) { b.classList.remove('selected'); });
+            this.classList.add('selected');
+            var optIdx = parseInt(this.getAttribute('data-opt-idx'), 10);
+            var opt = data.options[optIdx];
+
+            if (opt.correct) {
+              feedbackEl.className = 'quiz-feedback success';
+              feedbackEl.textContent = '🎉 ' + data.explanation;
+              completedChapters[idx] = true;
+              document.getElementById('step-num-' + (idx + 1)).textContent = '✓';
+              document.querySelector('.step-btn[data-chapter="' + (idx + 1) + '"]').classList.add('completed');
+            } else {
+              feedbackEl.className = 'quiz-feedback try-again';
+              feedbackEl.textContent = '💡 Belum tepat, coba teliti kembali perhitungannya ya!';
+            }
+          });
+        });
+
+        // Bind Next / Prev buttons
+        var nextBtn = document.getElementById('btn-next-chap');
+        if (nextBtn) {
+          nextBtn.addEventListener('click', function() {
+            renderChapter(idx + 1);
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+          });
+        }
+
+        var prevBtn = document.getElementById('btn-prev-chap');
+        if (prevBtn) {
+          prevBtn.addEventListener('click', function() {
+            renderChapter(idx - 1);
+            window.scrollTo({ top: 120, behavior: 'smooth' });
+          });
+        }
+      }
+
+      // Mini Canvas Rendering Logic
+      function updateMiniCanvas() {
+        var transLayer = document.getElementById('sim-transformed');
+        var overlaysLayer = document.getElementById('sim-overlays');
+        var raysLayer = document.getElementById('sim-rays');
+        var mirrorLine = document.getElementById('sim-mirror');
+        var readout = document.getElementById('sim-readout');
+
+        if (!transLayer) return;
+
+        var tx = simState.tx;
+        var ty = simState.ty;
+        var rot = simState.rot;
+        var scale = simState.scale / 100;
+        var axis = simState.axis;
+
+        var refX = 1;
+        var refY = 1;
+        var refSwap = false;
+        if (axis === 'x') refY = -1;
+        else if (axis === 'y') refX = -1;
+        else if (axis === 'yx') refSwap = true;
+
+        var cartX = tx * refX;
+        var cartY = -ty * refY;
+        if (refSwap) { var tmp = cartX; cartX = cartY; cartY = tmp; }
+
+        var cx = 200 + cartX;
+        var cy = 200 + cartY;
+
+        var pRx = 16 * scale;
+        var pRy = 28 * scale;
+        var off = 28 * scale;
+        var cR = 8 * scale;
+
+        var finalRot = (axis === 'x' || axis === 'y') ? -rot : rot;
+
+        // Render Transformed Motif
+        var s = '<g transform="rotate(' + finalRot + ' ' + cx + ' ' + cy + ')">';
+        var petals = [
+          { cx: cx, cy: cy - off, rx: pRx, ry: pRy },
+          { cx: cx, cy: cy + off, rx: pRx, ry: pRy },
+          { cx: cx - off, cy: cy, rx: pRy, ry: pRx },
+          { cx: cx + off, cy: cy, rx: pRy, ry: pRx }
+        ];
+        petals.forEach(function(p) {
+          s += '<ellipse cx="' + p.cx + '" cy="' + p.cy + '" rx="' + p.rx + '" ry="' + p.ry + '" fill="rgba(2,132,199,0.14)" stroke="var(--cyan-dark)" stroke-width="2"/>';
+        });
+        s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + cR + '" fill="var(--cyan)" opacity="0.85"/>';
+        s += '</g>';
+        transLayer.innerHTML = s;
+
+        // Mirror line
+        if (axis === 'none') {
+          mirrorLine.setAttribute('opacity', '0');
+        } else if (axis === 'x') {
+          mirrorLine.setAttribute('x1', '0'); mirrorLine.setAttribute('y1', '200');
+          mirrorLine.setAttribute('x2', '400'); mirrorLine.setAttribute('y2', '200');
+          mirrorLine.setAttribute('opacity', '0.9');
+        } else if (axis === 'y') {
+          mirrorLine.setAttribute('x1', '200'); mirrorLine.setAttribute('y1', '0');
+          mirrorLine.setAttribute('x2', '200'); mirrorLine.setAttribute('y2', '400');
+          mirrorLine.setAttribute('opacity', '0.9');
+        } else if (axis === 'yx') {
+          mirrorLine.setAttribute('x1', '0'); mirrorLine.setAttribute('y1', '400');
+          mirrorLine.setAttribute('x2', '400'); mirrorLine.setAttribute('y2', '0');
+          mirrorLine.setAttribute('opacity', '0.9');
+        }
+
+        // Overlays
+        var ov = '';
+        if (tx !== 0 || ty !== 0) {
+          ov += '<line x1="200" y1="200" x2="' + cx + '" y2="' + cy + '" stroke="var(--emerald-dark)" stroke-width="2.2" marker-end="url(#mini-arrow)"/>';
+        }
+        if (rot > 0) {
+          var arcR = 30;
+          var endRad = (rot * Math.PI) / 180;
+          var arcEndX = 200 + arcR * Math.cos(-endRad);
+          var arcEndY = 200 + arcR * Math.sin(-endRad);
+          var largeArc = rot > 180 ? 1 : 0;
+          var arcPath = 'M ' + (200 + arcR) + ' 200 A ' + arcR + ' ' + arcR + ' 0 ' + largeArc + ' 0 ' + arcEndX + ' ' + arcEndY;
+          ov += '<path d="' + arcPath + '" fill="none" stroke="var(--amber-text)" stroke-width="2" marker-end="url(#mini-arc)"/>';
+        }
+        overlaysLayer.innerHTML = ov;
+
+        // Dilation rays
+        var rHtml = '';
+        if (scale !== 1) {
+          var apexes = [{x: 0, y: 28}, {x: 0, y: -28}, {x: -28, y: 0}, {x: 28, y: 0}];
+          apexes.forEach(function(pt) {
+            var sx = pt.x * scale;
+            var sy = pt.y * scale;
+            rHtml += '<line x1="200" y1="200" x2="' + (200 + sx) + '" y2="' + (200 - sy) + '" stroke="var(--cyan)" stroke-width="1.2" stroke-dasharray="3 3" opacity="0.7"/>';
+          });
+        }
+        raysLayer.innerHTML = rHtml;
+
+        // Readout text
+        if (tx !== 0 || ty !== 0) readout.textContent = 'Translasi Vektor: T(' + tx + ', ' + ty + ')';
+        else if (rot > 0) readout.textContent = 'Rotasi Sudut: R(O, ' + rot + '°)';
+        else if (scale !== 1) readout.textContent = 'Dilatasi Faktor: [O, ' + scale.toFixed(1) + '×]';
+        else if (axis !== 'none') readout.textContent = 'Refleksi Sumbu: ' + (axis === 'x' ? 'Sumbu-X' : (axis === 'y' ? 'Sumbu-Y' : 'Garis y=x'));
+        else readout.textContent = 'Posisi Awal O(0,0)';
+      }
+
+      // Bind Top Stepper Tabs
+      stepButtons.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var chap = parseInt(this.getAttribute('data-chapter'), 10) - 1;
+          renderChapter(chap);
+        });
+      });
+
+      // Mobile Menu Toggle
+      var menuToggle = document.getElementById('btn-menu-toggle');
+      var mobileDrawer = document.getElementById('mobile-drawer');
+
+      menuToggle.addEventListener('click', function() {
+        var isOpen = mobileDrawer.classList.toggle('open');
+        this.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      mobileDrawer.addEventListener('click', function(e) {
+        if (e.target === mobileDrawer) {
+          mobileDrawer.classList.remove('open');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Initial Chapter Load
+      renderChapter(0);
+    })();
+  </script>
+</body>
+</html>
