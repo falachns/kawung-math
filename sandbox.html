@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Interactive Sandbox Transformasi Geometri — Kawung Math</title>
   <meta name="description" content="Laboratorium interaktif transformasi geometri (translasi, refleksi, rotasi, dilatasi) untuk siswa SMP berbasis motif Batik Kawung.">
+  <meta name="keywords" content="Interactive Sandbox, transformasi geometri interaktif, simulasi translasi, simulasi refleksi, simulasi rotasi, simulasi dilatasi, batik kawung matematika, laboratorium virtual SMP">
+  <meta name="author" content="Robawati">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
   <meta name="theme-color" content="#FFFAF5">
   <link rel="canonical" href="https://kawung-math.vercel.app/sandbox.html">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -30,17 +34,45 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "EducationalApplication",
-    "name": "Kawung Math Interactive Sandbox",
-    "applicationCategory": "EducationalApplication",
-    "operatingSystem": "All",
-    "description": "Laboratorium interaktif transformasi geometri kurikulum SMP berbasis keteraturan motif Batik Kawung.",
-    "inLanguage": "id",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "IDR"
-    }
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://kawung-math.vercel.app/sandbox.html#app",
+        "name": "Kawung Math Interactive Sandbox",
+        "url": "https://kawung-math.vercel.app/sandbox.html",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "All",
+        "description": "Laboratorium interaktif transformasi geometri kurikulum SMP berbasis keteraturan motif Batik Kawung.",
+        "inLanguage": "id",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Kawung Math",
+          "url": "https://kawung-math.vercel.app/"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "IDR"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Beranda",
+            "item": "https://kawung-math.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Interactive Sandbox",
+            "item": "https://kawung-math.vercel.app/sandbox.html"
+          }
+        ]
+      }
+    ]
   }
   </script>
 
