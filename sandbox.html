@@ -893,7 +893,7 @@
   <!-- ===== HEADER ===== -->
   <header class="sandbox-header" role="banner">
     <div class="header-inner">
-      <a href="index.html" class="brand-wrap" aria-label="Kawung Math">
+      <a href="index.html" class="brand-wrap" aria-label="KawungMath">
         <svg width="28" height="28" viewBox="0 0 36 36" fill="none" aria-hidden="true">
           <line x1="18" y1="2" x2="18" y2="34" stroke="var(--text-muted)" stroke-width="0.7"/>
           <line x1="2" y1="18" x2="34" y2="18" stroke="var(--text-muted)" stroke-width="0.7"/>
@@ -989,8 +989,8 @@
               <span class="legend-item"><span class="legend-dot-trans"></span> Bayangan Transformasi</span>
             </div>
             <div class="canvas-actions">
-              <button class="btn-action" id="btn-toggle-grid" type="button" aria-label="Sembunyikan atau tampilkan kisi">Grid: On</button>
-              <button class="btn-action" id="btn-export-svg" type="button" aria-label="Unduh karya vektor SVG">Unduh SVG</button>
+              <button class="btn-action" id="btn-toggle-grid" type="button" aria-label="Grid: On - Sembunyikan atau tampilkan kisi">Grid: On</button>
+              <button class="btn-action" id="btn-export-svg" type="button" aria-label="Unduh SVG karya vektor">Unduh SVG</button>
               <button class="btn-action" id="btn-reset-all" type="button" aria-label="Reset semua nilai ke posisi awal">Reset</button>
             </div>
           </div>
@@ -1556,6 +1556,7 @@
         gridLayer.style.display = isVisible ? 'none' : '';
         document.getElementById('grid-ticks').style.display = isVisible ? 'none' : '';
         this.textContent = isVisible ? 'Grid: Off' : 'Grid: On';
+        this.setAttribute('aria-label', isVisible ? 'Grid: Off - Tampilkan kisi' : 'Grid: On - Sembunyikan kisi');
       });
 
       // Export SVG
