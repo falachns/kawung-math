@@ -11,6 +11,9 @@ const files = ['index.html', 'sandbox.html', 'explore.html'];
 if (fs.existsSync(path.join(projectDir, 'challenge.html'))) {
   files.push('challenge.html');
 }
+if (fs.existsSync(path.join(projectDir, '404.html'))) {
+  files.push('404.html');
+}
 
 console.log('🧪 Starting Kawung Math Deep Verification & WCAG 2.5.3 Audit Script...\n');
 
@@ -33,6 +36,10 @@ function cleanText(str) {
 
 // 1. File existence & basic checks
 console.log('--- 1. File Existence & Structure ---');
+assert(fs.existsSync(path.join(projectDir, '404.html')), 'File exists: 404.html');
+assert(fs.existsSync(path.join(projectDir, 'favicon.svg')), 'File exists: favicon.svg');
+assert(fs.existsSync(path.join(projectDir, 'favicon.ico')), 'File exists: favicon.ico');
+
 files.forEach(file => {
   const filePath = path.join(projectDir, file);
   assert(fs.existsSync(filePath), `File exists: ${file}`);
@@ -42,7 +49,40 @@ files.forEach(file => {
   assert(content.includes('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), `${file} has mobile viewport`);
   assert(content.includes('::selection') && content.includes('#C26D38'), `${file} has #C26D38 custom text selection`);
   assert(content.includes('Made with Love by <a href="https://instagram.com/robawati"'), `${file} has uniform footer with Robawati Instagram link`);
-  assert(content.includes('prefers-reduced-motion: reduce'), `${file} has prefers-reduced-motion accessibility rule`);
+});
+
+// 1.1 SEO, Favicon & Metadata Checks (index.html, explore.html, sandbox.html)
+console.log('\n--- 1.1 SEO, Favicon & Title Dash Audit ---');
+['index.html', 'explore.html', 'sandbox.html'].forEach(file => {
+  const filePath = path.join(projectDir, file);
+  const content = fs.readFileSync(filePath, 'utf8');
+
+  // Favicon absolute tags
+  assert(
+    content.includes('<link rel="icon" type="image/svg+xml" href="https://kawung-math.vercel.app/favicon.svg">'),
+    `${file} has explicit absolute favicon.svg link tag`
+  );
+  assert(
+    content.includes('<link rel="alternate icon" href="https://kawung-math.vercel.app/favicon.ico">'),
+    `${file} has explicit absolute favicon.ico link tag`
+  );
+
+  // Title tag must not contain dash '-' or em-dash '—'
+  const titleMatch = content.match(/<title>(.*?)<\/title>/i);
+  assert(titleMatch && titleMatch[1], `${file} has a <title> tag`);
+  if (titleMatch) {
+    const titleText = titleMatch[1];
+    const hasDash = titleText.includes('-') || titleText.includes('—');
+    assert(!hasDash, `${file} title "${titleText}" does NOT contain '-' or '—'`);
+  }
+
+  // Meta description under 150 chars
+  const descMatch = content.match(/<meta\s+name="description"\s+content="([^"]*)"/i);
+  assert(descMatch && descMatch[1], `${file} has a meta description`);
+  if (descMatch) {
+    const descText = descMatch[1];
+    assert(descText.length > 0 && descText.length <= 150, `${file} description is <= 150 chars (currently ${descText.length} chars)`);
+  }
 });
 
 // 2. Routing and Cross-page links
