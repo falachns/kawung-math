@@ -83,7 +83,37 @@ console.log('\n--- 1.1 SEO, Favicon & Title Dash Audit ---');
     const descText = descMatch[1];
     assert(descText.length > 0 && descText.length <= 150, `${file} description is <= 150 chars (currently ${descText.length} chars)`);
   }
+
+  // Google Site Name metadata checks
+  assert(
+    content.includes('<meta property="og:site_name" content="Kawung Math">') ||
+    content.includes('<meta property="og:site_name" content="Kawung Math" />'),
+    `${file} has <meta property="og:site_name" content="Kawung Math">`
+  );
+  assert(
+    content.includes('<meta name="application-name" content="Kawung Math">') ||
+    content.includes('<meta name="application-name" content="Kawung Math" />'),
+    `${file} has <meta name="application-name" content="Kawung Math">`
+  );
 });
+
+// 1.2 Schema.org WebSite JSON-LD on index.html
+console.log('\n--- 1.2 Schema.org WebSite JSON-LD Validation ---');
+const indexContent = fs.readFileSync(path.join(projectDir, 'index.html'), 'utf8');
+const jsonLdMatch = indexContent.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i);
+assert(jsonLdMatch && jsonLdMatch[1], 'index.html contains JSON-LD structured data script');
+if (jsonLdMatch) {
+  try {
+    const parsedJson = JSON.parse(jsonLdMatch[1]);
+    assert(parsedJson['@context'] === 'https://schema.org', 'JSON-LD @context is https://schema.org');
+    assert(parsedJson['@type'] === 'WebSite', 'JSON-LD @type is WebSite');
+    assert(parsedJson.name === 'Kawung Math', 'JSON-LD name is "Kawung Math"');
+    assert(Array.isArray(parsedJson.alternateName) && parsedJson.alternateName.includes('KawungMath'), 'JSON-LD alternateName contains "KawungMath"');
+    assert(parsedJson.url === 'https://kawung-math.vercel.app/', 'JSON-LD url is "https://kawung-math.vercel.app/"');
+  } catch (e) {
+    assert(false, `JSON-LD in index.html is valid JSON: ${e.message}`);
+  }
+}
 
 // 2. Routing and Cross-page links
 console.log('\n--- 2. Routing & Navigation Links ---');
