@@ -51,10 +51,11 @@ files.forEach(file => {
   assert(content.includes('Made with Love by <a href="https://instagram.com/robawati"'), `${file} has uniform footer with Robawati Instagram link`);
 });
 
-// 1.1 SEO, Favicon & Metadata Checks (index.html, explore.html, sandbox.html)
+// 1.1 SEO, Favicon & Metadata Checks (index.html, explore.html, sandbox.html, challenge.html)
 console.log('\n--- 1.1 SEO, Favicon & Title Dash Audit ---');
-['index.html', 'explore.html', 'sandbox.html'].forEach(file => {
+['index.html', 'explore.html', 'sandbox.html', 'challenge.html'].forEach(file => {
   const filePath = path.join(projectDir, file);
+  if (!fs.existsSync(filePath)) return;
   const content = fs.readFileSync(filePath, 'utf8');
 
   // Favicon absolute tags
@@ -97,21 +98,36 @@ console.log('\n--- 1.1 SEO, Favicon & Title Dash Audit ---');
   );
 });
 
-// 1.2 Schema.org WebSite JSON-LD on index.html
-console.log('\n--- 1.2 Schema.org WebSite JSON-LD Validation ---');
+// 1.2 Schema.org WebSite JSON-LD on index.html & LearningResource on challenge.html
+console.log('\n--- 1.2 Schema.org JSON-LD Validation ---');
 const indexContent = fs.readFileSync(path.join(projectDir, 'index.html'), 'utf8');
 const jsonLdMatch = indexContent.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i);
 assert(jsonLdMatch && jsonLdMatch[1], 'index.html contains JSON-LD structured data script');
 if (jsonLdMatch) {
   try {
     const parsedJson = JSON.parse(jsonLdMatch[1]);
-    assert(parsedJson['@context'] === 'https://schema.org', 'JSON-LD @context is https://schema.org');
-    assert(parsedJson['@type'] === 'WebSite', 'JSON-LD @type is WebSite');
-    assert(parsedJson.name === 'Kawung Math', 'JSON-LD name is "Kawung Math"');
+    assert(parsedJson['@context'] === 'https://schema.org', 'index.html JSON-LD @context is https://schema.org');
+    assert(parsedJson['@type'] === 'WebSite', 'index.html JSON-LD @type is WebSite');
+    assert(parsedJson.name === 'Kawung Math', 'index.html JSON-LD name is "Kawung Math"');
     assert(Array.isArray(parsedJson.alternateName) && parsedJson.alternateName.includes('KawungMath'), 'JSON-LD alternateName contains "KawungMath"');
     assert(parsedJson.url === 'https://kawung-math.vercel.app/', 'JSON-LD url is "https://kawung-math.vercel.app/"');
   } catch (e) {
     assert(false, `JSON-LD in index.html is valid JSON: ${e.message}`);
+  }
+}
+
+if (fs.existsSync(path.join(projectDir, 'challenge.html'))) {
+  const challengeContent = fs.readFileSync(path.join(projectDir, 'challenge.html'), 'utf8');
+  const challengeLdMatch = challengeContent.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/i);
+  assert(challengeLdMatch && challengeLdMatch[1], 'challenge.html contains JSON-LD structured data script');
+  if (challengeLdMatch) {
+    try {
+      const parsedLd = JSON.parse(challengeLdMatch[1]);
+      assert(parsedLd['@context'] === 'https://schema.org', 'challenge.html JSON-LD @context is https://schema.org');
+      assert(parsedLd['@graph'] && parsedLd['@graph'].some(node => node['@type'] === 'LearningResource'), 'challenge.html JSON-LD contains LearningResource');
+    } catch (e) {
+      assert(false, `JSON-LD in challenge.html is valid JSON: ${e.message}`);
+    }
   }
 }
 
@@ -120,17 +136,27 @@ console.log('\n--- 2. Routing & Navigation Links ---');
 const indexHtml = fs.readFileSync(path.join(projectDir, 'index.html'), 'utf8');
 const sandboxHtml = fs.readFileSync(path.join(projectDir, 'sandbox.html'), 'utf8');
 const exploreHtml = fs.readFileSync(path.join(projectDir, 'explore.html'), 'utf8');
+const challengeHtml = fs.existsSync(path.join(projectDir, 'challenge.html'))
+  ? fs.readFileSync(path.join(projectDir, 'challenge.html'), 'utf8')
+  : '';
 
-// Parity checks for exact 5 core navigation titles on all 3 pages
+// Parity checks for exact 5 core navigation titles on all pages
 ['Home', 'Kawung Explore', 'Transform', 'Design Labs', 'Challenge'].forEach(label => {
   assert(indexHtml.includes(`>${label}<`), `index.html includes navbar label "${label}"`);
   assert(sandboxHtml.includes(`>${label}<`), `sandbox.html includes navbar label "${label}"`);
   assert(exploreHtml.includes(`>${label}<`), `explore.html includes navbar label "${label}"`);
+  if (challengeHtml) {
+    assert(challengeHtml.includes(`>${label}<`), `challenge.html includes navbar label "${label}"`);
+  }
 });
 
 assert(indexHtml.includes('href="#home"') || indexHtml.includes('href="index.html"'), 'index.html links to home');
 assert(sandboxHtml.includes('href="index.html"'), 'sandbox.html links back to index.html');
 assert(exploreHtml.includes('href="index.html"'), 'explore.html links back to index.html');
+if (challengeHtml) {
+  assert(challengeHtml.includes('href="index.html"'), 'challenge.html links back to index.html');
+  assert(challengeHtml.includes('href="explore.html"'), 'challenge.html links to explore.html');
+}
 
 // 3. ARIA & Accessibility Semantics
 console.log('\n--- 3. ARIA & Accessibility ---');
@@ -145,16 +171,33 @@ assert(sandboxHtml.includes('role="tablist"'), 'sandbox.html has mode switcher t
 assert(sandboxHtml.includes('role="tab"'), 'sandbox.html has mode switcher tabs');
 assert(sandboxHtml.includes('aria-live="polite"'), 'sandbox.html has aria-live polite feedback');
 
+if (challengeHtml) {
+  assert(challengeHtml.includes('role="tablist"'), 'challenge.html has level tablist');
+  assert(challengeHtml.includes('role="tab"'), 'challenge.html has level tabs');
+  assert(challengeHtml.includes('role="tabpanel"'), 'challenge.html has quest tabpanel');
+  assert(challengeHtml.includes('aria-live="polite"'), 'challenge.html has aria-live feedback');
+  assert(challengeHtml.includes('role="dialog"'), 'challenge.html has accessible dialogs');
+}
+
 assert(indexHtml.includes('aria-label="Buka menu navigasi"'), 'index.html has accessible menu toggle');
 assert(indexHtml.includes('aria-expanded'), 'index.html has aria-expanded state');
 
-// 4. Mathematical Formula & Chapters in explore.html
-console.log('\n--- 4. Mathematics & Chapters Logic ---');
+// 4. Mathematical Formula & Gamification Logic
+console.log('\n--- 4. Mathematics & Gamification Logic ---');
 assert(exploreHtml.includes('Bab 1: Translasi'), 'explore.html contains Bab 1 Translasi');
 assert(exploreHtml.includes('Bab 2: Refleksi'), 'explore.html contains Bab 2 Refleksi');
 assert(exploreHtml.includes('Bab 3: Rotasi'), 'explore.html contains Bab 3 Rotasi');
 assert(exploreHtml.includes('Bab 4: Dilatasi'), 'explore.html contains Bab 4 Dilatasi');
 assert(exploreHtml.includes('requestAnimationFrame'), 'explore.html uses requestAnimationFrame for 60fps');
+
+if (challengeHtml) {
+  assert(challengeHtml.includes('Mapper'), 'challenge.html has Level 1 Mapper badge');
+  assert(challengeHtml.includes('Mirror Crafter'), 'challenge.html has Level 2 Mirror Crafter badge');
+  assert(challengeHtml.includes('Spinner'), 'challenge.html has Level 3 Spinner badge');
+  assert(challengeHtml.includes('Architect'), 'challenge.html has Level 4 Architect badge');
+  assert(challengeHtml.includes('kawung_math_challenge_progress'), 'challenge.html persists to localStorage');
+  assert(challengeHtml.includes('.btn-tactile'), 'challenge.html defines .btn-tactile 3D styling');
+}
 
 // 5. WCAG 2.5.3 (Label in Name) Compliance Audit
 console.log('\n--- 5. WCAG 2.5.3 (Label in Name) Compliance Audit ---');

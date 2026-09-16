@@ -3,6 +3,9 @@ import path from 'path';
 
 const projectDir = '/Users/user/.gemini/antigravity-ide/scratch/kawung-math';
 const pages = ['index.html', 'sandbox.html', 'explore.html'];
+if (fs.existsSync(path.join(projectDir, 'challenge.html'))) {
+  pages.push('challenge.html');
+}
 
 console.log('⚡ Running Kawung Math Comprehensive Stress & Edge-Case Test Suite...\n');
 
@@ -143,9 +146,16 @@ pages.forEach(page => {
 const indexHtml = fs.readFileSync(path.join(projectDir, 'index.html'), 'utf8');
 const sandboxHtml = fs.readFileSync(path.join(projectDir, 'sandbox.html'), 'utf8');
 const exploreHtml = fs.readFileSync(path.join(projectDir, 'explore.html'), 'utf8');
+const challengeHtml = fs.existsSync(path.join(projectDir, 'challenge.html'))
+  ? fs.readFileSync(path.join(projectDir, 'challenge.html'), 'utf8')
+  : '';
 
 check(exploreHtml.includes('.nav-actions .btn-nav-sandbox { display: none !important; }'), 'explore.html hides desktop sandbox CTA on mobile to prevent header collision');
 check(sandboxHtml.includes('.nav-actions .btn-nav-explore { display: none !important; }'), 'sandbox.html hides desktop explore CTA on mobile to prevent header collision');
+if (challengeHtml) {
+  check(challengeHtml.includes('.nav-actions .btn-nav-explore { display: none !important; }'), 'challenge.html hides desktop explore CTA on mobile to prevent header collision');
+  check(challengeHtml.includes('.btn-menu-toggle span'), 'challenge.html implements 3-bar animated hamburger');
+}
 check(indexHtml.includes('.menu-toggle span') && exploreHtml.includes('.btn-menu-toggle span') && sandboxHtml.includes('.btn-menu-toggle span'), 'All pages implement 3-bar animated hamburger morphing into close ✕');
 
 console.log(`\n======================================================`);

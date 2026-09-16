@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="id" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kawung Challenge | Misi Geometri Batik Interaktif</title>
+  <meta name="description" content="Tantangan gamifikasi transformasi geometri SMP dengan visualisasi motif Batik Kawung interaktif.">
+  <meta name="keywords" content="Kawung Challenge, game matematika SMP, misi geometri, kuis transformasi geometri, translasi refleksi rotasi dilatasi, batik kawung gamifikasi">
+  <meta name="author" content="Robawati">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="googlebot" content="index, follow">
+  <meta name="theme-color" content="#FFFAF5">
+  <meta name="application-name" content="Kawung Math">
+  <link rel="canonical" href="https://kawung-math.vercel.app/challenge.html">
+  <link rel="icon" type="image/svg+xml" href="https://kawung-math.vercel.app/favicon.svg">
+  <link rel="alternate icon" href="https://kawung-math.vercel.app/favicon.ico">
+  <link rel="apple-touch-icon" href="https://kawung-math.vercel.app/favicon.svg">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://kawung-math.vercel.app/challenge.html">
+  <meta property="og:title" content="Kawung Challenge | Misi Geometri Batik Interaktif">
+  <meta property="og:description" content="Tantangan gamifikasi transformasi geometri SMP dengan visualisasi motif Batik Kawung interaktif.">
+  <meta property="og:image" content="https://kawung-math.vercel.app/favicon.svg">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:site_name" content="Kawung Math">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://kawung-math.vercel.app/challenge.html">
+  <meta property="twitter:title" content="Kawung Challenge | Misi Geometri Batik Interaktif">
+  <meta property="twitter:description" content="Tantangan gamifikasi transformasi geometri SMP dengan visualisasi motif Batik Kawung interaktif.">
+  <meta name="twitter:image" content="https://kawung-math.vercel.app/favicon.svg">
+
+  <!-- Structured Data: LearningResource & Quiz -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LearningResource",
+        "@id": "https://kawung-math.vercel.app/challenge.html#challenge-resource",
+        "name": "Kawung Challenge | Misi Geometri Batik Interaktif",
+        "url": "https://kawung-math.vercel.app/challenge.html",
+        "description": "Arena tantangan gamifikasi 4 level materi transformasi geometri SMP (Translasi, Refleksi, Rotasi, Dilatasi) berkonsep Etnomatematika Batik Kawung.",
+        "educationalLevel": "Junior High School",
+        "inLanguage": "id",
+        "learningResourceType": "Quiz",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Kawung Math",
+          "url": "https://kawung-math.vercel.app/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Beranda",
+            "item": "https://kawung-math.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Kawung Challenge",
+            "item": "https://kawung-math.vercel.app/challenge.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Nunito:wght@400;500;600;700;800&display=swap">
+  </noscript>
+
+  <style>
+    /* ===== DESIGN TOKENS & RESET ===== */
+    :root {
+      --bg: #FFFAF5;
+      --bg-warm: #FFF4EA;
+      --bg-card: #FFFFFF;
+      --sogan: #B8521B;
+      --sogan-rgb: 184, 82, 27;
+      --sogan-dark: #7C2D12;
+      --sogan-tint: #FEF2E8;
+      --sogan-border: #E8B490;
+      --amber: #D97706;
+      --amber-dark: #92400E;
+      --amber-tint: #FEF3C7;
+      --cyan: #0284C7;
+      --cyan-neon: #00D2FF;
+      --cyan-dark: #075985;
+      --cyan-tint: #E0F2FE;
+      --emerald: #0D9488;
+      --emerald-dark: #064E3B;
+      --emerald-tint: #CCFBF1;
+      --purple: #7C3AED;
+      --purple-dark: #5B21B6;
+      --purple-tint: #F3E8FF;
+      --text-primary: #0F172A;
+      --text-secondary: #334155;
+      --text-muted: #475569;
+      --border: #CBD5E1;
+      --border-light: #E2E8F0;
+      --border-warm: #E2D9CF;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Nunito', sans-serif;
+      --shadow-color: 15, 23, 42;
+      --ease-tactile: cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    ::selection {
+      background-color: #C26D38;
+      color: #FFFFFF;
+    }
+    ::-moz-selection {
+      background-color: #C26D38;
+      color: #FFFFFF;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--bg);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    /* Accessibility focus ring */
+    :focus:not(:focus-visible) {
+      outline: none;
+    }
+    :focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      background: var(--sogan-dark);
+      color: #FFFFFF;
+      padding: 12px 20px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      border-radius: var(--radius-md);
+      z-index: 2000;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus {
+      top: 16px;
+    }
+
+    /* ===== HEADER (STRICT 64px SINGLE-ROW) ===== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      height: 64px;
+      background: rgba(255, 250, 245, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-warm);
+    }
+    .header-inner {
+      max-width: 1240px;
+      height: 100%;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 3vw, 32px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+    .brand-title span { color: var(--sogan); }
+
+    .nav-desktop {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+    @media (min-width: 860px) {
+      .nav-desktop { display: flex; }
+    }
+    .nav-link {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      padding: 8px 14px;
+      border-radius: var(--radius-full);
+      transition: color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .nav-link:hover {
+      color: var(--sogan-dark);
+      background: var(--sogan-tint);
+    }
+    .nav-link.active,
+    .nav-link[aria-current="page"] {
+      color: var(--sogan-dark);
+      background: var(--sogan-tint);
+      font-weight: 800;
+      box-shadow: inset 0 0 0 1px rgba(var(--sogan-rgb), 0.25);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-nav-explore {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.875rem;
+      background: var(--sogan);
+      color: #FFFFFF !important;
+      text-decoration: none !important;
+      padding: 9px 20px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 2px 8px rgba(184, 82, 27, 0.25);
+      transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-nav-explore:hover {
+      background: var(--sogan-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(184, 82, 27, 0.35);
+    }
+    @media (max-width: 859px) {
+      .nav-actions .btn-nav-explore { display: none !important; }
+    }
+
+    .btn-menu-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-warm);
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      gap: 5px;
+      padding: 0;
+    }
+    @media (min-width: 860px) {
+      .btn-menu-toggle { display: none; }
+    }
+    .btn-menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background-color: var(--text-primary);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+    .btn-menu-toggle[aria-expanded="true"] span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .btn-menu-toggle[aria-expanded="true"] span:nth-child(2) {
+      opacity: 0;
+    }
+    .btn-menu-toggle[aria-expanded="true"] span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      display: none;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 250, 245, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 999;
+      padding: 24px clamp(16px, 4vw, 32px);
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+    }
+    .mobile-drawer.open { display: flex; }
+    .drawer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .drawer-link {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.125rem;
+      color: var(--text-primary);
+      text-decoration: none;
+      padding: 14px 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border-warm);
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 48px;
+    }
+    .drawer-link.active {
+      border-color: var(--sogan);
+      background: var(--sogan-tint);
+      color: var(--sogan-dark);
+      font-weight: 800;
+    }
+    .btn-drawer-cta {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 20px;
+      background: var(--sogan);
+      color: #FFFFFF !important;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      text-decoration: none !important;
+      border-radius: var(--radius-lg);
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(184, 82, 27, 0.3);
+    }
+
+    /* ===== MIMO-STYLE PROGRESS STRIP & STATS BAR ===== */
+    .challenge-stats-bar {
+      background: #FFFFFF;
+      border-bottom: 1px solid var(--border-warm);
+      padding: 12px clamp(16px, 3vw, 32px);
+    }
+    .stats-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .progress-strip {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+      min-width: 280px;
+      max-width: 600px;
+    }
+    .level-dot-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--bg-warm);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.8125rem;
+      color: var(--text-secondary);
+      transition: all 0.2s ease;
+      min-height: 44px;
+    }
+    .level-dot-btn:hover:not(:disabled) {
+      border-color: var(--sogan);
+      background: var(--sogan-tint);
+    }
+    .level-dot-btn.active {
+      background: var(--sogan-tint);
+      border-color: var(--sogan);
+      color: var(--sogan-dark);
+      font-weight: 800;
+      box-shadow: 0 2px 8px rgba(184, 82, 27, 0.15);
+    }
+    .level-dot-btn.completed {
+      background: var(--emerald-tint);
+      border-color: var(--emerald);
+      color: var(--emerald-dark);
+    }
+    .level-dot-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    .level-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .level-stars-mini {
+      display: flex;
+      gap: 2px;
+      margin-left: auto;
+      color: #CBD5E1;
+      font-size: 0.75rem;
+    }
+    .level-stars-mini .filled {
+      color: #F59E0B;
+    }
+
+    .quest-hud-stats {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hud-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-warm);
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.875rem;
+      color: var(--text-primary);
+    }
+    .hud-chip.stars-chip {
+      background: #FEF3C7;
+      border-color: #FDE68A;
+      color: #92400E;
+    }
+    .hud-chip.streak-chip {
+      background: #FFEDD5;
+      border-color: #FED7AA;
+      color: #9A3412;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .challenge-main {
+      flex: 1;
+      max-width: 1240px;
+      width: 100%;
+      margin: 0 auto;
+      padding: clamp(20px, 4vw, 40px) clamp(16px, 3vw, 32px);
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .quest-header-area {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .quest-badge-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--sogan-tint);
+      border: 1px solid var(--sogan-border);
+      color: var(--sogan-dark);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.8125rem;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .quest-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: clamp(1.5rem, 3.2vw, 2.125rem);
+      color: var(--text-primary);
+      line-height: 1.2;
+      margin-top: 6px;
+      letter-spacing: -0.02em;
+    }
+    .quest-goal-text {
+      font-size: clamp(0.9375rem, 1.8vw, 1.0625rem);
+      color: var(--text-secondary);
+      margin-top: 6px;
+      max-width: 760px;
+      line-height: 1.5;
+    }
+
+    .btn-hint-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #FFFFFF;
+      border: 1.5px solid var(--amber);
+      color: var(--amber-dark);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.875rem;
+      padding: 8px 16px;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(217, 119, 6, 0.12);
+      transition: all 0.2s ease;
+      min-height: 40px;
+    }
+    .btn-hint-trigger:hover {
+      background: var(--amber-tint);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(217, 119, 6, 0.2);
+    }
+
+    /* ===== BRILLIANT + DUOLINGO QUEST WORKSPACE GRID ===== */
+    .quest-workspace {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+    @media (min-width: 960px) {
+      .quest-workspace {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+    }
+
+    /* BRILLIANT MATH CANVAS CARD */
+    .quest-canvas-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: clamp(16px, 3vw, 24px);
+      box-shadow: 0 10px 30px rgba(var(--shadow-color), 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .canvas-hud-top {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .canvas-legend {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot-user-shape {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--sogan);
+      box-shadow: 0 0 0 2px rgba(184, 82, 27, 0.3);
+    }
+    .dot-target-shape {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.3);
+    }
+
+    .svg-canvas-wrapper {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      max-width: 520px;
+      margin: 0 auto;
+      background: #FFFFFF;
+      border: 1.5px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+      box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .svg-canvas-wrapper svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Snap & Glow Animation */
+    @keyframes snapGlow {
+      0% {
+        filter: drop-shadow(0 0 0px var(--cyan-neon));
+        transform: scale(1);
+      }
+      50% {
+        filter: drop-shadow(0 0 16px var(--cyan-neon)) drop-shadow(0 0 24px var(--emerald));
+        transform: scale(1.04);
+      }
+      100% {
+        filter: drop-shadow(0 0 6px var(--emerald));
+        transform: scale(1);
+      }
+    }
+    .snap-glow-active {
+      animation: snapGlow 0.8s var(--ease-tactile);
+    }
+
+    .canvas-readout-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      background: var(--bg-warm);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-md);
+      padding: 10px 16px;
+      font-size: 0.875rem;
+    }
+    .readout-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .readout-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .readout-val {
+      font-family: var(--font-display);
+      font-weight: 800;
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
+    /* DUOLINGO CONTROL PANEL & TACTILE BUTTONS */
+    .quest-controls-card {
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: clamp(20px, 3vw, 28px);
+      box-shadow: 0 10px 30px rgba(var(--shadow-color), 0.05);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .control-section-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.0625rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* CHUNKY 3D TACTILE BUTTONS */
+    .btn-tactile {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 52px;
+      padding: 12px 24px;
+      border-radius: 16px;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      user-select: none;
+      position: relative;
+      transition: transform 0.1s ease, border-bottom-width 0.1s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+      width: 100%;
+      text-align: center;
+      line-height: 1.2;
+    }
+    .btn-tactile:active:not(:disabled) {
+      transform: translateY(3px);
+      border-bottom-width: 1px;
+    }
+
+    .btn-tactile-primary {
+      background: var(--sogan, #B8521B);
+      color: #FFFFFF !important;
+      border: none;
+      border-bottom: 4px solid var(--sogan-dark, #7C2D12);
+      box-shadow: 0 4px 14px rgba(184, 82, 27, 0.25);
+    }
+    .btn-tactile-primary:hover:not(:disabled) {
+      background: #C45A20;
+    }
+    .btn-tactile-primary:active:not(:disabled) {
+      box-shadow: 0 1px 4px rgba(184, 82, 27, 0.2);
+    }
+
+    .btn-tactile-check {
+      background: var(--emerald-dark, #064E3B);
+      color: #FFFFFF !important;
+      border: none;
+      border-bottom: 4px solid #022c22;
+      box-shadow: 0 4px 14px rgba(6, 78, 59, 0.25);
+    }
+    .btn-tactile-check:hover:not(:disabled) {
+      background: #08634c;
+    }
+
+    .btn-tactile-ghost {
+      background: #FFFFFF;
+      color: var(--text-secondary) !important;
+      border: 2px solid var(--border);
+      border-bottom: 4px solid #94A3B8;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+    .btn-tactile-ghost:hover:not(:disabled) {
+      background: var(--bg-warm);
+      border-color: var(--border-warm);
+    }
+    .btn-tactile-ghost:active:not(:disabled) {
+      transform: translateY(2px);
+      border-bottom-width: 2px;
+    }
+
+    .btn-tactile:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      transform: none !important;
+      border-bottom-width: 3px !important;
+    }
+
+    /* Stepper & Slider Widgets */
+    .widget-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .widget-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .widget-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .widget-val-badge {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.9375rem;
+      color: var(--sogan-dark);
+      background: var(--sogan-tint);
+      border: 1px solid var(--sogan-border);
+      padding: 2px 10px;
+      border-radius: var(--radius-full);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stepper-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-stepper-touch {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-md);
+      background: #FFFFFF;
+      border: 2px solid var(--border);
+      border-bottom: 3.5px solid #94A3B8;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.08s ease, border-bottom-width 0.08s ease;
+      flex-shrink: 0;
+    }
+    .btn-stepper-touch:active {
+      transform: translateY(2px);
+      border-bottom-width: 1.5px;
+    }
+    .stepper-slider {
+      flex: 1;
+      height: 10px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--border-light);
+      border-radius: var(--radius-full);
+      outline: none;
+    }
+    .stepper-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--sogan);
+      cursor: pointer;
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(184, 82, 27, 0.4);
+      transition: transform 0.1s ease;
+    }
+    .stepper-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+    }
+
+    /* Tactile Toggle Grid for Reflection / Rotation */
+    .tactile-toggle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+      gap: 10px;
+    }
+    .btn-toggle-tactile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 12px 10px;
+      min-height: 64px;
+      background: #FFFFFF;
+      border: 2px solid var(--border);
+      border-bottom: 4px solid #94A3B8;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.12s ease;
+      text-align: center;
+    }
+    .btn-toggle-tactile:active {
+      transform: translateY(2px);
+      border-bottom-width: 2px;
+    }
+    .btn-toggle-tactile.active {
+      background: var(--sogan-tint);
+      border-color: var(--sogan);
+      border-bottom: 4px solid var(--sogan-dark);
+      color: var(--sogan-dark);
+      box-shadow: 0 2px 8px rgba(184, 82, 27, 0.15);
+    }
+
+    /* FEEDBACK CARD BANNER */
+    .feedback-banner {
+      display: none;
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      animation: slideInUp 0.3s var(--ease-tactile);
+    }
+    @keyframes slideInUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .feedback-banner.success {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--emerald-tint);
+      border: 1.5px solid #6EE7B7;
+      color: var(--emerald-dark);
+    }
+    .feedback-banner.try-again {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #FEF2F2;
+      border: 1.5px solid #FECACA;
+      color: #991B1B;
+    }
+    .feedback-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.0625rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feedback-desc {
+      font-size: 0.9375rem;
+      line-height: 1.45;
+    }
+    .stars-reward-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 1.5rem;
+    }
+
+    /* ===== REWARD BADGES SHOWCASE ===== */
+    .badges-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-warm);
+      border-radius: var(--radius-xl);
+      padding: clamp(20px, 3.5vw, 32px);
+      box-shadow: 0 4px 16px rgba(var(--shadow-color), 0.03);
+    }
+    .badges-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .badges-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text-primary);
+    }
+    .badges-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .badge-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px;
+      background: var(--bg-warm);
+      border: 1.5px dashed var(--border-warm);
+      border-radius: var(--radius-lg);
+      transition: all 0.2s ease;
+      opacity: 0.65;
+    }
+    .badge-card.unlocked {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      opacity: 1;
+      box-shadow: 0 4px 14px rgba(var(--shadow-color), 0.04);
+    }
+    .badge-card.unlocked.badge-active {
+      border-color: var(--sogan);
+      background: var(--sogan-tint);
+    }
+    .badge-icon-box {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    .badge-card.unlocked .badge-icon-box {
+      background: #FEF3C7;
+    }
+    .badge-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .badge-name {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.9375rem;
+      color: var(--text-primary);
+    }
+    .badge-req {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* ===== HINT MODAL ===== */
+    .hint-modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 1500;
+      padding: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+    .hint-modal-overlay.active {
+      display: flex;
+    }
+    .hint-modal-card {
+      background: #FFFFFF;
+      border-radius: var(--radius-xl);
+      max-width: 480px;
+      width: 100%;
+      padding: 28px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+      animation: modalPop 0.25s var(--ease-tactile);
+    }
+    @keyframes modalPop {
+      from { transform: scale(0.92); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .hint-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hint-modal-title {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--amber-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-close-hint {
+      background: var(--bg-warm);
+      border: 1px solid var(--border-warm);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: var(--text-muted);
+    }
+    .hint-modal-body {
+      font-size: 0.9375rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .hint-formula-box {
+      background: var(--bg-warm);
+      border-left: 4px solid var(--sogan);
+      padding: 12px 16px;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--sogan-dark);
+      margin: 8px 0;
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      border-top: 1px solid var(--border-warm);
+      padding: 24px clamp(16px, 3vw, 32px);
+      background: var(--bg-card);
+      margin-top: auto;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+    .footer-inner a {
+      color: var(--sogan);
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .footer-inner a:hover {
+      color: var(--sogan-dark);
+    }
+
+    /* PREFERS REDUCED MOTION */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Skip link for keyboard users -->
+  <a href="#challenge-content" class="skip-link">Lewati ke konten misi tantangan</a>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="brand-wrap" aria-label="KawungMath">
+        <svg width="32" height="32" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+          <line x1="18" y1="2" x2="18" y2="34" stroke="var(--text-muted)" stroke-width="0.7"/>
+          <line x1="2" y1="18" x2="34" y2="18" stroke="var(--text-muted)" stroke-width="0.7"/>
+          <ellipse cx="18" cy="11" rx="5" ry="7" fill="none" stroke="var(--sogan)" stroke-width="1.3"/>
+          <ellipse cx="18" cy="25" rx="5" ry="7" fill="none" stroke="var(--sogan)" stroke-width="1.3"/>
+          <ellipse cx="11" cy="18" rx="7" ry="5" fill="none" stroke="var(--sogan)" stroke-width="1.3"/>
+          <ellipse cx="25" cy="18" rx="7" ry="5" fill="none" stroke="var(--sogan)" stroke-width="1.3"/>
+          <circle cx="18" cy="18" r="2.5" fill="var(--amber)"/>
+        </svg>
+        <span class="brand-title">Kawung<span>Math</span></span>
+      </a>
+
+      <!-- Desktop Nav -->
+      <nav class="nav-desktop" aria-label="Navigasi Utama">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="explore.html" class="nav-link">Kawung Explore</a>
+        <a href="sandbox.html" class="nav-link">Transform</a>
+        <a href="index.html#labs" class="nav-link">Design Labs</a>
+        <a href="challenge.html" class="nav-link active" aria-current="page">Challenge</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="explore.html" class="btn-nav-explore">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Modul Explore
+        </a>
+        <button class="btn-menu-toggle" id="btn-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Buka menu navigasi mobile">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu navigasi challenge">
+    <div class="drawer-content">
+      <a href="index.html" class="drawer-link">Home</a>
+      <a href="explore.html" class="drawer-link">Kawung Explore</a>
+      <a href="sandbox.html" class="drawer-link">Transform</a>
+      <a href="index.html#labs" class="drawer-link">Design Labs</a>
+      <a href="challenge.html" class="drawer-link active">Challenge</a>
+      <a href="explore.html" class="btn-drawer-cta">Buka Modul Explore</a>
+    </div>
+  </div>
+
+  <!-- ===== MIMO-STYLE PROGRESS STRIP & HUD ===== -->
+  <div class="challenge-stats-bar" aria-label="Status Quest Gamifikasi">
+    <div class="stats-inner">
+      <div class="progress-strip" role="tablist" aria-label="Tingkat Level Tantangan">
+        <button class="level-dot-btn active" id="btn-lvl-1" role="tab" aria-selected="true" aria-controls="quest-panel" data-level="1" type="button">
+          <span class="level-icon">🗺️</span>
+          <span>Lvl 1</span>
+          <span class="level-stars-mini" id="mini-stars-1"><span class="star-slot">★</span><span class="star-slot">★</span><span class="star-slot">★</span></span>
+        </button>
+        <button class="level-dot-btn" id="btn-lvl-2" role="tab" aria-selected="false" aria-controls="quest-panel" data-level="2" type="button">
+          <span class="level-icon">🪞</span>
+          <span>Lvl 2</span>
+          <span class="level-stars-mini" id="mini-stars-2"><span class="star-slot">★</span><span class="star-slot">★</span><span class="star-slot">★</span></span>
+        </button>
+        <button class="level-dot-btn" id="btn-lvl-3" role="tab" aria-selected="false" aria-controls="quest-panel" data-level="3" type="button">
+          <span class="level-icon">🌀</span>
+          <span>Lvl 3</span>
+          <span class="level-stars-mini" id="mini-stars-3"><span class="star-slot">★</span><span class="star-slot">★</span><span class="star-slot">★</span></span>
+        </button>
+        <button class="level-dot-btn" id="btn-lvl-4" role="tab" aria-selected="false" aria-controls="quest-panel" data-level="4" type="button">
+          <span class="level-icon">🏛️</span>
+          <span>Lvl 4</span>
+          <span class="level-stars-mini" id="mini-stars-4"><span class="star-slot">★</span><span class="star-slot">★</span><span class="star-slot">★</span></span>
+        </button>
+      </div>
+
+      <div class="quest-hud-stats">
+        <div class="hud-chip stars-chip" aria-label="Total Bintang Diraih">
+          <span>⭐</span>
+          <span id="total-stars-count">0 / 12</span>
+        </div>
+        <div class="hud-chip streak-chip" aria-label="Streak Berturut-turut">
+          <span>🔥</span>
+          <span id="streak-count">0 Streak</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="challenge-main" id="challenge-content">
+
+    <!-- Quest Header Info Area -->
+    <div class="quest-header-area">
+      <div>
+        <span class="quest-badge-tag" id="quest-tag">Tantangan Geometri 01</span>
+        <h1 class="quest-title" id="quest-title">Level 1: Misi Pergeseran Pola Translasi</h1>
+        <p class="quest-goal-text" id="quest-goal">
+          Geser motif Kawung perunggu agar menimpa siluet target berwarna Cyan neon di koordinat sasaran.
+        </p>
+      </div>
+
+      <button class="btn-hint-trigger" id="btn-open-hint" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="hint-modal" aria-label="Butuh Petunjuk? - Buka bantuan rumus geometri">
+        <span>💡</span>
+        <span>Butuh Petunjuk?</span>
+      </button>
+    </div>
+
+    <!-- Two-Column Quest Proving Ground -->
+    <div class="quest-workspace" id="quest-panel" role="tabpanel">
+
+      <!-- LEFT: Brilliant Math SVG Canvas -->
+      <section class="quest-canvas-card" aria-label="Bidang Uji Geometri">
+        <div class="canvas-hud-top">
+          <div class="canvas-legend">
+            <div class="legend-item">
+              <span class="dot-user-shape"></span>
+              <span>Posisi Kamu</span>
+            </div>
+            <div class="legend-item">
+              <span class="dot-target-shape"></span>
+              <span>Target Sasaran</span>
+            </div>
+          </div>
+          <span style="font-size: 0.8125rem; font-weight: 700; color: var(--text-muted);" id="snap-status-text">Status: Belum Pas</span>
+        </div>
+
+        <div class="svg-canvas-wrapper" id="canvas-frame">
+          <svg viewBox="-150 -150 300 300" id="challenge-svg" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid-pattern" width="30" height="30" patternUnits="userSpaceOnUse">
+                <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#E2E8F0" stroke-width="0.8"/>
+              </pattern>
+              <!-- Target Glow Filter -->
+              <filter id="neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+              </filter>
+            </defs>
+
+            <!-- Background Grid -->
+            <rect x="-150" y="-150" width="300" height="300" fill="#FFFFFF"/>
+            <rect x="-150" y="-150" width="300" height="300" fill="url(#grid-pattern)"/>
+
+            <!-- Batik Kawung Background Watermark -->
+            <g opacity="0.08" stroke="#B8521B" stroke-width="1.5" fill="none">
+              <circle cx="0" cy="0" r="20"/>
+              <ellipse cx="0" cy="-45" rx="20" ry="30"/>
+              <ellipse cx="0" cy="45" rx="20" ry="30"/>
+              <ellipse cx="-45" cy="0" rx="30" ry="20"/>
+              <ellipse cx="45" cy="0" rx="30" ry="20"/>
+            </g>
+
+            <!-- Cartesian Axes Slate-700 -->
+            <line x1="-150" y1="0" x2="150" y2="0" stroke="#334155" stroke-width="1.5"/>
+            <line x1="0" y1="-150" x2="0" y2="150" stroke="#334155" stroke-width="1.5"/>
+
+            <!-- Axis Labels & Tick marks -->
+            <text x="140" y="-6" fill="#334155" font-size="11" font-weight="bold" text-anchor="end">X</text>
+            <text x="8" y="-138" fill="#334155" font-size="11" font-weight="bold">Y</text>
+            <circle cx="0" cy="0" r="3" fill="#334155"/>
+            <text x="-10" y="12" fill="#475569" font-size="9" font-weight="bold">O</text>
+
+            <!-- Axis Reference Lines (e.g. y = x or mirror lines when active) -->
+            <line id="mirror-line-svg" x1="-150" y1="150" x2="150" y2="-150" stroke="#7C3AED" stroke-width="1.5" stroke-dasharray="4 4" opacity="0"/>
+
+            <!-- Target Shape Group (Cyan Neon Outline) -->
+            <g id="target-shape-group">
+              <ellipse id="target-ellipse" cx="60" cy="-60" rx="20" ry="30" fill="rgba(2, 132, 199, 0.08)" stroke="#0284C7" stroke-width="2.5" stroke-dasharray="6 4" filter="url(#neon-glow)"/>
+              <circle id="target-center-dot" cx="60" cy="-60" r="4" fill="#0284C7"/>
+              <text id="target-label" x="60" y="-70" fill="#0284C7" font-size="10" font-weight="800" text-anchor="middle">Target P'(2, 2)</text>
+            </g>
+
+            <!-- User Shape Group (Sogan Bronze) -->
+            <g id="user-shape-group" style="transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);">
+              <ellipse id="user-ellipse" cx="0" cy="0" rx="20" ry="30" fill="rgba(184, 82, 27, 0.22)" stroke="#B8521B" stroke-width="2.5"/>
+              <circle id="user-center-dot" cx="0" cy="0" r="4" fill="#B8521B"/>
+              <text id="user-label" x="0" y="-36" fill="#B8521B" font-size="10" font-weight="800" text-anchor="middle">P(0, 0)</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="canvas-readout-strip">
+          <div class="readout-col">
+            <span class="readout-label">Koordinat Anda P'</span>
+            <span class="readout-val" id="readout-user-coord">(0, 0)</span>
+          </div>
+          <div class="readout-col">
+            <span class="readout-label">Koordinat Target Sasaran</span>
+            <span class="readout-val" id="readout-target-coord">(2, 2)</span>
+          </div>
+          <div class="readout-col">
+            <span class="readout-label">Selisih Jarak (Δ)</span>
+            <span class="readout-val" id="readout-delta">Δx: 2, Δy: 2</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Interactive Quest Controls & Tactile Buttons -->
+      <section class="quest-controls-card" aria-label="Panel Kendali Interaktif">
+
+        <!-- Dynamic Level Control Area -->
+        <div id="dynamic-controls-area">
+          <!-- Populated by JavaScript according to active level -->
+        </div>
+
+        <!-- Verification & Feedback Area -->
+        <div class="feedback-banner" id="quest-feedback-banner" role="status" aria-live="polite">
+          <div class="feedback-title" id="feedback-title">
+            <span>🎉</span>
+            <span>Luar Biasa! Transformasi Tepat Sasaran</span>
+          </div>
+          <p class="feedback-desc" id="feedback-desc">
+            Motif Kawung berhasil diposisikan menimpa target dengan sempurna.
+          </p>
+          <div class="stars-reward-row" id="feedback-stars">
+            <span>⭐</span><span>⭐</span><span>⭐</span>
+          </div>
+        </div>
+
+        <!-- Chunky 3D Action Buttons -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <button class="btn-tactile btn-tactile-check" id="btn-check-answer" type="button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Periksa Jawaban</span>
+          </button>
+
+          <button class="btn-tactile btn-tactile-primary" id="btn-next-level" type="button" style="display: none;">
+            <span>Misi Berikutnya</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
+
+          <button class="btn-tactile btn-tactile-ghost" id="btn-reset-quest" type="button">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+            <span>Ulangi Posisi Awal</span>
+          </button>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- ===== BADGES & ACHIEVEMENTS SHOWCASE ===== -->
+    <section class="badges-section" aria-label="Daftar Lencana Prestasi">
+      <div class="badges-header">
+        <div>
+          <h2 class="badges-title">Koleksi Lencana Geometri Kawung</h2>
+          <p style="font-size: 0.875rem; color: var(--text-muted); font-weight: 600;">Selesaikan tiap level untuk membuka badge kehormatan geometri.</p>
+        </div>
+        <button class="btn-tactile btn-tactile-ghost" id="btn-reset-progress" type="button" style="min-height: 40px; padding: 6px 16px; font-size: 0.8125rem; width: auto;" aria-label="Reset Data Progres - Atur ulang semua kemajuan belajar">
+          Reset Data Progres
+        </button>
+      </div>
+
+      <div class="badges-grid">
+        <div class="badge-card" id="badge-lvl-1">
+          <div class="badge-icon-box">🗺️</div>
+          <div class="badge-info">
+            <span class="badge-name">Mapper</span>
+            <span class="badge-req">Taklukkan Misi Translasi</span>
+          </div>
+        </div>
+
+        <div class="badge-card" id="badge-lvl-2">
+          <div class="badge-icon-box">🪞</div>
+          <div class="badge-info">
+            <span class="badge-name">Mirror Crafter</span>
+            <span class="badge-req">Taklukkan Misi Refleksi</span>
+          </div>
+        </div>
+
+        <div class="badge-card" id="badge-lvl-3">
+          <div class="badge-icon-box">🌀</div>
+          <div class="badge-info">
+            <span class="badge-name">Spinner</span>
+            <span class="badge-req">Taklukkan Misi Rotasi</span>
+          </div>
+        </div>
+
+        <div class="badge-card" id="badge-lvl-4">
+          <div class="badge-icon-box">🏛️</div>
+          <div class="badge-info">
+            <span class="badge-name">Architect</span>
+            <span class="badge-req">Taklukkan Misi Dilatasi</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== SCAFFOLDING HINT MODAL ===== -->
+  <div class="hint-modal-overlay" id="hint-modal" role="dialog" aria-modal="true" aria-labelledby="hint-modal-heading">
+    <div class="hint-modal-card">
+      <div class="hint-modal-header">
+        <h3 class="hint-modal-title" id="hint-modal-heading">
+          <span>💡</span>
+          <span>Petunjuk Matematika</span>
+        </h3>
+        <button class="btn-close-hint" id="btn-close-hint" type="button" aria-label="Tutup jendela petunjuk">✕</button>
+      </div>
+      <div class="hint-modal-body" id="hint-modal-body-content">
+        <!-- Injected by JavaScript -->
+      </div>
+      <div style="display: flex; gap: 10px; margin-top: 8px;">
+        <a href="explore.html" class="btn-tactile btn-tactile-primary" id="hint-explore-link" style="font-size: 0.875rem; min-height: 44px; padding: 10px 16px;">
+          Pelajari Teori Lengkap di Explore
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-inner">
+      <span>&copy; 2026 KawungMath &bull; Etnomatematika Transformasi Geometri SMP</span>
+      <span>Made with Love by <a href="https://instagram.com/robawati" target="_blank" rel="noopener noreferrer">Robawati</a></span>
+    </div>
+  </footer>
+
+  <!-- ===== CHALLENGE LOGIC & STATE ENGINE ===== -->
+  <script>
+    (function() {
+      'use strict';
+
+      // Storage Key
+      var STORAGE_KEY = 'kawung_math_challenge_progress';
+
+      // Game State
+      var gameState = {
+        currentLevel: 1,
+        unlockedLevel: 1,
+        levelAttempts: { 1: 0, 2: 0, 3: 0, 4: 0 },
+        levelStars: { 1: 0, 2: 0, 3: 0, 4: 0 },
+        streak: 0,
+        badges: {
+          1: false, // Mapper
+          2: false, // Mirror Crafter
+          3: false, // Spinner
+          4: false  // Architect
+        }
+      };
+
+      // Load saved progress
+      try {
+        var saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          if (parsed && typeof parsed === 'object') {
+            gameState.unlockedLevel = parsed.unlockedLevel || 1;
+            gameState.levelStars = Object.assign({ 1: 0, 2: 0, 3: 0, 4: 0 }, parsed.levelStars);
+            gameState.streak = parsed.streak || 0;
+            gameState.badges = Object.assign({ 1: false, 2: false, 3: false, 4: false }, parsed.badges);
+          }
+        }
+      } catch (e) {
+        console.warn('Storage unavailable:', e);
+      }
+
+      function saveProgress() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({
+            unlockedLevel: gameState.unlockedLevel,
+            levelStars: gameState.levelStars,
+            streak: gameState.streak,
+            badges: gameState.badges
+          }));
+        } catch (e) {}
+      }
+
+      // Level Configurations
+      var levelConfigs = {
+        1: {
+          title: 'Level 1: Misi Pergeseran Pola Translasi',
+          tag: 'Tantangan Geometri 01',
+          badgeName: 'Mapper',
+          goal: 'Geser motif Kawung perunggu sejauh vektor T(a, b) agar tepat menimpa siluet target Cyan neon di titik P\'(2, 2).',
+          target: { x: 2, y: 2, scale: 1.0, rot: 0 },
+          userInitial: { x: 0, y: 0, scale: 1.0, rot: 0 },
+          hintText: 'Translasi merupakan pergeseran titik sejauh vektor T(a, b). Rumusnya: P\'(x + a, y + b). Untuk mencapai titik (2, 2) dari (0, 0), geser ke kanan sejauh a = 2 dan ke atas sejauh b = 2.',
+          formula: "P(x, y) \\xrightarrow{T(a,b)} P'(x+a, y+b)",
+          exploreAnchor: 'explore.html#chapter-1'
+        },
+        2: {
+          title: 'Level 2: Misi Pencerminan Motif Refleksi',
+          tag: 'Tantangan Geometri 02',
+          badgeName: 'Mirror Crafter',
+          goal: 'Tentukan garis cermin yang tepat (Sumbu-X, Sumbu-Y, atau Garis y = x) agar bayangan motif Kawung terpantul menimpa siluet target di (-2, 2).',
+          target: { x: -2, y: 2, scale: 1.0, rot: 0 },
+          userInitial: { x: 2, y: 2, scale: 1.0, rot: 0 },
+          activeAxis: 'none',
+          hintText: 'Refleksi terhadap Sumbu-Y mengubah tanda absis: P(x, y) -> P\'(-x, y). Jika titik awal (2, 2) ingin menjadi (-2, 2), pilihlah cermin terhadap Sumbu-Y.',
+          formula: "P(x, y) \\xrightarrow{Cermin\\ Sumbu-Y} P'(-x, y)",
+          exploreAnchor: 'explore.html#chapter-2'
+        },
+        3: {
+          title: 'Level 3: Misi Rotasi Sudut Putar Kawung',
+          tag: 'Tantangan Geometri 03',
+          badgeName: 'Spinner',
+          goal: 'Putar motif Kawung dari posisi tegak lurus dengan memilih sudut rotasi terhadap titik pusat O(0,0) agar pas menimpa target di kuadran kedua.',
+          target: { x: -2, y: 0, scale: 1.0, rot: 90 },
+          userInitial: { x: 0, y: 2, scale: 1.0, rot: 0 },
+          activeAngle: 0,
+          hintText: 'Rotasi +90° (berlawanan jarum jam) terhadap pusat O(0,0) memetakan titik P(x, y) menjadi P\'(-y, x). Titik (0, 2) diputar 90° akan menjadi (-2, 0).',
+          formula: "P(x, y) \\xrightarrow{R[O, 90^\\circ]} P'(-y, x)",
+          exploreAnchor: 'explore.html#chapter-3'
+        },
+        4: {
+          title: 'Level 4: Misi Pembesaran & Skala Dilatasi',
+          tag: 'Tantangan Geometri 04',
+          badgeName: 'Architect',
+          goal: 'Skalakan motif Kawung dengan faktor skala k yang tepat dari pusat O(0,0) agar membesar menutupi bingkai target berukuran 1.5x.',
+          target: { x: 0, y: 0, scale: 1.5, rot: 0 },
+          userInitial: { x: 0, y: 0, scale: 0.5, rot: 0 },
+          hintText: 'Dilatasi dengan faktor k terhadap pusat O(0,0) mengalikan setiap koordinat dan dimensi dengan k: P(x, y) -> P\'(k*x, k*y). Pilihlah skala k = 1.5.',
+          formula: "P(x, y) \\xrightarrow{[O, k]} P'(k\\cdot x, k\\cdot y)",
+          exploreAnchor: 'explore.html#chapter-4'
+        }
+      };
+
+      // Current interactive user transformation
+      var userTrans = { x: 0, y: 0, scale: 1.0, rot: 0, axis: 'none' };
+
+      // DOM Elements
+      var questTitle = document.getElementById('quest-title');
+      var questTag = document.getElementById('quest-tag');
+      var questGoal = document.getElementById('quest-goal');
+      var dynamicControlsArea = document.getElementById('dynamic-controls-area');
+      var canvasFrame = document.getElementById('canvas-frame');
+      var userShapeGroup = document.getElementById('user-shape-group');
+      var userEllipse = document.getElementById('user-ellipse');
+      var userCenterDot = document.getElementById('user-center-dot');
+      var userLabel = document.getElementById('user-label');
+      var targetEllipse = document.getElementById('target-ellipse');
+      var targetCenterDot = document.getElementById('target-center-dot');
+      var targetLabel = document.getElementById('target-label');
+      var mirrorLineSvg = document.getElementById('mirror-line-svg');
+
+      var readoutUserCoord = document.getElementById('readout-user-coord');
+      var readoutTargetCoord = document.getElementById('readout-target-coord');
+      var readoutDelta = document.getElementById('readout-delta');
+      var snapStatusText = document.getElementById('snap-status-text');
+
+      var feedbackBanner = document.getElementById('quest-feedback-banner');
+      var feedbackTitle = document.getElementById('feedback-title');
+      var feedbackDesc = document.getElementById('feedback-desc');
+      var feedbackStars = document.getElementById('feedback-stars');
+
+      var btnCheckAnswer = document.getElementById('btn-check-answer');
+      var btnNextLevel = document.getElementById('btn-next-level');
+      var btnResetQuest = document.getElementById('btn-reset-quest');
+      var btnResetProgress = document.getElementById('btn-reset-progress');
+
+      var totalStarsCount = document.getElementById('total-stars-count');
+      var streakCount = document.getElementById('streak-count');
+
+      // Modal Elements
+      var hintModal = document.getElementById('hint-modal');
+      var btnOpenHint = document.getElementById('btn-open-hint');
+      var btnCloseHint = document.getElementById('btn-close-hint');
+      var hintModalBody = document.getElementById('hint-modal-body-content');
+      var hintExploreLink = document.getElementById('hint-explore-link');
+
+      // Hamburger menu
+      var btnMenuToggle = document.getElementById('btn-menu-toggle');
+      var mobileDrawer = document.getElementById('mobile-drawer');
+
+      if (btnMenuToggle && mobileDrawer) {
+        btnMenuToggle.addEventListener('click', function() {
+          var isOpen = btnMenuToggle.getAttribute('aria-expanded') === 'true';
+          btnMenuToggle.setAttribute('aria-expanded', !isOpen);
+          mobileDrawer.classList.toggle('open', !isOpen);
+        });
+      }
+
+      // Close drawer and modal on Escape
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (hintModal.classList.contains('active')) {
+            closeHintModal();
+          }
+          if (mobileDrawer && mobileDrawer.classList.contains('open')) {
+            mobileDrawer.classList.remove('open');
+            btnMenuToggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+      });
+
+      function openHintModal() {
+        var cfg = levelConfigs[gameState.currentLevel];
+        hintModalBody.innerHTML = '<p>' + cfg.hintText + '</p><div class="hint-formula-box">' + cfg.formula + '</div>';
+        hintExploreLink.setAttribute('href', cfg.exploreAnchor);
+        hintModal.classList.add('active');
+        btnOpenHint.setAttribute('aria-expanded', 'true');
+        btnCloseHint.focus();
+      }
+
+      function closeHintModal() {
+        hintModal.classList.remove('active');
+        btnOpenHint.setAttribute('aria-expanded', 'false');
+        btnOpenHint.focus();
+      }
+
+      btnOpenHint.addEventListener('click', openHintModal);
+      btnCloseHint.addEventListener('click', closeHintModal);
+      hintModal.addEventListener('click', function(e) {
+        if (e.target === hintModal) closeHintModal();
+      });
+
+      // Update HUD & Badges
+      function updateHUD() {
+        var totalStars = 0;
+        for (var l = 1; l <= 4; l++) {
+          totalStars += gameState.levelStars[l];
+          var miniSlot = document.getElementById('mini-stars-' + l);
+          if (miniSlot) {
+            var stars = gameState.levelStars[l];
+            var slots = miniSlot.querySelectorAll('.star-slot');
+            slots.forEach(function(s, idx) {
+              s.className = idx < stars ? 'star-slot filled' : 'star-slot';
+            });
+          }
+
+          var btn = document.getElementById('btn-lvl-' + l);
+          if (btn) {
+            btn.classList.toggle('active', l === gameState.currentLevel);
+            btn.classList.toggle('completed', gameState.levelStars[l] > 0);
+            btn.disabled = l > gameState.unlockedLevel;
+            btn.setAttribute('aria-selected', l === gameState.currentLevel ? 'true' : 'false');
+          }
+
+          var badgeCard = document.getElementById('badge-lvl-' + l);
+          if (badgeCard) {
+            badgeCard.classList.toggle('unlocked', gameState.badges[l]);
+            badgeCard.classList.toggle('badge-active', l === gameState.currentLevel && gameState.badges[l]);
+          }
+        }
+
+        totalStarsCount.textContent = totalStars + ' / 12';
+        streakCount.textContent = gameState.streak + ' Streak';
+      }
+
+      // Render Active Level
+      function renderLevel(lvl) {
+        gameState.currentLevel = lvl;
+        var cfg = levelConfigs[lvl];
+
+        questTitle.textContent = cfg.title;
+        questTag.textContent = cfg.tag;
+        questGoal.textContent = cfg.goal;
+
+        // Reset user transform to level initial
+        userTrans = Object.assign({}, cfg.userInitial);
+        feedbackBanner.style.display = 'none';
+        btnNextLevel.style.display = 'none';
+        btnCheckAnswer.style.display = 'inline-flex';
+        canvasFrame.classList.remove('snap-glow-active');
+
+        // Setup SVG target
+        var scaleFactor = 30; // 30px per unit
+        var targetPixelX = cfg.target.x * scaleFactor;
+        var targetPixelY = -cfg.target.y * scaleFactor; // invert Y for SVG
+
+        targetEllipse.setAttribute('cx', targetPixelX);
+        targetEllipse.setAttribute('cy', targetPixelY);
+        targetEllipse.setAttribute('rx', 20 * cfg.target.scale);
+        targetEllipse.setAttribute('ry', 30 * cfg.target.scale);
+
+        targetCenterDot.setAttribute('cx', targetPixelX);
+        targetCenterDot.setAttribute('cy', targetPixelY);
+
+        targetLabel.setAttribute('x', targetPixelX);
+        targetLabel.setAttribute('y', targetPixelY - (36 * cfg.target.scale));
+        targetLabel.textContent = "Target P'(" + cfg.target.x + ", " + cfg.target.y + ")";
+
+        // Target rotation if any
+        if (cfg.target.rot) {
+          targetEllipse.setAttribute('transform', 'rotate(' + (-cfg.target.rot) + ' ' + targetPixelX + ' ' + targetPixelY + ')');
+        } else {
+          targetEllipse.removeAttribute('transform');
+        }
+
+        // Mirror line SVG visibility
+        if (lvl === 2) {
+          mirrorLineSvg.setAttribute('opacity', '1');
+        } else {
+          mirrorLineSvg.setAttribute('opacity', '0');
+        }
+
+        // Render controls according to level
+        renderControlsForLevel(lvl);
+        updateUserCanvas();
+        updateHUD();
+      }
+
+      function renderControlsForLevel(lvl) {
+        dynamicControlsArea.innerHTML = '';
+
+        if (lvl === 1) {
+          // Translasi: X & Y Steppers / Sliders
+          dynamicControlsArea.innerHTML = 
+            '<div class="widget-group">' +
+              '<div class="widget-label-row">' +
+                '<span class="widget-title">Pergeseran Sumbu-X (a)</span>' +
+                '<span class="widget-val-badge" id="val-badge-x">a = 0</span>' +
+              '</div>' +
+              '<div class="stepper-control">' +
+                '<button class="btn-stepper-touch" id="btn-dec-x" type="button" aria-label="Kurangi pergeseran X">−</button>' +
+                '<input type="range" class="stepper-slider" id="slider-x" min="-4" max="4" step="1" value="0" aria-label="Penggeser nilai a sumbu X">' +
+                '<button class="btn-stepper-touch" id="btn-inc-x" type="button" aria-label="Tambah pergeseran X">+</button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="widget-group" style="margin-top: 14px;">' +
+              '<div class="widget-label-row">' +
+                '<span class="widget-title">Pergeseran Sumbu-Y (b)</span>' +
+                '<span class="widget-val-badge" id="val-badge-y">b = 0</span>' +
+              '</div>' +
+              '<div class="stepper-control">' +
+                '<button class="btn-stepper-touch" id="btn-dec-y" type="button" aria-label="Kurangi pergeseran Y">−</button>' +
+                '<input type="range" class="stepper-slider" id="slider-y" min="-4" max="4" step="1" value="0" aria-label="Penggeser nilai b sumbu Y">' +
+                '<button class="btn-stepper-touch" id="btn-inc-y" type="button" aria-label="Tambah pergeseran Y">+</button>' +
+              '</div>' +
+            '</div>';
+
+          var sliderX = document.getElementById('slider-x');
+          var sliderY = document.getElementById('slider-y');
+          var badgeX = document.getElementById('val-badge-x');
+          var badgeY = document.getElementById('val-badge-y');
+
+          function onTransChange() {
+            var valX = parseInt(sliderX.value, 10);
+            var valY = parseInt(sliderY.value, 10);
+            userTrans.x = valX;
+            userTrans.y = valY;
+            badgeX.textContent = 'a = ' + (valX > 0 ? '+' + valX : valX);
+            badgeY.textContent = 'b = ' + (valY > 0 ? '+' + valY : valY);
+            updateUserCanvas();
+          }
+
+          sliderX.addEventListener('input', onTransChange);
+          sliderY.addEventListener('input', onTransChange);
+
+          document.getElementById('btn-dec-x').addEventListener('click', function() {
+            sliderX.value = Math.max(-4, parseInt(sliderX.value, 10) - 1);
+            onTransChange();
+          });
+          document.getElementById('btn-inc-x').addEventListener('click', function() {
+            sliderX.value = Math.min(4, parseInt(sliderX.value, 10) + 1);
+            onTransChange();
+          });
+          document.getElementById('btn-dec-y').addEventListener('click', function() {
+            sliderY.value = Math.max(-4, parseInt(sliderY.value, 10) - 1);
+            onTransChange();
+          });
+          document.getElementById('btn-inc-y').addEventListener('click', function() {
+            sliderY.value = Math.min(4, parseInt(sliderY.value, 10) + 1);
+            onTransChange();
+          });
+
+        } else if (lvl === 2) {
+          // Refleksi: 3 Toggle buttons
+          dynamicControlsArea.innerHTML = 
+            '<div class="widget-group">' +
+              '<div class="widget-label-row">' +
+                '<span class="widget-title">Pilih Garis Cermin Refleksi</span>' +
+              '</div>' +
+              '<div class="tactile-toggle-grid">' +
+                '<button class="btn-toggle-tactile active" data-axis="none" type="button">' +
+                  '<span>🚫</span>' +
+                  '<span>Tanpa Cermin</span>' +
+                '</button>' +
+                '<button class="btn-toggle-tactile" data-axis="x" type="button">' +
+                  '<span>↔️</span>' +
+                  '<span>Sumbu-X</span>' +
+                '</button>' +
+                '<button class="btn-toggle-tactile" data-axis="y" type="button">' +
+                  '<span>↕️</span>' +
+                  '<span>Sumbu-Y</span>' +
+                '</button>' +
+                '<button class="btn-toggle-tactile" data-axis="yx" type="button">' +
+                  '<span>↗️</span>' +
+                  '<span>Garis y = x</span>' +
+                '</button>' +
+              '</div>' +
+            '</div>';
+
+          var axisBtns = dynamicControlsArea.querySelectorAll('.btn-toggle-tactile');
+          axisBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              axisBtns.forEach(function(b) { b.classList.remove('active'); });
+              btn.classList.add('active');
+              var axis = btn.getAttribute('data-axis');
+              userTrans.axis = axis;
+
+              // Compute reflected coordinates from (2, 2)
+              var origX = 2, origY = 2;
+              if (axis === 'x') {
+                userTrans.x = origX;
+                userTrans.y = -origY;
+              } else if (axis === 'y') {
+                userTrans.x = -origX;
+                userTrans.y = origY;
+              } else if (axis === 'yx') {
+                userTrans.x = origY;
+                userTrans.y = origX;
+              } else {
+                userTrans.x = origX;
+                userTrans.y = origY;
+              }
+              updateUserCanvas();
+            });
+          });
+
+        } else if (lvl === 3) {
+          // Rotasi: Angle buttons
+          dynamicControlsArea.innerHTML = 
+            '<div class="widget-group">' +
+              '<div class="widget-label-row">' +
+                '<span class="widget-title">Pilih Sudut Putar Rotasi [O, α]</span>' +
+                '<span class="widget-val-badge" id="val-badge-rot">α = 0°</span>' +
+              '</div>' +
+              '<div class="tactile-toggle-grid">' +
+                '<button class="btn-toggle-tactile active" data-deg="0" type="button">' +
+                  '<span>0°</span>' +
+                  '<span>Awal</span>' +
+                '</button>' +
+                '<button class="btn-toggle-tactile" data-deg="90" type="button">' +
+                  '<span>↺ 90°</span>' +
+                  '<span>CCW</span>' +
+                '</button>' +
+                '<button class="btn-toggle-tactile" data-deg="180" type="button">' +
+                  '<span>🔄 180°</span>' +
+                  '<span>Setengah</span>' +
+                '</button>' +
+                '<button class="btn-toggle-tactile" data-deg="270" type="button">' +
+                  '<span>↻ 270°</span>' +
+                  '<span>CW (-90°)</span>' +
+                '</button>' +
+              '</div>' +
+            '</div>';
+
+          var rotBtns = dynamicControlsArea.querySelectorAll('.btn-toggle-tactile');
+          var badgeRot = document.getElementById('val-badge-rot');
+
+          rotBtns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+              rotBtns.forEach(function(b) { b.classList.remove('active'); });
+              btn.classList.add('active');
+              var deg = parseInt(btn.getAttribute('data-deg'), 10);
+              userTrans.rot = deg;
+              badgeRot.textContent = 'α = ' + deg + '°';
+
+              // Initial is (0, 2)
+              var rad = (deg * Math.PI) / 180;
+              var rx = 0 * Math.cos(rad) - 2 * Math.sin(rad);
+              var ry = 0 * Math.sin(rad) + 2 * Math.cos(rad);
+              userTrans.x = Math.round(rx);
+              userTrans.y = Math.round(ry);
+
+              updateUserCanvas();
+            });
+          });
+
+        } else if (lvl === 4) {
+          // Dilatasi: Scale slider
+          dynamicControlsArea.innerHTML = 
+            '<div class="widget-group">' +
+              '<div class="widget-label-row">' +
+                '<span class="widget-title">Faktor Skala Dilatasi (k)</span>' +
+                '<span class="widget-val-badge" id="val-badge-scale">k = 0.5x</span>' +
+              '</div>' +
+              '<div class="stepper-control">' +
+                '<button class="btn-stepper-touch" id="btn-dec-scale" type="button" aria-label="Perkecil skala dilatasi">−</button>' +
+                '<input type="range" class="stepper-slider" id="slider-scale" min="0.5" max="2.0" step="0.5" value="0.5" aria-label="Penggeser faktor skala k">' +
+                '<button class="btn-stepper-touch" id="btn-inc-scale" type="button" aria-label="Perbesar skala dilatasi">+</button>' +
+              '</div>' +
+            '</div>';
+
+          var sliderScale = document.getElementById('slider-scale');
+          var badgeScale = document.getElementById('val-badge-scale');
+
+          function onScaleChange() {
+            var k = parseFloat(sliderScale.value);
+            userTrans.scale = k;
+            badgeScale.textContent = 'k = ' + k + 'x';
+            updateUserCanvas();
+          }
+
+          sliderScale.addEventListener('input', onScaleChange);
+
+          document.getElementById('btn-dec-scale').addEventListener('click', function() {
+            sliderScale.value = Math.max(0.5, parseFloat(sliderScale.value) - 0.5);
+            onScaleChange();
+          });
+          document.getElementById('btn-inc-scale').addEventListener('click', function() {
+            sliderScale.value = Math.min(2.0, parseFloat(sliderScale.value) + 0.5);
+            onScaleChange();
+          });
+        }
+      }
+
+      function updateUserCanvas() {
+        var scaleFactor = 30;
+        var userPixelX = userTrans.x * scaleFactor;
+        var userPixelY = -userTrans.y * scaleFactor;
+
+        userEllipse.setAttribute('cx', userPixelX);
+        userEllipse.setAttribute('cy', userPixelY);
+        userEllipse.setAttribute('rx', 20 * userTrans.scale);
+        userEllipse.setAttribute('ry', 30 * userTrans.scale);
+
+        userCenterDot.setAttribute('cx', userPixelX);
+        userCenterDot.setAttribute('cy', userPixelY);
+
+        userLabel.setAttribute('x', userPixelX);
+        userLabel.setAttribute('y', userPixelY - (36 * userTrans.scale));
+        userLabel.textContent = "P(" + userTrans.x + ", " + userTrans.y + ")";
+
+        if (userTrans.rot) {
+          userEllipse.setAttribute('transform', 'rotate(' + (-userTrans.rot) + ' ' + userPixelX + ' ' + userPixelY + ')');
+        } else {
+          userEllipse.removeAttribute('transform');
+        }
+
+        // Update readouts
+        var cfg = levelConfigs[gameState.currentLevel];
+        readoutUserCoord.textContent = "(" + userTrans.x + ", " + userTrans.y + ")";
+        readoutTargetCoord.textContent = "(" + cfg.target.x + ", " + cfg.target.y + ")";
+
+        var dx = Math.abs(userTrans.x - cfg.target.x);
+        var dy = Math.abs(userTrans.y - cfg.target.y);
+        var dScale = Math.abs(userTrans.scale - cfg.target.scale);
+        var dRot = Math.abs((userTrans.rot || 0) - (cfg.target.rot || 0));
+
+        var isMatch = dx === 0 && dy === 0 && dScale < 0.01 && dRot === 0;
+
+        if (isMatch) {
+          snapStatusText.textContent = "Status: 🎯 Menimpa Sempurna!";
+          snapStatusText.style.color = "var(--emerald-dark)";
+        } else {
+          snapStatusText.textContent = "Status: Belum Pas";
+          snapStatusText.style.color = "var(--text-muted)";
+        }
+
+        readoutDelta.textContent = "Δx: " + dx + ", Δy: " + dy;
+      }
+
+      // Check Answer handler
+      btnCheckAnswer.addEventListener('click', function() {
+        var cfg = levelConfigs[gameState.currentLevel];
+        gameState.levelAttempts[gameState.currentLevel] = (gameState.levelAttempts[gameState.currentLevel] || 0) + 1;
+        var attempts = gameState.levelAttempts[gameState.currentLevel];
+
+        var dx = Math.abs(userTrans.x - cfg.target.x);
+        var dy = Math.abs(userTrans.y - cfg.target.y);
+        var dScale = Math.abs(userTrans.scale - cfg.target.scale);
+        var dRot = Math.abs((userTrans.rot || 0) - (cfg.target.rot || 0));
+
+        var isCorrect = dx === 0 && dy === 0 && dScale < 0.01 && dRot === 0;
+
+        if (isCorrect) {
+          // Snap & glow effect
+          canvasFrame.classList.remove('snap-glow-active');
+          void canvasFrame.offsetWidth; // trigger reflow
+          canvasFrame.classList.add('snap-glow-active');
+
+          // Determine stars (1st try = 3 stars, 2nd = 2 stars, 3+ = 1 star)
+          var earnedStars = attempts === 1 ? 3 : (attempts === 2 ? 2 : 1);
+          if (earnedStars > gameState.levelStars[gameState.currentLevel]) {
+            gameState.levelStars[gameState.currentLevel] = earnedStars;
+          }
+
+          gameState.streak += 1;
+          gameState.badges[gameState.currentLevel] = true;
+
+          if (gameState.currentLevel < 4 && gameState.unlockedLevel <= gameState.currentLevel) {
+            gameState.unlockedLevel = gameState.currentLevel + 1;
+          }
+
+          saveProgress();
+          updateHUD();
+
+          // Display success feedback
+          feedbackBanner.className = 'feedback-banner success';
+          feedbackBanner.style.display = 'flex';
+          feedbackTitle.innerHTML = '<span>🎉</span><span>Luar Biasa! Misi Berhasil Dikuasai!</span>';
+          feedbackDesc.innerHTML = 'Transformasi motif Kawung menimpa koordinat target secara akurat. Lencana <strong>' + cfg.badgeName + '</strong> telah ditambahkan ke koleksi Anda!';
+
+          var starHtml = '';
+          for (var i = 0; i < earnedStars; i++) starHtml += '<span>⭐</span>';
+          for (var j = earnedStars; j < 3; j++) starHtml += '<span style="opacity: 0.3;">⭐</span>';
+          feedbackStars.innerHTML = starHtml;
+
+          btnCheckAnswer.style.display = 'none';
+          if (gameState.currentLevel < 4) {
+            btnNextLevel.style.display = 'inline-flex';
+          }
+
+        } else {
+          // Try again feedback
+          feedbackBanner.className = 'feedback-banner try-again';
+          feedbackBanner.style.display = 'flex';
+          feedbackTitle.innerHTML = '<span>⚠️</span><span>Posisi Belum Pas</span>';
+          feedbackDesc.innerHTML = 'Koordinat saat ini belum tepat menutupi siluet target. Silakan atur kembali nilai kontrol atau klik tombol <em>Butuh Petunjuk?</em>.';
+          feedbackStars.innerHTML = '';
+        }
+      });
+
+      // Next level button
+      btnNextLevel.addEventListener('click', function() {
+        if (gameState.currentLevel < 4) {
+          renderLevel(gameState.currentLevel + 1);
+        }
+      });
+
+      // Reset level button
+      btnResetQuest.addEventListener('click', function() {
+        renderLevel(gameState.currentLevel);
+      });
+
+      // Level tab buttons
+      for (var l = 1; l <= 4; l++) {
+        (function(lvl) {
+          var btn = document.getElementById('btn-lvl-' + lvl);
+          if (btn) {
+            btn.addEventListener('click', function() {
+              if (lvl <= gameState.unlockedLevel) {
+                renderLevel(lvl);
+              }
+            });
+          }
+        })(l);
+      }
+
+      // Reset all progress button
+      btnResetProgress.addEventListener('click', function() {
+        if (confirm('Apakah Anda yakin ingin mengatur ulang semua progres, skor bintang, dan lencana?')) {
+          localStorage.removeItem(STORAGE_KEY);
+          gameState.unlockedLevel = 1;
+          gameState.currentLevel = 1;
+          gameState.levelAttempts = { 1: 0, 2: 0, 3: 0, 4: 0 };
+          gameState.levelStars = { 1: 0, 2: 0, 3: 0, 4: 0 };
+          gameState.streak = 0;
+          gameState.badges = { 1: false, 2: false, 3: false, 4: false };
+          renderLevel(1);
+        }
+      });
+
+      // Initialize initial level
+      renderLevel(gameState.currentLevel);
+
+    })();
+  </script>
+</body>
+</html>
