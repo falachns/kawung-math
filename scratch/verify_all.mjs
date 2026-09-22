@@ -140,8 +140,8 @@ const challengeHtml = fs.existsSync(path.join(projectDir, 'challenge.html'))
   ? fs.readFileSync(path.join(projectDir, 'challenge.html'), 'utf8')
   : '';
 
-// Parity checks for exact 5 core navigation titles on all pages
-['Home', 'Kawung Explore', 'Transform', 'Design Labs', 'Challenge'].forEach(label => {
+// Parity checks for exact 4 core navigation titles on all pages
+['Beranda', 'Explore', 'Sandbox', 'Challenge'].forEach(label => {
   assert(indexHtml.includes(`>${label}<`), `index.html includes navbar label "${label}"`);
   assert(sandboxHtml.includes(`>${label}<`), `sandbox.html includes navbar label "${label}"`);
   assert(exploreHtml.includes(`>${label}<`), `explore.html includes navbar label "${label}"`);

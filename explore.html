@@ -972,17 +972,16 @@
 
       <!-- Desktop Nav -->
       <nav class="nav-desktop" aria-label="Navigasi Utama">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="explore.html" class="nav-link active" aria-current="page">Kawung Explore</a>
-        <a href="sandbox.html" class="nav-link">Transform</a>
-        <a href="index.html#labs" class="nav-link">Design Labs</a>
-        <a href="index.html#challenge" class="nav-link">Challenge</a>
+        <a href="index.html" class="nav-link">Beranda</a>
+        <a href="explore.html" class="nav-link active" aria-current="page">Explore</a>
+        <a href="sandbox.html" class="nav-link">Sandbox</a>
+        <a href="challenge.html" class="nav-link">Challenge</a>
       </nav>
 
       <div class="nav-actions">
-        <a href="sandbox.html" class="btn-nav-sandbox">
+        <a href="challenge.html" class="btn-nav-sandbox">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M2 3h12M2 8h12M2 13h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-          Buka Sandbox Lab
+          Uji Pemahaman di Challenge
         </a>
         <button class="btn-menu-toggle" id="btn-menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-drawer" aria-label="Buka menu navigasi mobile">
           <span></span>
@@ -996,12 +995,11 @@
   <!-- Mobile Drawer -->
   <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Menu navigasi modul">
     <div class="drawer-content">
-      <a href="index.html" class="drawer-link">Home</a>
-      <a href="explore.html" class="drawer-link active">Kawung Explore</a>
-      <a href="sandbox.html" class="drawer-link">Transform</a>
-      <a href="index.html#labs" class="drawer-link">Design Labs</a>
-      <a href="index.html#challenge" class="drawer-link">Challenge</a>
-      <a href="sandbox.html" class="btn-drawer-cta">Buka Sandbox Lab</a>
+      <a href="index.html" class="drawer-link">Beranda</a>
+      <a href="explore.html" class="drawer-link active" aria-current="page">Explore</a>
+      <a href="sandbox.html" class="drawer-link">Sandbox</a>
+      <a href="challenge.html" class="drawer-link">Challenge</a>
+      <a href="challenge.html" class="btn-drawer-cta">Uji Pemahaman di Challenge</a>
     </div>
   </div>
 
@@ -1339,7 +1337,7 @@
         if (idx < chapters.length - 1) {
           html += '  <button class="btn-step-nav btn-step-next" id="btn-next-chap" type="button">Lanjut ke Bab ' + (idx + 2) + ' &rarr;</button>';
         } else {
-          html += '  <a href="sandbox.html" class="btn-step-nav btn-step-sandbox">Uji Semua di Sandbox Lab &rarr;</a>';
+          html += '  <a href="challenge.html" class="btn-step-nav btn-step-sandbox">Uji Pemahaman di Kawung Challenge &rarr;</a>';
         }
         html += '</footer>';
 
